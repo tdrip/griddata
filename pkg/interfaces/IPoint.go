@@ -2,12 +2,12 @@ package igrid
 
 //IPoint This represents where the Cell is
 type IPoint interface {
-	GetColumn() int
-	SetColumn(column int)
+	GetX() int
+	SetX(X int)
 
-	GetRow() int
-	SetRow(row int)
+	GetY() int
+	SetY(Y int)
 
-	Matches(row int, column int) bool
+	Matches(Y int, X int) bool
 	Match(point IPoint) bool
 }
