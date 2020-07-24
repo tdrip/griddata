@@ -6,29 +6,29 @@ import (
 
 type GDPoint struct {
 	igrid.IPoint
-	Column int
-	Row    int
+	Y int
+	X int
 }
 
-//GetColumn Gets the column position
-func (point *GDPoint) GetColumn() int {
-	return point.Column
+//GetY Gets the Y position
+func (point *GDPoint) GetY() int {
+	return point.Y
 }
 
-//SetColumn Sets the column position
-func (point *GDPoint) SetColumn(column int) {
-	point.Column = column
+//SetY Sets the Y position
+func (point *GDPoint) SetY(Y int) {
+	point.Y = Y
 }
 
-//GetRow Gets the row position
-func (point *GDPoint) GetRow() int {
-	return point.Row
+//GetX Gets the X position
+func (point *GDPoint) GetX() int {
+	return point.X
 
 }
 
-//SetRow Sets the row position
-func (point *GDPoint) SetRow(row int) {
-	point.Row = row
+//SetX Sets the X position
+func (point *GDPoint) SetX(X int) {
+	point.X = X
 }
 
 //Match
@@ -37,25 +37,25 @@ func (point *GDPoint) Match(position igrid.IPoint) bool {
 }
 
 //Matches This matcches the point based on position
-func (point *GDPoint) Matches(row int, column int) bool {
+func (point *GDPoint) Matches(X int, Y int) bool {
 
 	// are either negative?
-	if row < 0 || column < 0 {
+	if X < 0 || Y < 0 {
 
-		if column < 0 && row < 0 {
+		if X < 0 && Y < 0 {
 			return false
 		}
 
-		// we are matching on row
-		if column < 0 {
-			return (point.Row == row)
+		// we are matching on Y
+		if X < 0 {
+			return (point.Y == Y)
 		}
 
-		// we are matching on column
-		if row < 0 {
-			return (point.Column == column)
+		// we are matching on X
+		if Y < 0 {
+			return (point.X == X)
 		}
 	}
 
-	return (point.Column == column) && (point.Row == row)
+	return (point.X == X) && (point.Y == Y)
 }
