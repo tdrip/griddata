@@ -33,7 +33,7 @@ func (point *GDPoint) SetX(X int) {
 
 //Match
 func (point *GDPoint) Match(position igrid.IPoint) bool {
-	return point.Matches(position.GetRow(), position.GetColumn())
+	return point.Matches(position.GetX(), position.GetY())
 }
 
 //Matches This matcches the point based on position
