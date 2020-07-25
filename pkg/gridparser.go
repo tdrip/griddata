@@ -41,6 +41,13 @@ func (gdp *GDParser) SetRowParsers(rparsers []igrid.IRowParser) {
 	gdp.RowParsers = rparsers
 }
 
+//AddRowParser Add a single row parser
+func (gdp *GDParser) AddRowParser(rparser igrid.IRowParser) {
+	rparsers := gdp.GetRowParsers()
+	rparsers = append(rparsers, rparser)
+	gdp.SetRowParsers(rparsers)
+}
+
 //GetColumnParsers Get the column parsers
 func (gdp *GDParser) GetColumnParsers() []igrid.IColumnParser {
 	return gdp.ColumnParsers
@@ -49,6 +56,13 @@ func (gdp *GDParser) GetColumnParsers() []igrid.IColumnParser {
 //SetColumnParsers Set the column parsers
 func (gdp *GDParser) SetColumnParsers(cparsers []igrid.IColumnParser) {
 	gdp.ColumnParsers = cparsers
+}
+
+//AddColumnParser Add a single column parser
+func (gdp *GDParser) AddColumnParser(cparser igrid.IColumnParser) {
+	cparsers := gdp.GetColumnParsers()
+	cparsers = append(cparsers, cparser)
+	gdp.SetColumnParsers(cparsers)
 }
 
 //GetDataSources Get the data sources
@@ -63,9 +77,9 @@ func (gdp *GDParser) SetDataSources(datasources []igrid.IDataSource) {
 
 //AddDataSource Set the data sources
 func (gdp *GDParser) AddDataSource(datasource igrid.IDataSource) {
-	datasources := gdp.DataSources
+	datasources := gdp.GetDataSources()
 	datasources = append(datasources, datasource)
-	gdp.DataSources = datasources
+	gdp.SetDatSources(datasources)
 }
 
 //Execute - run the Column or Row Parsers
