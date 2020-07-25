@@ -53,7 +53,7 @@ func (csvf *CSVFile) Open() error {
 	}
 
 	csvf.filestream = f
-	csvf.reader = csv.NewReader(f)
+	csvf.Reader = csv.NewReader(f)
 
 	return nil
 }
