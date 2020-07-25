@@ -91,32 +91,52 @@ func (gdp *GDParser) Execute() error {
 
 	// get the data sources and validate each one
 	datasources := gdp.GetDataSources()
+
+	// Let's go through the data sources
 	for d := 0; d < len(datasources); d++ {
-		err := datasources[d].Validate()
-		if err != nil {
-			return err
 
+		// validate the source
+		parserr := datasources[d].Validate()
+		if parserr != nil {
+			// let's stop on validation
+			return parserr
 		}
-	}
 
-	// let's walk through the column parsers and parse each one againts the datasource
-	for p := 0; p < len(cparser); p++ {
-		for d := 0; d < len(datasources); d++ {
-			err := cparser[p].Parse(gdp, datasources[d])
-			if err != nil {
-				return err
+		// open the data source (assuming stream based data)
+		parserr = datasources[d].Open()
+		if parserr != nil {
+			return parserr
+		}
+
+		failed := false
+		// let's walk through the column parsers and parse each one against the datasource
+		for p := 0; p < len(cparser); p++ {
+			parserr = cparser[p].Parse(gdp, datasources[d])
+			if parserr != nil {
+				break
 			}
 		}
-	}
 
-	// let's walk through the row parsers and parse each one againts the datasource
-	for r := 0; r < len(rparser); r++ {
-		for d := 0; d < len(datasources); d++ {
-			err := rparser[r].Parse(gdp, datasources[d])
-			if err != nil {
-				return err
+		if failed {
+			datasources[d].Close()
+			return parserr
+		}
+
+		// let's walk through the row parsers and parse each one against the datasource
+		for r := 0; r < len(rparser); r++ {
+			parserr = rparser[r].Parse(gdp, datasources[d])
+			if parserr != nil {
+				return parserr
 			}
 		}
+
+		// close the data source
+		datasources[d].Close()
+
+		if failed {
+			return parserr
+		}
+
 	}
 
 	return nil
