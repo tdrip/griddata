@@ -79,7 +79,7 @@ func (gdp *GDParser) SetDataSources(datasources []igrid.IDataSource) {
 func (gdp *GDParser) AddDataSource(datasource igrid.IDataSource) {
 	datasources := gdp.GetDataSources()
 	datasources = append(datasources, datasource)
-	gdp.SetDatSources(datasources)
+	gdp.SetDataSources(datasources)
 }
 
 //Execute - run the Column or Row Parsers
