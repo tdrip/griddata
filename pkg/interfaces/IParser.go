@@ -4,9 +4,11 @@ package igrid
 type IParser interface {
 	GetRowParsers() []IRowParser
 	SetRowParsers(rparsers []IRowParser)
+	AddRowParser(rparser IRowParser)
 
 	GetColumnParsers() []IColumnParser
 	SetColumnParsers(cparsers []IColumnParser)
+	AddColumnParser(cparser IColumnParser)
 
 	GetDataSources() []IDataSource
 	SetDataSources(datasources []IDataSource)
