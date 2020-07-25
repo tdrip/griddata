@@ -1,4 +1,4 @@
-package datasources
+package csv
 
 import (
 	"encoding/csv"
@@ -14,7 +14,7 @@ type CSVFile struct {
 
 	Filepath   string
 	filestream *os.File
-	reader     *csv.Reader
+	Reader     *csv.Reader
 }
 
 //CreateCSVFile Creates a CSV file
