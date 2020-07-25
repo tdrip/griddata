@@ -2,6 +2,7 @@ package datasources
 
 import (
 	"encoding/csv"
+	"fmt"
 	"os"
 
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
@@ -25,9 +26,19 @@ func CreateCSVFile(filepath string) *CSVFile {
 //Validate checks if the file exists
 func (csvf *CSVFile) Validate() error {
 
-	_, err := os.Stat(csvf.Filepath)
+	info, err := os.Stat(csvf.Filepath)
 	if os.IsNotExist(err) {
 		return err
+	}
+
+	// empty file
+	if info.Size() == 0 {
+		return fmt.Errorf("File has %d file size", info.Size())
+	}
+
+	// directory
+	if info.IsDir() {
+		return fmt.Errorf("%s is a directory not a file", csvf.Filepath)
 	}
 
 	return nil
