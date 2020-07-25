@@ -28,32 +28,8 @@ func (rd *CSVRowParser) Parse(parent igrid.IParser, data igrid.IDataSource) erro
 	gdp := parent.(*gd.GDParser)
 
 	if csvdata != nil {
-		/*
-			for _, file := range csvdata.Filepaths {
-
-				f, err := os.Open(file)
-				if err != nil {
-					return err
-				}
-				defer f.Close() // this needs to be after the err check
-
-				r := csv.NewReader(f) //strings.NewReader(in))
-
-				for {
-					record, err := r.Read()
-					if err == io.EOF {
-						break
-					}
-					if err != nil {
-						log.Fatal(err)
-					}
-					gdp.Logger.LogInfo("Parse", record)
-				}
-			}
-		*/
-		//r := csv.NewReader(f) //strings.NewReader(in))
-
 		for {
+
 			record, err := csvdata.Reader.Read()
 			if err == io.EOF {
 				break
@@ -64,7 +40,10 @@ func (rd *CSVRowParser) Parse(parent igrid.IParser, data igrid.IDataSource) erro
 			gdp.Logger.LogInfo("Parse", record)
 		}
 
+		return nil
+
 	}
+
 	return errors.New("Data source was not of type CSV Files or was nil")
 
 }
