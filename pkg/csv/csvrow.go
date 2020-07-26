@@ -18,12 +18,14 @@ type HeadedRowData struct {
 func CreateRowData(row int, datain []string) *RowData {
 	rd := RowData{}
 
-	cells := []*gd.GDCell{}
-	//rd.SetIndex
+	//cells := []*gd.GDCell{}
+
 	for d := 0; d < len(datain); d++ {
 		cell := gd.CreateStringCell(gd.CreateGDPoint(row, d), datain[d])
-		cells := append(cells)
+		rd.AddCell(cell)
+		//cells := append(cells, cell)
 	}
+	//rd.SetCells(cells)
 
 	return &rd
 }
