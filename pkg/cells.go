@@ -1,6 +1,8 @@
 package grid
 
 import (
+	"fmt"
+
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
@@ -45,4 +47,9 @@ func (cell *Cell) GetData() interface{} {
 func (cell *Cell) SetData(data interface{}) {
 	//cell.Data = data.(string)
 	cell.Data = data
+}
+
+//String Cell the point as X:,Y:
+func (cell Cell) String() string {
+	return fmt.Sprintf("Cell at[%s] has %v", cell.GetLocation(), cell.GetData())
 }

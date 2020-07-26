@@ -1,6 +1,8 @@
 package grid
 
 import (
+	"fmt"
+
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
@@ -39,4 +41,9 @@ func (gdi *Index) AddRelatedIndex(relatedi igrid.IIndex) {
 	rindices := gdi.RelatedIndexes
 	rindices = append(rindices, relatedi)
 	gdi.RelatedIndexes = rindices
+}
+
+//String Print Index
+func (gdi *Index) String() string {
+	return fmt.Sprintf("Index at [%s]", gdi.GetPosition())
 }

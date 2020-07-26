@@ -1,6 +1,8 @@
 package grid
 
 import (
+	"fmt"
+
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
@@ -30,7 +32,6 @@ func (point *Point) SetY(Y int) {
 //GetX Gets the X position
 func (point *Point) GetX() int {
 	return point.X
-
 }
 
 //SetX Sets the X position
@@ -38,7 +39,7 @@ func (point *Point) SetX(X int) {
 	point.X = X
 }
 
-//Match
+//Match This matches one point against this one
 func (point *Point) Match(position igrid.IPoint) bool {
 	return point.Matches(position.GetX(), position.GetY())
 }
@@ -65,4 +66,9 @@ func (point *Point) Matches(X int, Y int) bool {
 	}
 
 	return (point.X == X) && (point.Y == Y)
+}
+
+//String Prints the point as X:,Y:
+func (point Point) String() string {
+	return fmt.Sprintf("X:%d,Y:%d", point.GetX(), point.GetY())
 }
