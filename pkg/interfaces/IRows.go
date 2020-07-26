@@ -9,6 +9,7 @@ type IRow interface {
 
 	GetCells() []ICell
 	SetCells(cells []ICell)
+	AddCell(cell ICell)
 }
 
 //IHeadedRow This row has a headers

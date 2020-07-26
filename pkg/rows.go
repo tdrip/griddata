@@ -46,6 +46,13 @@ func (rd *GDRowData) SetCells(cells []igrid.ICell) {
 	rd.Cells = cells
 }
 
+//AddCell Add a cells to the row
+func (rd *GDRowData) AddCell(cell igrid.ICell) {
+	cells := rd.Cells
+	cells = append(cells, cell)
+	rd.Cells = cells
+}
+
 func (rd *GDHeadedRowData) GetHeader() igrid.IHeader {
 	return rd.Header
 }
