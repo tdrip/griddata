@@ -6,15 +6,15 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-//GDColumMapping This structs has the mapping of the column indexs
-type GDColumMapping struct {
+//ColumMapping This structs has the mapping of the column indexs
+type ColumMapping struct {
 	ColumnIndexes []igrid.IIndex `json:"columnindexes,omitempty"`
 }
 
-//GDColumnIndex This struct is the column index
+//ColumnIndex This struct is the column index
 // it can be based around the name or an integer index
 // the name will be read by the header row
-type GDColumnIndex struct {
+type ColumnIndex struct {
 	igrid.IIndex
 
 	Index int `json:"index"`
@@ -26,27 +26,27 @@ type GDColumnIndex struct {
 	RelatedIndexes []igrid.IIndex `json:"relatedindexes,omitempty"`
 }
 
-func (gdci *GDColumnIndex) GetPosition() int {
+func (gdci *ColumnIndex) GetPosition() int {
 	return gdci.Index
 }
 
-func (gdci *GDColumnIndex) SetPosition(position int) {
+func (gdci *ColumnIndex) SetPosition(position int) {
 	gdci.Index = position
 }
 
-func (gdci *GDColumnIndex) GetDisplayName() string {
+func (gdci *ColumnIndex) GetDisplayName() string {
 	return gdci.Name
 }
 
-func (gdci *GDColumnIndex) SetDisplayName(displayname string) {
+func (gdci *ColumnIndex) SetDisplayName(displayname string) {
 	gdci.Name = displayname
 }
 
-func (gdci *GDColumnIndex) GetRelatedIndexes() []igrid.IIndex {
+func (gdci *ColumnIndex) GetRelatedIndexes() []igrid.IIndex {
 	return gdci.RelatedIndexes
 }
 
-func (gdci *GDColumnIndex) SetRelatedIndexes(columns []igrid.IIndex) {
+func (gdci *ColumnIndex) SetRelatedIndexes(columns []igrid.IIndex) {
 	gdci.RelatedIndexes = columns
 }
 
@@ -68,12 +68,12 @@ func CreateColumnIndexbyName(Name string) igrid.IIndex {
 
 // Create Column Index
 func CreateColumnIndex(index int, name string, rcolumns []igrid.IIndex) igrid.IIndex {
-	ci := GDColumnIndex{Index: index, Name: name, RelatedIndexes: rcolumns}
+	ci := ColumnIndex{Index: index, Name: name, RelatedIndexes: rcolumns}
 	return &ci
 }
 
-//GDColumnIndex Print ColumnIndex
-func (ci GDColumnIndex) String() string {
+//ColumnIndex Print ColumnIndex
+func (ci ColumnIndex) String() string {
 
 	if ci.Name != "" {
 		if ci.Index < 0 {

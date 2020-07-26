@@ -4,68 +4,76 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-//GDRowData
-type GDRowData struct {
+//RowData This represents a row of data
+type RowData struct {
 	igrid.IRow
 
 	// Index of the row
 	Index igrid.IIndex
 
-	// mapped data
+	// Number of passes over the row
 	Pass int
 
-	// raw data
+	// Raw data
 	RawData []interface{}
 
 	// Parsed Cell Data
 	Cells []igrid.ICell
 }
 
-type GDHeadedRowData struct {
+//HeadedRowData a row with a header
+type HeadedRowData struct {
 	igrid.IHeadedRow
 
 	Header igrid.IHeader
 }
 
-//CreateRowData
-func CreateGDRowData(row int, pass int) *GDRowData {
-	rd := GDRowData{}
+//CreateRowData Creates a Row data struct
+func CreateRowData(row int, pass int) *RowData {
+	rd := RowData{}
 	rowp := CreateGDPoint(row, -1)
 	rd.SetIndex(CreateGDIndex(rowp))
 	return &rd
 }
 
-func (rd *GDRowData) GetIndex() igrid.IIndex {
+//GetIndex Gets the index for the row
+func (rd *RowData) GetIndex() igrid.IIndex {
 	return rd.Index
 }
 
-func (rd *GDRowData) SetIndex(index igrid.IIndex) {
+//SetIndex Sets the index for the row
+func (rd *RowData) SetIndex(index igrid.IIndex) {
 	rd.Index = index
 }
 
-func (rd *GDRowData) Matches(index igrid.IIndex) bool {
+//Matches Matches the index passed in against the index for the row
+func (rd *RowData) Matches(index igrid.IIndex) bool {
 	return rd.GetIndex().GetLocation().Match(index.GetLocation())
 }
 
-func (rd *GDRowData) GetCells() []igrid.ICell {
+//GetCells Gets the cells for the row
+func (rd *RowData) GetCells() []igrid.ICell {
 	return rd.Cells
 }
 
-func (rd *GDRowData) SetCells(cells []igrid.ICell) {
+//SetCells Sets the cells for the row
+func (rd *RowData) SetCells(cells []igrid.ICell) {
 	rd.Cells = cells
 }
 
 //AddCell Add a cells to the row
-func (rd *GDRowData) AddCell(cell igrid.ICell) {
+func (rd *RowData) AddCell(cell igrid.ICell) {
 	cells := rd.Cells
 	cells = append(cells, cell)
 	rd.Cells = cells
 }
 
-func (rd *GDHeadedRowData) GetHeader() igrid.IHeader {
+//GetHeader Returns the header for the row
+func (rd *HeadedRowData) GetHeader() igrid.IHeader {
 	return rd.Header
 }
 
-func (rd *GDHeadedRowData) SetHeader(header igrid.IHeader) {
+//SetHeader Sets the header for the row
+func (rd *HeadedRowData) SetHeader(header igrid.IHeader) {
 	rd.Header = header
 }

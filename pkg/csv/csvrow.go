@@ -17,7 +17,7 @@ type HeadedRowData struct {
 //CreateRowData
 func CreateRowData(row int, datain []string) *RowData {
 	rd := RowData{}
-
+	rd.SetIndex()
 	//cells := []*gd.GDCell{}
 
 	for d := 0; d < len(datain); d++ {

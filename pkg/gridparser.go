@@ -5,8 +5,8 @@ import (
 	sli "github.com/tdrip/logger/pkg/interfaces"
 )
 
-//GDParser Grid data Parser with structs
-type GDParser struct {
+//Parser Grid data Parser with structs
+type Parser struct {
 	// inherit from the engine interface
 	igrid.IParser
 
@@ -23,67 +23,67 @@ type GDParser struct {
 	DataSources []igrid.IDataSource
 }
 
-//CreateGDParser Creates a GDParser
-func CreateGDParser(logger sli.ISimpleLogger) *GDParser {
+//CreateParser Creates a Parser
+func CreateParser(logger sli.ISimpleLogger) *Parser {
 
-	var parser GDParser
+	var parser Parser
 	parser.Logger = logger
 	return &parser
 }
 
 //GetRowParsers Get the row parsers
-func (gdp *GDParser) GetRowParsers() []igrid.IRowParser {
+func (gdp *Parser) GetRowParsers() []igrid.IRowParser {
 	return gdp.RowParsers
 }
 
 //SetRowParsers Set the row parsers
-func (gdp *GDParser) SetRowParsers(rparsers []igrid.IRowParser) {
+func (gdp *Parser) SetRowParsers(rparsers []igrid.IRowParser) {
 	gdp.RowParsers = rparsers
 }
 
 //AddRowParser Add a single row parser
-func (gdp *GDParser) AddRowParser(rparser igrid.IRowParser) {
+func (gdp *Parser) AddRowParser(rparser igrid.IRowParser) {
 	rparsers := gdp.RowParsers
 	rparsers = append(rparsers, rparser)
 	gdp.RowParsers = rparsers
 }
 
 //GetColumnParsers Get the column parsers
-func (gdp *GDParser) GetColumnParsers() []igrid.IColumnParser {
+func (gdp *Parser) GetColumnParsers() []igrid.IColumnParser {
 	return gdp.ColumnParsers
 }
 
 //SetColumnParsers Set the column parsers
-func (gdp *GDParser) SetColumnParsers(cparsers []igrid.IColumnParser) {
+func (gdp *Parser) SetColumnParsers(cparsers []igrid.IColumnParser) {
 	gdp.ColumnParsers = cparsers
 }
 
 //AddColumnParser Add a single column parser
-func (gdp *GDParser) AddColumnParser(cparser igrid.IColumnParser) {
+func (gdp *Parser) AddColumnParser(cparser igrid.IColumnParser) {
 	cparsers := gdp.ColumnParsers
 	cparsers = append(cparsers, cparser)
 	gdp.ColumnParsers = cparsers
 }
 
 //GetDataSources Get the data sources
-func (gdp *GDParser) GetDataSources() []igrid.IDataSource {
+func (gdp *Parser) GetDataSources() []igrid.IDataSource {
 	return gdp.DataSources
 }
 
 //SetDataSources Set the data sources
-func (gdp *GDParser) SetDataSources(datasources []igrid.IDataSource) {
+func (gdp *Parser) SetDataSources(datasources []igrid.IDataSource) {
 	gdp.DataSources = datasources
 }
 
 //AddDataSource Set the data sources
-func (gdp *GDParser) AddDataSource(datasource igrid.IDataSource) {
+func (gdp *Parser) AddDataSource(datasource igrid.IDataSource) {
 	datasources := gdp.DataSources
 	datasources = append(datasources, datasource)
 	gdp.DataSources = datasources
 }
 
 //Execute - run the Column or Row Parsers
-func (gdp *GDParser) Execute() error {
+func (gdp *Parser) Execute() error {
 
 	// Get the parsers
 	cparser := gdp.GetColumnParsers()
