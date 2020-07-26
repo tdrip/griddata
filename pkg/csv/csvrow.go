@@ -18,9 +18,9 @@ type HeadedRowData struct {
 func CreateRowData(row int, pass int, datain []string) *RowData {
 	rd := gd.CreateRowData(row, pass)
 	for d := 0; d < len(datain); d++ {
-		cell := gd.CreateStringCell(gd.CreateGDPoint(row, d), datain[d])
+		cell := gd.CreateStringCell(gd.CreatePoint(row, d), datain[d])
 		rd.AddCell(cell)
 	}
 
-	return &rd
+	return rd
 }
