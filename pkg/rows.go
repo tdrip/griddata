@@ -8,13 +8,14 @@ import (
 type GDRowData struct {
 	igrid.IRow
 
+	// Index of the row
 	Index igrid.IIndex
-
-	// raw data
-	RawData []interface{}
 
 	// mapped data
 	Pass int
+
+	// raw data
+	RawData []interface{}
 
 	// Parsed Cell Data
 	Cells []igrid.ICell
@@ -24,6 +25,14 @@ type GDHeadedRowData struct {
 	igrid.IHeadedRow
 
 	Header igrid.IHeader
+}
+
+//CreateRowData
+func CreateGDRowData(row int, pass int) *GDRowData {
+	rd := GDRowData{}
+	rowp := CreateGDPoint(row, -1)
+	rd.SetIndex(CreateGDIndex(rowp))
+	return &rd
 }
 
 func (rd *GDRowData) GetIndex() igrid.IIndex {
