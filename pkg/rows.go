@@ -28,11 +28,16 @@ type HeadedRowData struct {
 	Header igrid.IHeader
 }
 
-//CreateRowData Creates a Row data struct
+//CreateRowData Creates a default tow data struct
 func CreateRowData(row int, pass int) *RowData {
-	rd := RowData{}
-	rowp := CreateGDPoint(row, -1)
-	rd.SetIndex(CreateGDIndex(rowp))
+	rd := RowData{Pass: pass}
+
+	// x,y point
+	rowp := CreatePoint(row, -1)
+
+	// set the index
+	rd.SetIndex(CreateIndex(rowp))
+
 	return &rd
 }
 

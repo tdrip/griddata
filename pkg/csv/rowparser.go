@@ -8,29 +8,31 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-//CSVRowParser parses a csv row by row
-type CSVRowParser struct {
+//RowParser parses a csv row by row
+type RowParser struct {
 
 	// inherit from the row parser
 	igrid.IRowParser
 }
 
-func CreateCSVRowParser() *CSVRowParser {
-	csvsource := CSVRowParser{}
+//CreateRowParser creates the row parser
+func CreateRowParser() *RowParser {
+	csvsource := RowParser{}
 	return &csvsource
 }
 
 //Parse parse the data source
-func (rd *CSVRowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
+func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
 	csvdata := data.(*CSVFile)
 
 	// We need a GD Parser for the logging
-	gdp := parent.(*gd.GDParser)
+	gdp := parent.(*gd.Parser)
 
 	if csvdata != nil {
 		row := 0
+		pass := 1
 		for {
 			record, err := csvdata.Reader.Read()
 			if err == io.EOF {
@@ -41,7 +43,8 @@ func (rd *CSVRowParser) Parse(parent igrid.IParser, data igrid.IDataSource) erro
 				gdp.Logger.LogErrorE("Parse", err)
 				break
 			} else {
-				gdp.Logger.LogInfo("Parse", record)
+				gdp.Logger.LogDebug("Parse", record)
+				rd := CreateRowData(row, pass, record)
 			}
 			row++
 		}
