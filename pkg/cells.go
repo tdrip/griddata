@@ -18,6 +18,14 @@ type GDCell struct {
 	RelatedData map[igrid.IIndex]interface{}
 }
 
+//CreateStringCell
+func CreateStringCell(location igrid.IPoint, data string) *GDCell {
+	gdc := GDCell{}
+	gdc.Location = location
+	gdc.Data = data
+	return &gdc
+}
+
 //GetLocation Gets the position
 func (cell *GDCell) GetLocation() igrid.IPoint {
 	return cell.Location
