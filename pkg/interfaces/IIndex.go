@@ -6,7 +6,8 @@ type IIndex interface {
 	SetLocation(position IPoint)
 
 	GetRelatedIndexes() []IIndex
-	SetRelatedIndexes(columns []IIndex)
+	SetRelatedIndexes(relatedindexs []IIndex)
+	AddRelatedIndex(relatedi IIndex)
 }
 
 //IHeader This interface can be a rowheader, column header etc
