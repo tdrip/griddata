@@ -45,6 +45,11 @@ func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 			} else {
 				gdp.Logger.LogDebug("Parse", record)
 				rd := CreateRowData(row, pass, record)
+
+				for _, cell := range rd.GetCells() {
+					gdp.Logger.LogDebugf("Parse", "Cell %v", cell)
+				}
+
 			}
 			row++
 		}
