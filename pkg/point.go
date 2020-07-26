@@ -4,10 +4,17 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
+//GDPoint A grid data point
 type GDPoint struct {
 	igrid.IPoint
 	Y int
 	X int
+}
+
+//CreateGDPoint creates a Grid Data Point
+func CreateGDPoint(x int, y int) *GDPoint {
+	gdp := GDPoint{Y: y, X: x}
+	return &gdp
 }
 
 //GetY Gets the Y position
