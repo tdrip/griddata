@@ -13,6 +13,8 @@ type RowParsingOptions struct {
 
 	// inherit from the row IRowParsingOptions
 	igrid.IRowParsingOptions
+
+	TotalPasses int
 }
 
 //RowParser parses a csv row by row
@@ -41,11 +43,11 @@ func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 
 	// We need a GD Parser for the logging
 	opts := rd.GetOptions()
-	options := opts.(*gd.RowParsingOptions)
+	options := opts.(*RowParsingOptions)
 
 	if csvdata != nil {
 		row := 0
-		pass := 1
+		pass := options.TotalPasses
 		for {
 			record, err := csvdata.Reader.Read()
 			if err == io.EOF {
@@ -81,7 +83,7 @@ func (rd *RowParser) GetOptions() igrid.IRowParsingOptions {
 	return rd.Options
 }
 
-//SetOptionsSetbthe options for the row parser
+//SetOptions Set the options for the row parser
 func (rd *RowParser) SetOptions(options igrid.IRowParsingOptions) {
 	rd.Options = options
 }
@@ -89,4 +91,8 @@ func (rd *RowParser) SetOptions(options igrid.IRowParsingOptions) {
 //String the reable version of the options
 func (rpo *RowParsingOptions) String() string {
 	return ""
+}
+
+func (rpo *RowParsingOptions) Defaults() {
+
 }

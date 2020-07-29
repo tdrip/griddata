@@ -3,6 +3,7 @@ package igrid
 //IRowParsingOptions Represents the options for parsing a data row
 type IRowParsingOptions interface {
 	String() string
+	Defaults()
 }
 
 //IRowParser This interface parses a row in the grid
