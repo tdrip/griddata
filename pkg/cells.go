@@ -20,7 +20,7 @@ type Cell struct {
 	RelatedData map[igrid.IIndex]interface{}
 }
 
-//CreateStringCell
+//CreateStringCell creates a cell with string data
 func CreateStringCell(location igrid.IPoint, data string) *Cell {
 	gdc := Cell{}
 	gdc.Location = location
@@ -49,7 +49,7 @@ func (cell *Cell) SetData(data interface{}) {
 	cell.Data = data
 }
 
-//String Cell the point as X:,Y:
+//String Makes a respresentation of cell at point X:,Y: has data
 func (cell Cell) String() string {
 	return fmt.Sprintf("Cell at[%s] has %v", cell.GetLocation(), cell.GetData())
 }

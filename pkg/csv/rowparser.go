@@ -8,11 +8,20 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
+//RowParsingOptions number of passes etc
+type RowParsingOptions struct {
+
+	// inherit from the row IRowParsingOptions
+	igrid.IRowParsingOptions
+}
+
 //RowParser parses a csv row by row
 type RowParser struct {
 
 	// inherit from the row parser
 	igrid.IRowParser
+
+	Options RowParsingOptions
 }
 
 //CreateRowParser creates the row parser
@@ -29,6 +38,10 @@ func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 
 	// We need a GD Parser for the logging
 	gdp := parent.(*gd.Parser)
+
+	// We need a GD Parser for the logging
+	opts := rd.GetOptions()
+	options := opts.(*gd.RowParsingOptions)
 
 	if csvdata != nil {
 		row := 0
@@ -47,7 +60,8 @@ func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 				rd := CreateRowData(row, pass, record)
 
 				for _, cell := range rd.GetCells() {
-					gdp.Logger.LogDebugf("Parse", "Cell %s", cell)
+					// print the cells that we read
+					gdp.Logger.LogDebugf("Parse", "%s", cell)
 				}
 
 			}
@@ -60,4 +74,19 @@ func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 
 	return errors.New("Data source provided was not of type CSV File or was nil")
 
+}
+
+//GetOptions Get the options for the row parser
+func (rd *RowParser) GetOptions() igrid.IRowParsingOptions {
+	return rd.Options
+}
+
+//SetOptionsSetbthe options for the row parser
+func (rd *RowParser) SetOptions(options igrid.IRowParsingOptions) {
+	rd.Options = options
+}
+
+//String the reable version of the options
+func (rpo *RowParsingOptions) String() string {
+	return ""
 }
