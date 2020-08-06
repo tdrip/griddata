@@ -23,7 +23,7 @@ type RowParser struct {
 	// inherit from the row parser
 	igrid.IRowParser
 
-	Options RowParsingOptions
+	Options *RowParsingOptions
 }
 
 //CreateRowParser creates the row parser
@@ -88,11 +88,12 @@ func (rd *RowParser) SetOptions(options igrid.IRowParsingOptions) {
 	rd.Options = options
 }
 
+//Defaults
+func (rpo *RowParsingOptions) Defaults() {
+
+}
+
 //String the reable version of the options
 func (rpo *RowParsingOptions) String() string {
 	return ""
-}
-
-func (rpo *RowParsingOptions) Defaults() {
-
 }
