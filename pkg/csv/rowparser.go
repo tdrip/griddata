@@ -28,8 +28,12 @@ type RowParser struct {
 
 //CreateRowParser creates the row parser
 func CreateRowParser() *RowParser {
-	csvsource := RowParser{}
-	return &csvsource
+	csvsource := &RowParser{}
+	//Options
+	opts := &RowParsingOptions{}
+	opts.Defaults()
+	csvsource.SetOptions(opts)
+	return csvsource
 }
 
 //Parse parse the data source
@@ -90,7 +94,8 @@ func (rd *RowParser) SetOptions(options igrid.IRowParsingOptions) {
 
 //Defaults
 func (rpo *RowParsingOptions) Defaults() {
-
+	//Only pass over the row once
+	rpo.TotalPasses = 1
 }
 
 //String the reable version of the options
