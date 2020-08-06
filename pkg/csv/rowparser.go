@@ -85,7 +85,7 @@ func (rd *RowParser) GetOptions() igrid.IRowParsingOptions {
 
 //SetOptions Set the options for the row parser
 func (rd *RowParser) SetOptions(options igrid.IRowParsingOptions) {
-	rd.Options = options
+	rd.Options = &options
 }
 
 //Defaults
