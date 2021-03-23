@@ -14,7 +14,7 @@ func TestRootDN(t *testing.T) {
 
 	secondpoint := CreatePoint(1, 1)
 
-	if !firstpoint.Matches(secondpoint) {
+	if !firstpoint.Match(secondpoint) {
 		t.Errorf("%s did not match %s ", firstpoint, secondpoint)
 	}
 
