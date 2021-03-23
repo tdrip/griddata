@@ -9,34 +9,34 @@ import (
 //Point A grid data point
 type Point struct {
 	igrid.IPoint
-	Y int
-	X int
+	y int
+	x int
 }
 
 //CreatePoint creates a Grid Data Point
 func CreatePoint(x int, y int) *Point {
-	gdp := Point{Y: y, X: x}
+	gdp := Point{y: y, x: x}
 	return &gdp
 }
 
 //GetY Gets the Y position
 func (point *Point) GetY() int {
-	return point.Y
+	return point.y
 }
 
 //SetY Sets the Y position
 func (point *Point) SetY(Y int) {
-	point.Y = Y
+	point.y = Y
 }
 
 //GetX Gets the X position
 func (point *Point) GetX() int {
-	return point.X
+	return point.x
 }
 
 //SetX Sets the X position
 func (point *Point) SetX(X int) {
-	point.X = X
+	point.x = X
 }
 
 //Match This matches one point against this one
@@ -56,16 +56,16 @@ func (point *Point) Matches(X int, Y int) bool {
 
 		// we are matching on Y
 		if X < 0 {
-			return (point.Y == Y)
+			return (point.y == Y)
 		}
 
 		// we are matching on X
 		if Y < 0 {
-			return (point.X == X)
+			return (point.x == X)
 		}
 	}
 
-	return (point.X == X) && (point.Y == Y)
+	return (point.x == X) && (point.y == Y)
 }
 
 //String Prints the point as X:,Y:
