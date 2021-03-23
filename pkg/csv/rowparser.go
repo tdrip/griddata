@@ -2,6 +2,7 @@ package csv
 
 import (
 	"errors"
+	"fmt"
 	"io"
 
 	gd "github.com/tdrip/griddata/pkg"
@@ -14,7 +15,7 @@ type RowParsingOptions struct {
 	// inherit from the row IRowParsingOptions
 	igrid.IRowParsingOptions
 
-	TotalPasses int
+	TotalPasses int `json:"TotalPasses"`
 }
 
 //RowParser parses a csv row by row
@@ -65,6 +66,7 @@ func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 				gdp.Logger.LogDebug("Parse", record)
 				rd := CreateRowData(row, pass, record)
 
+				// Get cells from the row
 				for _, cell := range rd.GetCells() {
 					// print the cells that we read
 					gdp.Logger.LogDebugf("Parse", "%s", cell)
@@ -100,5 +102,5 @@ func (rpo *RowParsingOptions) Defaults() {
 
 //String the reable version of the options
 func (rpo *RowParsingOptions) String() string {
-	return ""
+	return fmt.Sprintf("Total Row Passes: %d", rpo.TotalPasses)
 }
