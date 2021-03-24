@@ -33,7 +33,7 @@ func (csvf *CSVFile) Validate() error {
 
 	// empty file
 	if info.Size() == 0 {
-		return fmt.Errorf("File has %d file size", info.Size())
+		return fmt.Errorf("file has %d file size", info.Size())
 	}
 
 	// directory
