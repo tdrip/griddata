@@ -15,7 +15,9 @@ type RowParsingOptions struct {
 	// inherit from the row IRowParsingOptions
 	igrid.IRowParsingOptions
 
-	TotalPasses int `json:"TotalPasses"`
+	TotalPasses int `json:"totalpasses"`
+
+	HeaderRowIndex int `json:"headerrowindex"`
 }
 
 //RowParser parses a csv row by row
@@ -25,6 +27,8 @@ type RowParser struct {
 	igrid.IRowParser
 
 	Options *RowParsingOptions
+
+	Actions map[string]igrid.IRowAction
 }
 
 //CreateRowParser creates the row parser
@@ -38,7 +42,7 @@ func CreateRowParser() *RowParser {
 }
 
 //Parse parse the data source
-func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
+func (parser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
 	csvdata := data.(*CSVFile)
@@ -47,7 +51,7 @@ func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 	gdp := parent.(*gd.Parser)
 
 	// We need a GD Parser for the logging
-	opts := rd.GetOptions()
+	opts := parser.GetOptions()
 	options := opts.(*RowParsingOptions)
 
 	if csvdata != nil {
@@ -61,15 +65,29 @@ func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 			}
 			if err != nil {
 				gdp.Logger.LogErrorE("Parse", err)
-				break
+				return err
 			} else {
 				gdp.Logger.LogDebug("Parse", record)
-				rd := CreateRowData(row, pass, record)
 
-				// Get cells from the row
-				for _, cell := range rd.GetCells() {
-					// print the cells that we read
-					gdp.Logger.LogDebugf("Parse", "%s", cell)
+				if row == options.HeaderRowIndex {
+
+				} else {
+
+					//create row data
+					rd := CreateRowData(row, pass, record)
+
+					// Get cells from the row
+					for _, cell := range rd.GetCells() {
+						// print the cells that we read
+						gdp.Logger.LogDebugf("Parse", "%s", cell)
+					}
+
+					// get the actions
+					for _, action := range parser.GetActions() {
+
+						// perform action on teh row data
+						action.PeformAction(rd)
+					}
 				}
 
 			}
@@ -94,10 +112,32 @@ func (rd *RowParser) SetOptions(options igrid.IRowParsingOptions) {
 	rd.Options = options.(*RowParsingOptions)
 }
 
+// actions for the row
+func (rd *RowParser) GetActions() map[string]igrid.IRowAction {
+	return rd.Actions
+}
+
+func (rd *RowParser) SetActions(data map[string]igrid.IRowAction) {
+	rd.Actions = data
+}
+
+func (rd *RowParser) AddAction(action igrid.IRowAction) {
+	data := rd.Actions
+	data[action.GetId()] = action
+	rd.Actions = data
+}
+
+////////////////////////////////////
+// ROW OPTIONS
+////////////////////////////////////
+
 //Defaults
 func (rpo *RowParsingOptions) Defaults() {
 	//Only pass over the row once
 	rpo.TotalPasses = 1
+
+	// default to no header
+	rpo.HeaderRowIndex = -1
 }
 
 //String the reable version of the options

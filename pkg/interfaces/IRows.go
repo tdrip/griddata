@@ -19,3 +19,8 @@ type IHeadedRow interface {
 	GetHeader() IHeader
 	SetHeader(header IHeader)
 }
+
+type IRowAction interface {
+	GetId() string
+	PeformAction(IRow)
+}

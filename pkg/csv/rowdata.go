@@ -15,11 +15,18 @@ type HeadedRowData struct {
 }
 
 //CreateRowData creates a row data from a parsed CSV
-func CreateRowData(row int, pass int, datain []string) *gd.RowData {
-	rd := gd.CreateRowData(row, pass)
-	for d := 0; d < len(datain); d++ {
-		pnt := gd.CreatePoint(row, d)
-		cell := gd.CreateStringCell(pnt, datain[d])
+func CreateRowData(rowindex int, pass int, columndata []string) *gd.RowData {
+
+	// number of passes and the row index
+	rd := gd.CreateRowData(rowindex, pass)
+
+	for columnindex := 0; columnindex < len(columndata); columnindex++ {
+
+		pnt := gd.CreatePoint(rowindex, columnindex)
+		// csv is always srting so we parse the cells as such
+		cell := gd.CreateStringCell(pnt, columndata[columnindex])
+
+		// add the cell
 		rd.AddCell(cell)
 	}
 

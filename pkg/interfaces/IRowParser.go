@@ -15,4 +15,9 @@ type IRowParser interface {
 
 	// Parse the row
 	Parse(parent IParser, data IDataSource) error
+
+	// actions for the row
+	GetActions() []IRowAction
+	SetActions(data map[string]IRowAction)
+	AddAction(action IRowAction)
 }
