@@ -80,7 +80,7 @@ func (rd *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 
 	}
 
-	return errors.New("Data source provided was not of type CSV File or was nil")
+	return errors.New("data source provided was not of type CSV File or was nil")
 
 }
 
