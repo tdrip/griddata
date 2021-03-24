@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestRootDN(t *testing.T) {
+func TestPoint(t *testing.T) {
 
 	firstpoint := CreatePoint(1, 1)
 
