@@ -1,8 +1,8 @@
 package grid
 
 import (
+	logr "github.com/sirupsen/logrus"
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
-	sli "github.com/tdrip/logger/pkg/interfaces"
 )
 
 //Parser Grid data Parser with structs
@@ -11,12 +11,12 @@ type Parser struct {
 	igrid.IParser
 
 	// for logging
-	Logger sli.ISimpleLogger
+	Logger *logr.Logger
 
 	//Row parsers
 	RowParsers []igrid.IRowParser
 
-	//Row parsers
+	//Column parsers
 	ColumnParsers []igrid.IColumnParser
 
 	//DataSource
@@ -24,10 +24,13 @@ type Parser struct {
 }
 
 //CreateParser Creates a Parser
-func CreateParser(logger sli.ISimpleLogger) *Parser {
+func CreateParser(logger *logr.Logger) *Parser {
 
-	var parser Parser
+	parser := Parser{}
 	parser.Logger = logger
+	parser.RowParsers = []igrid.IRowParser{}
+	parser.ColumnParsers = []igrid.IColumnParser{}
+	parser.DataSources = []igrid.IDataSource{}
 	return &parser
 }
 

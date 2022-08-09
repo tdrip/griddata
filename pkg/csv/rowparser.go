@@ -60,14 +60,14 @@ func (parser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) err
 		for {
 			record, err := csvdata.Reader.Read()
 			if err == io.EOF {
-				gdp.Logger.LogDebug("Parse", "End of file")
+				gdp.Logger.Debugf("%s - %s", "Parse", "End of file")
 				break
 			}
 			if err != nil {
-				gdp.Logger.LogErrorE("Parse", err)
+				gdp.Logger.Error("Parse", err)
 				return err
 			} else {
-				gdp.Logger.LogDebug("Parse", record)
+				gdp.Logger.Debugf("%s - %v", "Parse", record)
 
 				if row == options.HeaderRowIndex {
 
@@ -79,7 +79,7 @@ func (parser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) err
 					// Get cells from the row
 					for _, cell := range rd.GetCells() {
 						// print the cells that we read
-						gdp.Logger.LogDebugf("Parse", "%s", cell)
+						gdp.Logger.Debugf("%s - %v", "Parse", cell)
 					}
 
 					// get the actions
