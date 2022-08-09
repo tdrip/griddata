@@ -10,6 +10,7 @@ import (
 func TestCSV(t *testing.T) {
 
 	log := logr.New()
+
 	// Log as JSON instead of the default ASCII formatter.
 	log.SetFormatter(&logr.JSONFormatter{})
 
