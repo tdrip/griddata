@@ -42,7 +42,7 @@ func CreateRowParser() *RowParser {
 }
 
 //Parse parse the data source
-func (parser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
+func (rowparser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
 	csvdata := data.(*CSVFile)
@@ -51,7 +51,7 @@ func (parser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) err
 	gdp := parent.(*gd.Parser)
 
 	// We need a GD Parser for the logging
-	opts := parser.GetOptions()
+	opts := rowparser.GetOptions()
 	options := opts.(*RowParsingOptions)
 
 	if csvdata != nil {
@@ -60,17 +60,17 @@ func (parser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) err
 		for {
 			record, err := csvdata.Reader.Read()
 			if err == io.EOF {
-				gdp.Logger.Debug("Parse - End of file")
+				gdp.Logger.Debug("csv parse - End of file")
 				break
 			}
 			if err != nil {
-				gdp.Logger.Errorf("Parse - %v", err)
+				gdp.Logger.Errorf("csv parse - %v", err)
 				return err
 			} else {
-				gdp.Logger.Debugf("Parse - Record: %v", record)
+				gdp.Logger.Debugf("csv parse - Record: %v", record)
 
 				if row == options.HeaderRowIndex {
-					gdp.Logger.Debug("Parse - Header row index")
+					gdp.Logger.Debug("csv parse - Header row index")
 				} else {
 
 					//create row data
@@ -79,11 +79,11 @@ func (parser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) err
 					// Get cells from the row
 					for _, cell := range rd.GetCells() {
 						// print the cells that we read
-						gdp.Logger.Debugf("Parse - %v", cell)
+						gdp.Logger.Debugf("csv parse - %v", cell)
 					}
 
 					// get the actions
-					for _, action := range parser.GetActions() {
+					for _, action := range rowparser.GetActions() {
 
 						// perform action on teh row data
 						action.PeformAction(rd)
@@ -103,28 +103,28 @@ func (parser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) err
 }
 
 //GetOptions Get the options for the row parser
-func (rd *RowParser) GetOptions() igrid.IRowParsingOptions {
-	return rd.Options
+func (rowparser *RowParser) GetOptions() igrid.IRowParsingOptions {
+	return rowparser.Options
 }
 
 //SetOptions Set the options for the row parser
-func (rd *RowParser) SetOptions(options igrid.IRowParsingOptions) {
-	rd.Options = options.(*RowParsingOptions)
+func (rowparser *RowParser) SetOptions(options igrid.IRowParsingOptions) {
+	rowparser.Options = options.(*RowParsingOptions)
 }
 
 // actions for the row
-func (rd *RowParser) GetActions() []igrid.IRowAction {
+func (rowparser *RowParser) GetActions() []igrid.IRowAction {
 	return nil
 }
 
-func (rd *RowParser) SetActions(data map[string]igrid.IRowAction) {
-	rd.Actions = data
+func (rowparser *RowParser) SetActions(data map[string]igrid.IRowAction) {
+	rowparser.Actions = data
 }
 
-func (rd *RowParser) AddAction(action igrid.IRowAction) {
-	data := rd.Actions
+func (rowparser *RowParser) AddAction(action igrid.IRowAction) {
+	data := rowparser.Actions
 	data[action.GetId()] = action
-	rd.Actions = data
+	rowparser.Actions = data
 }
 
 ////////////////////////////////////
