@@ -113,8 +113,8 @@ func (rd *RowParser) SetOptions(options igrid.IRowParsingOptions) {
 }
 
 // actions for the row
-func (rd *RowParser) GetActions() map[string]igrid.IRowAction {
-	return rd.Actions
+func (rd *RowParser) GetActions() []igrid.IRowAction {
+	return nil
 }
 
 func (rd *RowParser) SetActions(data map[string]igrid.IRowAction) {
