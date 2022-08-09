@@ -1,16 +1,10 @@
-# github.com/go-kit/kit v0.10.0
-## explicit
-github.com/go-kit/kit/log
-github.com/go-kit/kit/log/level
-# github.com/go-logfmt/logfmt v0.5.0
-github.com/go-logfmt/logfmt
 # github.com/konsorten/go-windows-terminal-sequences v1.0.1
 github.com/konsorten/go-windows-terminal-sequences
 # github.com/sirupsen/logrus v1.4.2
 ## explicit
 github.com/sirupsen/logrus
-# github.com/tdrip/logger v0.0.0-20201208000028-c5004ea91f55
+# github.com/stretchr/testify v1.4.0
 ## explicit
-github.com/tdrip/logger/pkg/interfaces
 # golang.org/x/sys v0.0.0-20191220142924-d4481acd189f
+## explicit
 golang.org/x/sys/unix
