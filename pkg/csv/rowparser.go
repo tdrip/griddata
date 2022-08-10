@@ -13,7 +13,7 @@ import (
 type RowProcessorOptions struct {
 
 	// inherit from the row IRowProcessingOptions
-	igrid.IRowProcessorOptions
+	igrid.IDataProcessorOptions
 
 	TotalPasses int `json:"totalpasses"`
 
@@ -24,11 +24,11 @@ type RowProcessorOptions struct {
 type RowProcessor struct {
 
 	// inherit from the row parser
-	igrid.IRowProcessor
+	igrid.IDataProcessor
 
 	Options *RowProcessorOptions
 
-	Actions map[string]igrid.IRowAction
+	Actions map[string]igrid.IDataAction
 }
 
 //CreateRowProcessor creates the row parser
@@ -103,27 +103,27 @@ func (rowparser *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSourc
 }
 
 //GetOptions Get the options for the row parser
-func (rowparser *RowProcessor) GetOptions() igrid.IRowProcessorOptions {
+func (rowparser *RowProcessor) GetOptions() igrid.IDataProcessorOptions {
 	return rowparser.Options
 }
 
 //SetOptions Set the options for the row parser
-func (rowparser *RowProcessor) SetOptions(options igrid.IRowProcessorOptions) {
+func (rowparser *RowProcessor) SetOptions(options igrid.IDataProcessorOptions) {
 	rowparser.Options = options.(*RowProcessorOptions)
 }
 
 // actions for the row
-func (rowparser *RowProcessor) GetActions() map[string]igrid.IRowAction {
+func (rowparser *RowProcessor) GetActions() map[string]igrid.IDataAction {
 	return rowparser.Actions
 }
 
-func (rowparser *RowProcessor) SetActions(actions []igrid.IRowAction) {
+func (rowparser *RowProcessor) SetActions(actions []igrid.IDataAction) {
 	for _, action := range actions {
 		rowparser.AddAction(action)
 	}
 }
 
-func (rowparser *RowProcessor) AddAction(action igrid.IRowAction) {
+func (rowparser *RowProcessor) AddAction(action igrid.IDataAction) {
 	data := rowparser.Actions
 	data[action.GetId()] = action
 	rowparser.Actions = data
@@ -136,7 +136,7 @@ func (rowparser *RowProcessor) RemoveAction(id string) {
 }
 
 func (rowparser *RowProcessor) ClearActions() {
-	empty := make(map[string]igrid.IRowAction)
+	empty := make(map[string]igrid.IDataAction)
 	rowparser.Actions = empty
 }
 

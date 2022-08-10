@@ -14,10 +14,10 @@ type Parser struct {
 	Logger *logr.Logger
 
 	//Row parsers
-	RowParsers []igrid.IRowProcessor
+	RowParsers []igrid.IDataProcessor
 
 	//Column parsers
-	ColumnParsers []igrid.IColumnParser
+	ColumnParsers []igrid.IDataProcessor
 
 	//DataSource
 	DataSources []igrid.IDataSource
@@ -28,41 +28,41 @@ func CreateParser(logger *logr.Logger) *Parser {
 
 	parser := Parser{}
 	parser.Logger = logger
-	parser.RowParsers = []igrid.IRowProcessor{}
-	parser.ColumnParsers = []igrid.IColumnParser{}
+	parser.RowParsers = []igrid.IDataProcessor{}
+	parser.ColumnParsers = []igrid.IDataProcessor{}
 	parser.DataSources = []igrid.IDataSource{}
 	return &parser
 }
 
 //GetRowProcessors Get the row processors
-func (gdp *Parser) GetRowProcessors() []igrid.IRowProcessor {
+func (gdp *Parser) GetRowProcessors() []igrid.IDataProcessor {
 	return gdp.RowParsers
 }
 
 //SetRowProcessors Set the row processors
-func (gdp *Parser) SetRowProcessors(rparsers []igrid.IRowProcessor) {
+func (gdp *Parser) SetRowProcessors(rparsers []igrid.IDataProcessor) {
 	gdp.RowParsers = rparsers
 }
 
 //AddRowProcessor Add a single row processor
-func (gdp *Parser) AddRowProcessor(rparser igrid.IRowProcessor) {
+func (gdp *Parser) AddRowProcessor(rparser igrid.IDataProcessor) {
 	rparsers := gdp.RowParsers
 	rparsers = append(rparsers, rparser)
 	gdp.RowParsers = rparsers
 }
 
 //GetColumnParsers Get the column parsers
-func (gdp *Parser) GetColumnParsers() []igrid.IColumnParser {
+func (gdp *Parser) GetColumnParsers() []igrid.IDataProcessor {
 	return gdp.ColumnParsers
 }
 
 //SetColumnParsers Set the column parsers
-func (gdp *Parser) SetColumnParsers(cparsers []igrid.IColumnParser) {
+func (gdp *Parser) SetColumnParsers(cparsers []igrid.IDataProcessor) {
 	gdp.ColumnParsers = cparsers
 }
 
 //AddColumnParser Add a single column parser
-func (gdp *Parser) AddColumnParser(cparser igrid.IColumnParser) {
+func (gdp *Parser) AddColumnParser(cparser igrid.IDataProcessor) {
 	cparsers := gdp.ColumnParsers
 	cparsers = append(cparsers, cparser)
 	gdp.ColumnParsers = cparsers
