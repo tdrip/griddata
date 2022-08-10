@@ -47,7 +47,7 @@ func TestCSV2(t *testing.T) {
 
 	csvtest := CSVRowAction{ID: "PrintAction"}
 
-	gdp := CreateFileParserWithAction(log, "../../testdata/noheader.csv", csvtest)
+	gdp := CreateFileParserWithAction(log, "../../testdata/noheader.csv", &csvtest)
 
 	err := gdp.Execute()
 
