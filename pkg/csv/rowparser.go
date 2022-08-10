@@ -12,8 +12,8 @@ import (
 //RowParsingOptions number of passes etc
 type RowParsingOptions struct {
 
-	// inherit from the row IRowParsingOptions
-	igrid.IRowParsingOptions
+	// inherit from the row IRowProcessingOptions
+	igrid.IRowProcessingOptions
 
 	TotalPasses int `json:"totalpasses"`
 
@@ -24,7 +24,7 @@ type RowParsingOptions struct {
 type RowParser struct {
 
 	// inherit from the row parser
-	igrid.IRowParser
+	igrid.IRowProcessor
 
 	Options *RowParsingOptions
 
@@ -103,12 +103,12 @@ func (rowparser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) 
 }
 
 //GetOptions Get the options for the row parser
-func (rowparser *RowParser) GetOptions() igrid.IRowParsingOptions {
+func (rowparser *RowParser) GetOptions() igrid.IRowProcessingOptions {
 	return rowparser.Options
 }
 
 //SetOptions Set the options for the row parser
-func (rowparser *RowParser) SetOptions(options igrid.IRowParsingOptions) {
+func (rowparser *RowParser) SetOptions(options igrid.IRowProcessingOptions) {
 	rowparser.Options = options.(*RowParsingOptions)
 }
 

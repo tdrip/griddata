@@ -14,7 +14,7 @@ type Parser struct {
 	Logger *logr.Logger
 
 	//Row parsers
-	RowParsers []igrid.IRowParser
+	RowParsers []igrid.IRowProcessor
 
 	//Column parsers
 	ColumnParsers []igrid.IColumnParser
@@ -28,24 +28,24 @@ func CreateParser(logger *logr.Logger) *Parser {
 
 	parser := Parser{}
 	parser.Logger = logger
-	parser.RowParsers = []igrid.IRowParser{}
+	parser.RowParsers = []igrid.IRowProcessor{}
 	parser.ColumnParsers = []igrid.IColumnParser{}
 	parser.DataSources = []igrid.IDataSource{}
 	return &parser
 }
 
 //GetRowParsers Get the row parsers
-func (gdp *Parser) GetRowParsers() []igrid.IRowParser {
+func (gdp *Parser) GetRowParsers() []igrid.IRowProcessor {
 	return gdp.RowParsers
 }
 
 //SetRowParsers Set the row parsers
-func (gdp *Parser) SetRowParsers(rparsers []igrid.IRowParser) {
+func (gdp *Parser) SetRowParsers(rparsers []igrid.IRowProcessor) {
 	gdp.RowParsers = rparsers
 }
 
 //AddRowParser Add a single row parser
-func (gdp *Parser) AddRowParser(rparser igrid.IRowParser) {
+func (gdp *Parser) AddRowParser(rparser igrid.IRowProcessor) {
 	rparsers := gdp.RowParsers
 	rparsers = append(rparsers, rparser)
 	gdp.RowParsers = rparsers

@@ -1,17 +1,17 @@
 package igrid
 
-//IRowParsingOptions Represents the options for parsing a data row
-type IRowParsingOptions interface {
+//IRowProcessingOptions Represents the options for parsing a data row
+type IRowProcessingOptions interface {
 	Defaults()
 	String() string
 }
 
-//IRowParser This interface parses a row in the grid
-type IRowParser interface {
+//IRowProcessor This interface parses a row in the grid
+type IRowProcessor interface {
 
 	// Options for parsing the row
-	GetOptions() IRowParsingOptions
-	SetOptions(options IRowParsingOptions)
+	GetOptions() IRowProcessingOptions
+	SetOptions(options IRowProcessingOptions)
 
 	// Parse the row
 	Parse(parent IParser, data IDataSource) error

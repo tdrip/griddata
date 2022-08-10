@@ -2,9 +2,9 @@ package igrid
 
 //IParser this is the parser interface
 type IParser interface {
-	GetRowParsers() []IRowParser
-	SetRowParsers(rparsers []IRowParser)
-	AddRowParser(rparser IRowParser)
+	GetRowParsers() []IRowProcessor
+	SetRowParsers(rparsers []IRowProcessor)
+	AddRowParser(rparser IRowProcessor)
 
 	GetColumnParsers() []IColumnParser
 	SetColumnParsers(cparsers []IColumnParser)
