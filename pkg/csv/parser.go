@@ -15,3 +15,15 @@ func CreateFileParser(slog *logr.Logger, filepath string) *gd.Parser {
 	gdp.AddRowProcessor(rowp)
 	return gdp
 }
+
+//CreateFileParser Creates a Parser for a single file
+func CreateFileParserWithAction(slog *logr.Logger, filepath string, action *CSVRowAction) *gd.Parser {
+	gdp := gd.CreateParser(slog)
+	file := CreateCSVFile(filepath)
+	gdp.AddDataSource(file)
+
+	rowp := CreateRowProcessor()
+	rowp.AddAction(action)
+	gdp.AddRowProcessor(rowp)
+	return gdp
+}
