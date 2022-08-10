@@ -38,6 +38,8 @@ func CreateRowProcessor() *RowProcessor {
 	opts := &RowProcessorOptions{}
 	opts.Defaults()
 	csvsource.SetOptions(opts)
+	empty := make(map[string]igrid.IDataAction)
+	csvsource.Actions = empty
 	return csvsource
 }
 
