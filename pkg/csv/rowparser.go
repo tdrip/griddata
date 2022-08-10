@@ -10,39 +10,39 @@ import (
 )
 
 //RowParsingOptions number of passes etc
-type RowParsingOptions struct {
+type RowProcessorOptions struct {
 
 	// inherit from the row IRowProcessingOptions
-	igrid.IRowProcessingOptions
+	igrid.IRowProcessorOptions
 
 	TotalPasses int `json:"totalpasses"`
 
 	HeaderRowIndex int `json:"headerrowindex"`
 }
 
-//RowParser parses a csv row by row
-type RowParser struct {
+//RowProcessor parses a csv row by row
+type RowProcessor struct {
 
 	// inherit from the row parser
 	igrid.IRowProcessor
 
-	Options *RowParsingOptions
+	Options *RowProcessorOptions
 
 	Actions map[string]igrid.IRowAction
 }
 
-//CreateRowParser creates the row parser
-func CreateRowParser() *RowParser {
-	csvsource := &RowParser{}
+//CreateRowProcessor creates the row parser
+func CreateRowProcessor() *RowProcessor {
+	csvsource := &RowProcessor{}
 	//Options
-	opts := &RowParsingOptions{}
+	opts := &RowProcessorOptions{}
 	opts.Defaults()
 	csvsource.SetOptions(opts)
 	return csvsource
 }
 
 //Parse parse the data source
-func (rowparser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) error {
+func (rowparser *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
 	csvdata := data.(*CSVFile)
@@ -52,7 +52,7 @@ func (rowparser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) 
 
 	// We need a GD Parser for the logging
 	opts := rowparser.GetOptions()
-	options := opts.(*RowParsingOptions)
+	options := opts.(*RowProcessorOptions)
 
 	if csvdata != nil {
 		row := 0
@@ -103,28 +103,41 @@ func (rowparser *RowParser) Parse(parent igrid.IParser, data igrid.IDataSource) 
 }
 
 //GetOptions Get the options for the row parser
-func (rowparser *RowParser) GetOptions() igrid.IRowProcessingOptions {
+func (rowparser *RowProcessor) GetOptions() igrid.IRowProcessorOptions {
 	return rowparser.Options
 }
 
 //SetOptions Set the options for the row parser
-func (rowparser *RowParser) SetOptions(options igrid.IRowProcessingOptions) {
-	rowparser.Options = options.(*RowParsingOptions)
+func (rowparser *RowProcessor) SetOptions(options igrid.IRowProcessorOptions) {
+	rowparser.Options = options.(*RowProcessorOptions)
 }
 
 // actions for the row
-func (rowparser *RowParser) GetActions() []igrid.IRowAction {
-	return nil
+func (rowparser *RowProcessor) GetActions() map[string]igrid.IRowAction {
+	return rowparser.Actions
 }
 
-func (rowparser *RowParser) SetActions(data map[string]igrid.IRowAction) {
-	rowparser.Actions = data
+func (rowparser *RowProcessor) SetActions(actions []igrid.IRowAction) {
+	for _, action := range actions {
+		rowparser.AddAction(action)
+	}
 }
 
-func (rowparser *RowParser) AddAction(action igrid.IRowAction) {
+func (rowparser *RowProcessor) AddAction(action igrid.IRowAction) {
 	data := rowparser.Actions
 	data[action.GetId()] = action
 	rowparser.Actions = data
+}
+
+func (rowparser *RowProcessor) RemoveAction(id string) {
+	data := rowparser.Actions
+	delete(data, id)
+	rowparser.Actions = data
+}
+
+func (rowparser *RowProcessor) ClearActions() {
+	empty := make(map[string]igrid.IRowAction)
+	rowparser.Actions = empty
 }
 
 ////////////////////////////////////
@@ -132,7 +145,7 @@ func (rowparser *RowParser) AddAction(action igrid.IRowAction) {
 ////////////////////////////////////
 
 //Defaults
-func (rpo *RowParsingOptions) Defaults() {
+func (rpo *RowProcessorOptions) Defaults() {
 	//Only pass over the row once
 	rpo.TotalPasses = 1
 
@@ -140,7 +153,7 @@ func (rpo *RowParsingOptions) Defaults() {
 	rpo.HeaderRowIndex = -1
 }
 
-//String the reable version of the options
-func (rpo *RowParsingOptions) String() string {
+//String the readable version of the options
+func (rpo *RowProcessorOptions) String() string {
 	return fmt.Sprintf("Total Row Passes: %d", rpo.TotalPasses)
 }

@@ -11,7 +11,7 @@ func CreateFileParser(slog *logr.Logger, filepath string) *gd.Parser {
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
 
-	rowp := CreateRowParser()
-	gdp.AddRowParser(rowp)
+	rowp := CreateRowProcessor()
+	gdp.AddRowProcessor(rowp)
 	return gdp
 }

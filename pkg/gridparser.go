@@ -34,18 +34,18 @@ func CreateParser(logger *logr.Logger) *Parser {
 	return &parser
 }
 
-//GetRowParsers Get the row parsers
-func (gdp *Parser) GetRowParsers() []igrid.IRowProcessor {
+//GetRowProcessors Get the row processors
+func (gdp *Parser) GetRowProcessors() []igrid.IRowProcessor {
 	return gdp.RowParsers
 }
 
-//SetRowParsers Set the row parsers
-func (gdp *Parser) SetRowParsers(rparsers []igrid.IRowProcessor) {
+//SetRowProcessors Set the row processors
+func (gdp *Parser) SetRowProcessors(rparsers []igrid.IRowProcessor) {
 	gdp.RowParsers = rparsers
 }
 
-//AddRowParser Add a single row parser
-func (gdp *Parser) AddRowParser(rparser igrid.IRowProcessor) {
+//AddRowProcessor Add a single row processor
+func (gdp *Parser) AddRowProcessor(rparser igrid.IRowProcessor) {
 	rparsers := gdp.RowParsers
 	rparsers = append(rparsers, rparser)
 	gdp.RowParsers = rparsers
@@ -90,7 +90,7 @@ func (gdp *Parser) Execute() error {
 
 	// Get the parsers
 	cparser := gdp.GetColumnParsers()
-	rparser := gdp.GetRowParsers()
+	rparser := gdp.GetRowProcessors()
 
 	// get the data sources and validate each one
 	datasources := gdp.GetDataSources()

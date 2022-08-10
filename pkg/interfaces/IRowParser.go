@@ -1,7 +1,7 @@
 package igrid
 
-//IRowProcessingOptions Represents the options for parsing a data row
-type IRowProcessingOptions interface {
+//IRowProcessorOptions Represents the options for parsing a data row
+type IRowProcessorOptions interface {
 	Defaults()
 	String() string
 }
@@ -10,14 +10,16 @@ type IRowProcessingOptions interface {
 type IRowProcessor interface {
 
 	// Options for parsing the row
-	GetOptions() IRowProcessingOptions
-	SetOptions(options IRowProcessingOptions)
+	GetOptions() IRowProcessorOptions
+	SetOptions(options IRowProcessorOptions)
 
 	// Parse the row
 	Parse(parent IParser, data IDataSource) error
 
 	// actions for the row
-	GetActions() []IRowAction
-	SetActions(data map[string]IRowAction)
+	GetActions() map[string]IRowAction
+	SetActions(actions []IRowAction)
 	AddAction(action IRowAction)
+	RemoveAction(string)
+	ClearActions()
 }
