@@ -12,7 +12,7 @@ func CreateFileParser(slog *logr.Logger, filepath string) *gd.Parser {
 	gdp.AddDataSource(file)
 
 	rowp := CreateRowProcessor()
-	gdp.AddRowProcessor(rowp)
+	gdp.AddProcessor(rowp)
 	return gdp
 }
 
@@ -24,6 +24,6 @@ func CreateFileParserWithAction(slog *logr.Logger, filepath string, action *CSVR
 
 	rowp := CreateRowProcessor()
 	rowp.AddAction(action)
-	gdp.AddRowProcessor(rowp)
+	gdp.AddProcessor(rowp)
 	return gdp
 }

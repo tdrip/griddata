@@ -13,11 +13,8 @@ type Parser struct {
 	// for logging
 	Logger *logr.Logger
 
-	//Row parsers
-	RowParsers []igrid.IDataProcessor
-
-	//Column parsers
-	ColumnParsers []igrid.IDataProcessor
+	//Processors
+	Processors []igrid.IDataProcessor
 
 	//DataSource
 	DataSources []igrid.IDataSource
@@ -28,44 +25,26 @@ func CreateParser(logger *logr.Logger) *Parser {
 
 	parser := Parser{}
 	parser.Logger = logger
-	parser.RowParsers = []igrid.IDataProcessor{}
-	parser.ColumnParsers = []igrid.IDataProcessor{}
+	parser.Processors = []igrid.IDataProcessor{}
 	parser.DataSources = []igrid.IDataSource{}
 	return &parser
 }
 
-//GetRowProcessors Get the row processors
-func (gdp *Parser) GetRowProcessors() []igrid.IDataProcessor {
-	return gdp.RowParsers
+//GetProcessors Get the processors
+func (gdp *Parser) GetProcessors() []igrid.IDataProcessor {
+	return gdp.Processors
 }
 
 //SetRowProcessors Set the row processors
-func (gdp *Parser) SetRowProcessors(rparsers []igrid.IDataProcessor) {
-	gdp.RowParsers = rparsers
+func (gdp *Parser) SetProcessors(rparsers []igrid.IDataProcessor) {
+	gdp.Processors = rparsers
 }
 
-//AddRowProcessor Add a single row processor
-func (gdp *Parser) AddRowProcessor(rparser igrid.IDataProcessor) {
-	rparsers := gdp.RowParsers
+//AddProcessor Add a single row processor
+func (gdp *Parser) AddProcessor(rparser igrid.IDataProcessor) {
+	rparsers := gdp.Processors
 	rparsers = append(rparsers, rparser)
-	gdp.RowParsers = rparsers
-}
-
-//GetColumnParsers Get the column parsers
-func (gdp *Parser) GetColumnParsers() []igrid.IDataProcessor {
-	return gdp.ColumnParsers
-}
-
-//SetColumnParsers Set the column parsers
-func (gdp *Parser) SetColumnParsers(cparsers []igrid.IDataProcessor) {
-	gdp.ColumnParsers = cparsers
-}
-
-//AddColumnParser Add a single column parser
-func (gdp *Parser) AddColumnParser(cparser igrid.IDataProcessor) {
-	cparsers := gdp.ColumnParsers
-	cparsers = append(cparsers, cparser)
-	gdp.ColumnParsers = cparsers
+	gdp.Processors = rparsers
 }
 
 //GetDataSources Get the data sources
@@ -88,9 +67,8 @@ func (gdp *Parser) AddDataSource(datasource igrid.IDataSource) {
 //Execute - run the Column or Row Parsers
 func (gdp *Parser) Execute() error {
 
-	// Get the parsers
-	cparser := gdp.GetColumnParsers()
-	rparser := gdp.GetRowProcessors()
+	// Get the processors
+	processors := gdp.GetProcessors()
 
 	// get the data sources and validate each one
 	datasources := gdp.GetDataSources()
@@ -113,23 +91,11 @@ func (gdp *Parser) Execute() error {
 
 		failed := false
 		// let's walk through the column parsers and parse each one against the datasource
-		for p := 0; p < len(cparser); p++ {
-			parserr = cparser[p].Parse(gdp, datasources[d])
+		for p := 0; p < len(processors); p++ {
+			parserr = processors[p].Parse(gdp, datasources[d])
 			if parserr != nil {
+				failed = true
 				break
-			}
-		}
-
-		if failed {
-			datasources[d].Close()
-			return parserr
-		}
-
-		// let's walk through the row parsers and parse each one against the datasource
-		for r := 0; r < len(rparser); r++ {
-			parserr = rparser[r].Parse(gdp, datasources[d])
-			if parserr != nil {
-				return parserr
 			}
 		}
 

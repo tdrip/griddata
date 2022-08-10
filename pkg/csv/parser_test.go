@@ -74,14 +74,14 @@ func TestCSV3Passes(t *testing.T) {
 	csvtest := CSVRowAction{ID: "PrintAction"}
 
 	gdp := CreateFileParserWithAction(log, "../../testdata/noheader.csv", &csvtest)
-	rowprocessors := gdp.GetRowProcessors()
+	rowprocessors := gdp.GetProcessors()
 
 	opts := rowprocessors[0].GetOptions()
 	rpo := opts.(*RowProcessorOptions)
 	rpo.TotalPasses = 3
 	rowprocessors[0].SetOptions(rpo)
 
-	gdp.SetRowProcessors(rowprocessors)
+	gdp.SetProcessors(rowprocessors)
 
 	err := gdp.Execute()
 
