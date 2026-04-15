@@ -9,7 +9,7 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-//RowParsingOptions number of passes etc
+// RowParsingOptions number of passes etc
 type RowProcessorOptions struct {
 
 	// inherit from the row IRowProcessingOptions
@@ -20,7 +20,7 @@ type RowProcessorOptions struct {
 	HeaderRowIndex int `json:"headerrowindex"`
 }
 
-//RowProcessor parses a csv row by row
+// RowProcessor parses a csv row by row
 type RowProcessor struct {
 
 	// inherit from the row parser
@@ -31,7 +31,7 @@ type RowProcessor struct {
 	Actions map[string]igrid.IDataAction
 }
 
-//CreateRowProcessor creates the row parser
+// CreateRowProcessor creates the row parser
 func CreateRowProcessor() *RowProcessor {
 	csvsource := &RowProcessor{}
 	//Options
@@ -43,7 +43,7 @@ func CreateRowProcessor() *RowProcessor {
 	return csvsource
 }
 
-//Parse parse the data source
+// Parse parse the data source
 func (rowparser *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
@@ -88,7 +88,10 @@ func (rowparser *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSourc
 					for _, action := range rowparser.GetActions() {
 
 						// perform action on teh row data
-						action.PeformAction(rd)
+						err := action.PeformAction(rd)
+						if err != nil {
+							return err
+						}
 					}
 				}
 
@@ -104,12 +107,12 @@ func (rowparser *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSourc
 
 }
 
-//GetOptions Get the options for the row parser
+// GetOptions Get the options for the row parser
 func (rowparser *RowProcessor) GetOptions() igrid.IDataProcessorOptions {
 	return rowparser.Options
 }
 
-//SetOptions Set the options for the row parser
+// SetOptions Set the options for the row parser
 func (rowparser *RowProcessor) SetOptions(options igrid.IDataProcessorOptions) {
 	rowparser.Options = options.(*RowProcessorOptions)
 }
@@ -146,7 +149,7 @@ func (rowparser *RowProcessor) ClearActions() {
 // ROW OPTIONS
 ////////////////////////////////////
 
-//Defaults
+// Defaults
 func (rpo *RowProcessorOptions) Defaults() {
 	//Only pass over the row once
 	rpo.TotalPasses = 1
@@ -155,12 +158,12 @@ func (rpo *RowProcessorOptions) Defaults() {
 	rpo.HeaderRowIndex = -1
 }
 
-//String the readable version of the options
+// String the readable version of the options
 func (rpo *RowProcessorOptions) String() string {
 	return fmt.Sprintf("Total Row Passes: %d", rpo.TotalPasses)
 }
 
-//CreateRowData creates a row data from a parsed CSV
+// CreateRowData creates a row data from a parsed CSV
 func CreateRowData(rowindex int, pass int, columndata []string) *gd.RowData {
 
 	// number of passes and the row index

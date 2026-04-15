@@ -6,7 +6,7 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-//Cell represents a cell of data
+// Cell represents a cell of data
 type Cell struct {
 	igrid.ICell
 
@@ -14,13 +14,13 @@ type Cell struct {
 	Location igrid.IPoint
 
 	// data in the cell
-	Data interface{}
+	Data any
 
 	// any other cell data that should be related
-	RelatedData map[igrid.IIndex]interface{}
+	RelatedData map[igrid.IIndex]any
 }
 
-//CreateStringCell creates a cell with string data
+// CreateStringCell creates a cell with string data
 func CreateStringCell(location igrid.IPoint, data string) *Cell {
 	gdc := Cell{}
 	gdc.Location = location
@@ -28,28 +28,28 @@ func CreateStringCell(location igrid.IPoint, data string) *Cell {
 	return &gdc
 }
 
-//GetLocation Gets the position
+// GetLocation Gets the position
 func (cell *Cell) GetLocation() igrid.IPoint {
 	return cell.Location
 }
 
-//SetLocation Sets the position
+// SetLocation Sets the position
 func (cell *Cell) SetLocation(point igrid.IPoint) {
 	cell.Location = point
 }
 
-//GetData Gets the data for the cell
-func (cell *Cell) GetData() interface{} {
+// GetData Gets the data for the cell
+func (cell *Cell) GetData() any {
 	return cell.Data
 }
 
-//SetData Sets the Data for the cell
-func (cell *Cell) SetData(data interface{}) {
+// SetData Sets the Data for the cell
+func (cell *Cell) SetData(data any) {
 	//cell.Data = data.(string)
 	cell.Data = data
 }
 
-//String Makes a respresentation of cell at point X:,Y: has data
+// String Makes a respresentation of cell at point X:,Y: has data
 func (cell Cell) String() string {
 	return fmt.Sprintf("Cell at[%s] has %v", cell.GetLocation(), cell.GetData())
 }

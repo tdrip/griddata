@@ -4,7 +4,7 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-//RowData This represents a row of data
+// RowData This represents a row of data
 type RowData struct {
 	igrid.IRow
 
@@ -15,20 +15,20 @@ type RowData struct {
 	Pass int
 
 	// Raw data
-	RawData []interface{}
+	RawData []any
 
 	// Parsed Cell Data
 	Cells []igrid.ICell
 }
 
-//HeadedRowData a row with a header
+// HeadedRowData a row with a header
 type HeadedRowData struct {
 	igrid.IHeadedRow
 
 	Header igrid.IHeader
 }
 
-//CreateRowData Creates a default tow data struct
+// CreateRowData Creates a default tow data struct
 func CreateRowData(row int, pass int) *RowData {
 	rd := RowData{Pass: pass}
 
@@ -41,44 +41,44 @@ func CreateRowData(row int, pass int) *RowData {
 	return &rd
 }
 
-//GetIndex Gets the index for the row
+// GetIndex Gets the index for the row
 func (rd *RowData) GetIndex() igrid.IIndex {
 	return rd.Index
 }
 
-//SetIndex Sets the index for the row
+// SetIndex Sets the index for the row
 func (rd *RowData) SetIndex(index igrid.IIndex) {
 	rd.Index = index
 }
 
-//Matches Matches the index passed in against the index for the row
+// Matches Matches the index passed in against the index for the row
 func (rd *RowData) Matches(index igrid.IIndex) bool {
 	return rd.GetIndex().GetLocation().Match(index.GetLocation())
 }
 
-//GetCells Gets the cells for the row
+// GetCells Gets the cells for the row
 func (rd *RowData) GetCells() []igrid.ICell {
 	return rd.Cells
 }
 
-//SetCells Sets the cells for the row
+// SetCells Sets the cells for the row
 func (rd *RowData) SetCells(cells []igrid.ICell) {
 	rd.Cells = cells
 }
 
-//AddCell Add a cells to the row
+// AddCell Add a cells to the row
 func (rd *RowData) AddCell(cell igrid.ICell) {
 	cells := rd.Cells
 	cells = append(cells, cell)
 	rd.Cells = cells
 }
 
-//GetHeader Returns the header for the row
+// GetHeader Returns the header for the row
 func (rd *HeadedRowData) GetHeader() igrid.IHeader {
 	return rd.Header
 }
 
-//SetHeader Sets the header for the row
+// SetHeader Sets the header for the row
 func (rd *HeadedRowData) SetHeader(header igrid.IHeader) {
 	rd.Header = header
 }

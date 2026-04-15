@@ -12,6 +12,8 @@ func TestPointMatches(t *testing.T) {
 		t.Errorf("X was %d not 1 - Y was %d not 1", firstpoint.GetX(), firstpoint.GetY())
 	}
 
+	t.Logf("X was %d - Y was %d", firstpoint.GetX(), firstpoint.GetY())
+
 	if !firstpoint.Matches(1, 1) {
 		t.Errorf("%s did not match 1,1 ", firstpoint)
 	}

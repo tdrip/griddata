@@ -1,6 +1,6 @@
 package igrid
 
-//IIndex This interface has location and relationships
+// IIndex This interface has location and relationships
 type IIndex interface {
 	GetLocation() IPoint
 	SetLocation(position IPoint)
@@ -8,9 +8,10 @@ type IIndex interface {
 	GetRelatedIndexes() []IIndex
 	SetRelatedIndexes(relatedindexs []IIndex)
 	AddRelatedIndex(relatedi IIndex)
+	String() string
 }
 
-//IHeader This interface can be a rowheader, column header etc
+// IHeader This interface can be a rowheader, column header etc
 type IHeader interface {
 	IIndex
 

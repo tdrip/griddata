@@ -5,7 +5,7 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-//Parser Grid data Parser with structs
+// Parser Grid data Parser with structs
 type Parser struct {
 	// inherit from the engine interface
 	igrid.IParser
@@ -20,9 +20,8 @@ type Parser struct {
 	DataSources []igrid.IDataSource
 }
 
-//CreateParser Creates a Parser
+// CreateParser Creates a Parser
 func CreateParser(logger *logr.Logger) *Parser {
-
 	parser := Parser{}
 	parser.Logger = logger
 	parser.Processors = []igrid.IDataProcessor{}
@@ -30,41 +29,41 @@ func CreateParser(logger *logr.Logger) *Parser {
 	return &parser
 }
 
-//GetProcessors Get the processors
+// GetProcessors Get the processors
 func (gdp *Parser) GetProcessors() []igrid.IDataProcessor {
 	return gdp.Processors
 }
 
-//SetRowProcessors Set the row processors
+// SetRowProcessors Set the row processors
 func (gdp *Parser) SetProcessors(rparsers []igrid.IDataProcessor) {
 	gdp.Processors = rparsers
 }
 
-//AddProcessor Add a single row processor
+// AddProcessor Add a single row processor
 func (gdp *Parser) AddProcessor(rparser igrid.IDataProcessor) {
 	rparsers := gdp.Processors
 	rparsers = append(rparsers, rparser)
 	gdp.Processors = rparsers
 }
 
-//GetDataSources Get the data sources
+// GetDataSources Get the data sources
 func (gdp *Parser) GetDataSources() []igrid.IDataSource {
 	return gdp.DataSources
 }
 
-//SetDataSources Set the data sources
+// SetDataSources Set the data sources
 func (gdp *Parser) SetDataSources(datasources []igrid.IDataSource) {
 	gdp.DataSources = datasources
 }
 
-//AddDataSource Set the data sources
+// AddDataSource Set the data sources
 func (gdp *Parser) AddDataSource(datasource igrid.IDataSource) {
 	datasources := gdp.DataSources
 	datasources = append(datasources, datasource)
 	gdp.DataSources = datasources
 }
 
-//Execute - run the Column or Row Parsers
+// Execute - run the Column or Row Parsers
 func (gdp *Parser) Execute() error {
 
 	// Get the processors
@@ -99,11 +98,27 @@ func (gdp *Parser) Execute() error {
 			}
 		}
 
-		// close the data source
-		datasources[d].Close()
-
 		if failed {
 			return parserr
+		}
+
+	}
+
+	return nil
+}
+
+// Close all data sources
+func (gdp *Parser) Close() error {
+
+	// get the data sources and validate each one
+	datasources := gdp.GetDataSources()
+
+	// Let's go through the data sources
+	for d := 0; d < len(datasources); d++ {
+		// close the data source
+		err := datasources[d].Close()
+		if err != nil {
+			return err
 		}
 
 	}

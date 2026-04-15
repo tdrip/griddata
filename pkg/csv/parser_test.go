@@ -1,10 +1,13 @@
 package csv
 
 import (
+	"errors"
+	"fmt"
 	"os"
 	"testing"
 
 	logr "github.com/sirupsen/logrus"
+	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
 func TestCSV(t *testing.T) {
@@ -45,7 +48,7 @@ func TestCSVActions(t *testing.T) {
 	// Only log the warning severity or above.
 	log.SetLevel(logr.TraceLevel)
 
-	csvtest := CSVRowAction{ID: "PrintAction"}
+	csvtest := CreateCSVAction("PrintAction", PrintAction)
 
 	gdp := CreateFileParserWithAction(log, "../../testdata/noheader.csv", &csvtest)
 
@@ -71,7 +74,7 @@ func TestCSV3Passes(t *testing.T) {
 	// Only log the warning severity or above.
 	log.SetLevel(logr.TraceLevel)
 
-	csvtest := CSVRowAction{ID: "PrintAction"}
+	csvtest := CreateCSVAction("PrintAction", PrintAction)
 
 	gdp := CreateFileParserWithAction(log, "../../testdata/noheader.csv", &csvtest)
 	rowprocessors := gdp.GetProcessors()
@@ -89,4 +92,13 @@ func TestCSV3Passes(t *testing.T) {
 		t.Errorf("%s  ", err.Error())
 	}
 
+}
+
+func FailAction(cell igrid.ICell) error {
+	return errors.New("I should fail")
+}
+
+func PrintAction(cell igrid.ICell) error {
+	fmt.Println(cell.String())
+	return nil
 }

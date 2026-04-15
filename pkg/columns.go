@@ -6,12 +6,12 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-//ColumMapping This structs has the mapping of the column indexs
+// ColumMapping This structs has the mapping of the column indexs
 type ColumMapping struct {
 	ColumnIndexes []igrid.IIndex `json:"columnindexes,omitempty"`
 }
 
-//ColumnIndex This struct is the column index
+// ColumnIndex This struct is the column index
 // it can be based around the name or an integer index
 // the name will be read by the header row
 type ColumnIndex struct {
@@ -72,7 +72,7 @@ func CreateColumnIndex(index int, name string, rcolumns []igrid.IIndex) igrid.II
 	return &ci
 }
 
-//ColumnIndex Print ColumnIndex
+// ColumnIndex Print ColumnIndex
 func (ci ColumnIndex) String() string {
 
 	if ci.Name != "" {

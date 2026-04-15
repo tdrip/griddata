@@ -2,16 +2,16 @@ package igrid
 
 type IDataAction interface {
 	GetId() string
-	PeformAction(interface{})
+	PeformAction(any) error
 }
 
-//IDataProcessorOptions Represents the options for parsing a data row
+// IDataProcessorOptions Represents the options for parsing a data row
 type IDataProcessorOptions interface {
 	Defaults()
 	String() string
 }
 
-//IDataProcessor This interface parses a row in the grid
+// IDataProcessor This interface parses a row in the grid
 type IDataProcessor interface {
 
 	// Options for parsing the row
