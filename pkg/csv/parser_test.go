@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	logr "github.com/sirupsen/logrus"
+	gd "github.com/tdrip/griddata/pkg"
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
@@ -48,7 +49,7 @@ func TestCSVActions(t *testing.T) {
 	// Only log the warning severity or above.
 	log.SetLevel(logr.TraceLevel)
 
-	csvtest := CreateCSVAction("PrintAction", PrintAction)
+	csvtest := gd.CreateRowAction("PrintAction", gd.PrintCellAction)
 
 	gdp := CreateFileParserWithAction(log, "../../testdata/noheader.csv", &csvtest)
 	defer gdp.Close()
@@ -74,13 +75,13 @@ func TestCSV3Passes(t *testing.T) {
 	// Only log the warning severity or above.
 	log.SetLevel(logr.TraceLevel)
 
-	csvtest := CreateCSVAction("PrintAction", PrintAction)
+	csvtest := gd.CreateRowAction("PrintAction", gd.PrintCellAction)
 
 	gdp := CreateFileParserWithAction(log, "../../testdata/noheader.csv", &csvtest)
 	rowprocessors := gdp.GetProcessors()
 
 	opts := rowprocessors[0].GetOptions()
-	rpo := opts.(*RowProcessorOptions)
+	rpo := opts.(*gd.RowProcessorOptions)
 	rpo.TotalPasses = 3
 	rowprocessors[0].SetOptions(rpo)
 
