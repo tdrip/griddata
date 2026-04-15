@@ -21,13 +21,6 @@ type RowData struct {
 	Cells []igrid.ICell
 }
 
-// HeadedRowData a row with a header
-type HeadedRowData struct {
-	igrid.IHeadedRow
-
-	Header igrid.IHeader
-}
-
 // CreateRowData Creates a default row data struct
 func CreateRowData(row int, pass int) *RowData {
 	rd := RowData{Pass: pass}
@@ -71,14 +64,4 @@ func (rd *RowData) AddCell(cell igrid.ICell) {
 	cells := rd.Cells
 	cells = append(cells, cell)
 	rd.Cells = cells
-}
-
-// GetHeader Returns the header for the row
-func (hrd *HeadedRowData) GetHeader() igrid.IHeader {
-	return hrd.Header
-}
-
-// SetHeader Sets the header for the row
-func (hrd *HeadedRowData) SetHeader(header igrid.IHeader) {
-	hrd.Header = header
 }
