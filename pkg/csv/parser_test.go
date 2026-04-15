@@ -2,7 +2,6 @@ package csv
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"testing"
 
@@ -25,6 +24,7 @@ func TestCSV(t *testing.T) {
 	log.SetLevel(logr.TraceLevel)
 
 	gdp := CreateFileParser(log, "../../testdata/noheader.csv")
+	defer gdp.Close()
 
 	err := gdp.Execute()
 
@@ -51,13 +51,13 @@ func TestCSVActions(t *testing.T) {
 	csvtest := CreateCSVAction("PrintAction", PrintAction)
 
 	gdp := CreateFileParserWithAction(log, "../../testdata/noheader.csv", &csvtest)
+	defer gdp.Close()
 
 	err := gdp.Execute()
 
 	if err != nil {
 		t.Errorf("%s  ", err.Error())
 	}
-
 }
 
 func TestCSV3Passes(t *testing.T) {
@@ -85,6 +85,7 @@ func TestCSV3Passes(t *testing.T) {
 	rowprocessors[0].SetOptions(rpo)
 
 	gdp.SetProcessors(rowprocessors)
+	defer gdp.Close()
 
 	err := gdp.Execute()
 
@@ -96,9 +97,4 @@ func TestCSV3Passes(t *testing.T) {
 
 func FailAction(cell igrid.ICell) error {
 	return errors.New("I should fail")
-}
-
-func PrintAction(cell igrid.ICell) error {
-	fmt.Println(cell.String())
-	return nil
 }

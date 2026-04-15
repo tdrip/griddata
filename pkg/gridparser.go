@@ -1,7 +1,6 @@
 package grid
 
 import (
-	logr "github.com/sirupsen/logrus"
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
@@ -11,7 +10,7 @@ type Parser struct {
 	igrid.IParser
 
 	// for logging
-	Logger *logr.Logger
+	Logger any
 
 	//Processors
 	Processors []igrid.IDataProcessor
@@ -21,7 +20,7 @@ type Parser struct {
 }
 
 // CreateParser Creates a Parser
-func CreateParser(logger *logr.Logger) *Parser {
+func CreateParser(logger any) *Parser {
 	parser := Parser{}
 	parser.Logger = logger
 	parser.Processors = []igrid.IDataProcessor{}

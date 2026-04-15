@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 
+	logr "github.com/sirupsen/logrus"
 	gd "github.com/tdrip/griddata/pkg"
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
@@ -51,7 +52,11 @@ func (rowparser *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSourc
 
 	// We need a GD Parser for the logging
 	gdp := parent.(*gd.Parser)
-
+	var slog *logr.Logger
+	slog = nil
+	if gdp.Logger != nil {
+		slog = gdp.Logger.(*logr.Logger)
+	}
 	// We need a GD Parser for the logging
 	opts := rowparser.GetOptions()
 	options := opts.(*RowProcessorOptions)
@@ -62,17 +67,24 @@ func (rowparser *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSourc
 		for {
 			record, err := csvdata.Reader.Read()
 			if err == io.EOF {
-				gdp.Logger.Debug("csv parse - End of file")
+				if slog != nil {
+					slog.Debug("csv parse - End of file")
+				}
 				break
 			}
 			if err != nil {
-				gdp.Logger.Errorf("csv parse - %v", err)
+				if slog != nil {
+					slog.Errorf("csv parse - %v", err)
+				}
 				return err
 			} else {
-				gdp.Logger.Debugf("csv parse - Record: %v", record)
-
+				if slog != nil {
+					slog.Debugf("csv parse - Record: %v", record)
+				}
 				if row == options.HeaderRowIndex {
-					gdp.Logger.Debug("csv parse - Header row index")
+					if slog != nil {
+						slog.Debug("csv parse - Header row index")
+					}
 				} else {
 
 					//create row data
@@ -80,8 +92,10 @@ func (rowparser *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSourc
 
 					// Get cells from the row
 					for _, cell := range rd.GetCells() {
-						// print the cells that we read
-						gdp.Logger.Debugf("csv parse - %v", cell)
+						if slog != nil {
+							// print the cells that we read
+							slog.Debugf("csv parse - %v", cell)
+						}
 					}
 
 					// get the actions

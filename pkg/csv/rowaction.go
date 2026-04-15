@@ -16,6 +16,11 @@ type CSVRowAction struct {
 	Action CSVAction
 }
 
+func PrintAction(cell igrid.ICell) error {
+	fmt.Println(cell.String())
+	return nil
+}
+
 func CreateCSVAction(id string, act CSVAction) CSVRowAction {
 	return CSVRowAction{
 		ID:     id,
