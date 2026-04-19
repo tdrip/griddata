@@ -1,13 +1,12 @@
 package csv
 
 import (
-	logr "github.com/sirupsen/logrus"
 	gd "github.com/tdrip/griddata/pkg"
 )
 
 // CreateFileParser Creates a Parser for a single file
-func CreateFileParser(slog *logr.Logger, filepath string) *gd.Parser {
-	gdp := gd.CreateParser(slog)
+func CreateFileParser(filepath string) *gd.Parser {
+	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
 
@@ -18,8 +17,8 @@ func CreateFileParser(slog *logr.Logger, filepath string) *gd.Parser {
 }
 
 // CreateFileParser Creates a Parser for a single file
-func CreateFileParserWithHeader(slog *logr.Logger, filepath string, headerowindex int) *gd.Parser {
-	gdp := gd.CreateParser(slog)
+func CreateFileParserWithHeader(filepath string, headerowindex int) *gd.Parser {
+	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
 
@@ -30,8 +29,8 @@ func CreateFileParserWithHeader(slog *logr.Logger, filepath string, headerowinde
 }
 
 // CreateFileParser Creates a Parser for a single file
-func CreateFileParserWithAction(slog *logr.Logger, filepath string, action *gd.RowAction) *gd.Parser {
-	gdp := gd.CreateParser(slog)
+func CreateFileParserWithAction(filepath string, action *gd.RowAction) *gd.Parser {
+	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
 
@@ -43,8 +42,8 @@ func CreateFileParserWithAction(slog *logr.Logger, filepath string, action *gd.R
 }
 
 // CreateFileParser Creates a Parser for a single file
-func CreateFileParserWithActionAndHeader(slog *logr.Logger, filepath string, headerowindex int, action *gd.RowAction) *gd.Parser {
-	gdp := gd.CreateParser(slog)
+func CreateFileParserWithActionAndHeader(filepath string, headerowindex int, action *gd.RowAction) *gd.Parser {
+	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
 

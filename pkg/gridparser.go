@@ -9,9 +9,6 @@ type Parser struct {
 	// inherit from the engine interface
 	igrid.IParser
 
-	// for logging
-	Logger any
-
 	//Processors
 	Processors []igrid.IDataProcessor
 
@@ -20,9 +17,8 @@ type Parser struct {
 }
 
 // CreateParser Creates a Parser
-func CreateParser(logger any) *Parser {
+func CreateParser() *Parser {
 	parser := Parser{}
-	parser.Logger = logger
 	parser.Processors = []igrid.IDataProcessor{}
 	parser.DataSources = []igrid.IDataSource{}
 	return &parser

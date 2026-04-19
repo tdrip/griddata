@@ -4,7 +4,6 @@ import (
 	"errors"
 	"io"
 
-	logr "github.com/sirupsen/logrus"
 	gd "github.com/tdrip/griddata/pkg"
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
@@ -16,13 +15,6 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 	csvdata := data.(*CSVFile)
 
 	// We need a GD Parser for the logging
-	gdp := parent.(*gd.Parser)
-	var slog *logr.Logger
-	slog = nil
-	if gdp.Logger != nil {
-		slog = gdp.Logger.(*logr.Logger)
-	}
-	// We need a GD Parser for the logging
 	opts := rowparser.GetOptions()
 	options := opts.(*gd.RowProcessorOptions)
 	var hrd *gd.RowData
@@ -33,24 +25,12 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 		for {
 			record, err := csvdata.Reader.Read()
 			if err == io.EOF {
-				if slog != nil {
-					slog.Debug("csv parse - End of file")
-				}
 				break
 			}
 			if err != nil {
-				if slog != nil {
-					slog.Errorf("csv parse - %v", err)
-				}
 				return err
 			} else {
-				if slog != nil {
-					slog.Debugf("csv parse - Record: %v", record)
-				}
 				if row == options.HeaderRowIndex {
-					if slog != nil {
-						slog.Debug("csv parse - Header row index")
-					}
 					hrd = CreateRowData(row, pass, record)
 				} else {
 
@@ -75,14 +55,11 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 								return err
 							}
 						}
-
 					}
 				}
-
 			}
 			row++
 		}
-
 		return nil
 
 	}
