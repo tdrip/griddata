@@ -57,7 +57,7 @@ func (hra *HeadedRowAction) Peform(data any) error {
 	if datarow != nil {
 		for _, cell := range datarow.GetCells() {
 			for _, hcell := range hra.Header.GetCells() {
-				// same column?
+				// same column
 				if hcell.GetLocation().GetY() == cell.GetLocation().GetY() {
 					err := hra.Action(hcell, cell)
 					if err != nil {

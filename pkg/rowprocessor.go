@@ -54,6 +54,9 @@ type RowProcessor struct {
 }
 
 func (rp *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSource) error {
+	if rp.ParseFunc != nil {
+		return rp.ParseFunc(rp, parent, data)
+	}
 	// do nothing
 	return nil
 }
