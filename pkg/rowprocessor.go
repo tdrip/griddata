@@ -17,11 +17,9 @@ func CreateRowProcessor(parse RowParse) *RowProcessor {
 func CreateHeaderRowProcessor(parse RowParse, headerowindex int) *RowProcessor {
 	rp := &RowProcessor{}
 	//Option
-	opts := &RowProcessorOptions{
-		HeaderRowIndex: headerowindex,
-		TotalPasses:    1,
-	}
+	opts := &RowProcessorOptions{}
 	opts.Defaults()
+	opts.HeaderRowIndex = headerowindex
 	rp.SetOptions(opts)
 	empty := make(map[string]igrid.IDataAction)
 	rp.Actions = empty
