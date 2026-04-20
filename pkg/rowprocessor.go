@@ -112,5 +112,5 @@ func (rpo *RowProcessorOptions) Defaults() {
 
 // String the readable version of the options
 func (rpo *RowProcessorOptions) String() string {
-	return fmt.Sprintf("Total Row Passes: %d", rpo.TotalPasses)
+	return fmt.Sprintf("Total Row Passes: %d,Header Index: %d", rpo.TotalPasses, rpo.HeaderRowIndex)
 }

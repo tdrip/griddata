@@ -41,9 +41,7 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 					for _, rowaction := range rowparser.GetActions() {
 						if hrd != nil {
 							ra := rowaction.(*gd.HeadedRowAction)
-							if !ra.HasHeader() {
-								ra.SetHeader(hrd)
-							}
+							ra.Header = hrd
 							err := ra.Peform(rd)
 							if err != nil {
 								return err

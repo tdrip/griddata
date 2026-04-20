@@ -23,15 +23,6 @@ func CreateHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {
 	}
 }
 
-// Set Header
-func (hra *HeadedRowAction) SetHeader(header *RowData) {
-	hra.Header = header
-}
-
-func (hra *HeadedRowAction) HasHeader() bool {
-	return hra.Header == nil
-}
-
 // Get Id for this action
 func (hra *HeadedRowAction) GetId() string {
 	return hra.ID
