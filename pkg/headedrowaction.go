@@ -6,21 +6,20 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-type HeadedCellAction func(igrid.ICell, igrid.ICell) error
+type HeadedRowActionFunc func(*RowData, *RowData) error
 
 // Headed Row Action An action that occurs on a Row
 type HeadedRowAction struct {
 	igrid.IDataAction
 	ID     string
-	Action HeadedCellAction
+	Action HeadedRowActionFunc
 	Header *RowData
 }
 
-func CreateHeadedRowAction(id string, act HeadedCellAction, header *RowData) HeadedRowAction {
+func CreateHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {
 	return HeadedRowAction{
 		ID:     id,
 		Action: act,
-		Header: header,
 	}
 }
 
@@ -54,20 +53,9 @@ func (hra *HeadedRowAction) Peform(data any) error {
 
 	// We expect datarow to be correct type
 	datarow := data.(*RowData)
-	if datarow != nil {
-		for _, cell := range datarow.GetCells() {
-			for _, hcell := range hra.Header.GetCells() {
-				// same column
-				if hcell.GetLocation().GetY() == cell.GetLocation().GetY() {
-					err := hra.Action(hcell, cell)
-					if err != nil {
-						return err
-					}
-					break
-				}
-			}
-		}
-	}
 
+	if hra.Action != nil {
+		return hra.Action(hra.Header, datarow)
+	}
 	return nil
 }

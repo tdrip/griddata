@@ -11,7 +11,7 @@ type IIndex interface {
 	String() string
 }
 
-// IHeader This interface can be a rowheader, column header etc
+// IHeader This interface can be a row header, column header etc
 type IHeader interface {
 	IIndex
 
