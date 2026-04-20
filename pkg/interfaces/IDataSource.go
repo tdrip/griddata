@@ -9,11 +9,4 @@ type IDataSource interface {
 	Open() error
 
 	Close() error
-	/*
-		Later
-		// add child sources
-		GetChildSources() []IDataSource
-		SetChildSources([]IDataSource)
-		AetChildSource(csource IDataSource)
-	*/
 }

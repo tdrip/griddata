@@ -1,6 +1,7 @@
 package grid
 
 import (
+	"errors"
 	"fmt"
 
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
@@ -28,7 +29,7 @@ func (hra *HeadedRowAction) GetId() string {
 	return hra.ID
 }
 
-func (hra *HeadedRowAction) Peform(data any) error {
+func (hra *HeadedRowAction) Perform(data any) error {
 
 	if hra.Action == nil {
 		return fmt.Errorf("No action set for %s", hra.ID)
@@ -43,10 +44,10 @@ func (hra *HeadedRowAction) Peform(data any) error {
 	}
 
 	// We expect datarow to be correct type
-	datarow := data.(*RowData)
-
-	if hra.Action != nil {
-		return hra.Action(hra.Header, datarow)
+	datarow, ok := data.(*RowData)
+	if !ok {
+		return errors.New("data type was not Row Data")
 	}
-	return nil
+
+	return hra.Action(hra.Header, datarow)
 }

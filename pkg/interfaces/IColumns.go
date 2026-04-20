@@ -1,6 +1,6 @@
 package igrid
 
-//IColumn This interface is data for the column
+// IColumn This interface is data for the column
 type IColumn interface {
 	GetIndex() IIndex
 	SetIndex(index IIndex)
@@ -9,11 +9,4 @@ type IColumn interface {
 
 	GetCells() []ICell
 	SetCells(cells []ICell)
-}
-
-//IHeadedColumn This column has a headers
-type IHeadedColumn interface {
-	IColumn
-	GetHeader() IHeader
-	SetHeader(header IHeader)
 }

@@ -2,13 +2,14 @@ package csv
 
 import (
 	"encoding/csv"
+	"errors"
 	"fmt"
 	"os"
 
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-//CSVFile represents a CSV file
+// CSVFile represents a CSV file
 type CSVFile struct {
 	igrid.IDataSource
 
@@ -17,13 +18,13 @@ type CSVFile struct {
 	Reader     *csv.Reader
 }
 
-//CreateCSVFile Creates a CSV file
+// CreateCSVFile Creates a CSV file
 func CreateCSVFile(filepath string) *CSVFile {
 	csvsource := CSVFile{Filepath: filepath}
 	return &csvsource
 }
 
-//Validate checks if the file exists
+// Validate checks if the file exists
 func (csvf *CSVFile) Validate() error {
 
 	info, err := os.Stat(csvf.Filepath)
@@ -44,7 +45,7 @@ func (csvf *CSVFile) Validate() error {
 	return nil
 }
 
-//Open opens the file stream and creates csv reader
+// Open opens the file stream and creates csv reader
 func (csvf *CSVFile) Open() error {
 
 	f, err := os.Open(csvf.Filepath)
@@ -53,7 +54,13 @@ func (csvf *CSVFile) Open() error {
 	}
 
 	csvf.filestream = f
-	csvf.Reader = csv.NewReader(f)
+
+	r := csv.NewReader(f)
+	if r == nil {
+		f.Close()
+		return errors.New("Opening CSV New Reader failed")
+	}
+	csvf.Reader = r
 
 	return nil
 }

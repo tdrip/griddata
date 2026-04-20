@@ -12,11 +12,16 @@ import (
 func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
-	csvdata := data.(*CSVFile)
-
+	csvdata, ok := data.(*CSVFile)
+	if !ok {
+		return errors.New("data type was not a CSV File")
+	}
 	// We need a GD Parser for the logging
 	opts := rowparser.GetOptions()
-	options := opts.(*gd.RowProcessorOptions)
+	options, ok := opts.(*gd.RowProcessorOptions)
+	if !ok {
+		return errors.New("options type was not a Row Processor Options")
+	}
 	var hrd *gd.RowData
 	hrd = nil
 	if csvdata != nil {
@@ -40,15 +45,18 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 					// get the row actions
 					for _, rowaction := range rowparser.GetActions() {
 						if hrd != nil {
-							ra := rowaction.(*gd.HeadedRowAction)
+							ra, ok := rowaction.(*gd.HeadedRowAction)
+							if !ok {
+								return errors.New("rowaction type was not a Headed Row Action")
+							}
 							ra.Header = hrd
-							err := ra.Peform(rd)
+							err := ra.Perform(rd)
 							if err != nil {
 								return err
 							}
 						} else {
 							// perform action on the entire row data
-							err := rowaction.Peform(rd)
+							err := rowaction.Perform(rd)
 							if err != nil {
 								return err
 							}

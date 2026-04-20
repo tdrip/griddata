@@ -2,7 +2,7 @@ package igrid
 
 type IDataAction interface {
 	GetId() string
-	Peform(any) error
+	Perform(any) error
 }
 
 // IDataProcessorOptions Represents the options for parsing a data row
@@ -21,7 +21,7 @@ type IDataProcessor interface {
 	// Parse the row
 	Parse(parent IParser, data IDataSource) error
 
-	// actions for the row
+	// actions for the row or column
 	GetActions() map[string]IDataAction
 	SetActions(actions []IDataAction)
 	AddAction(action IDataAction)

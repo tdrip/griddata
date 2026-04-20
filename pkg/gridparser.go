@@ -18,9 +18,10 @@ type Parser struct {
 
 // CreateParser Creates a Parser
 func CreateParser() *Parser {
-	parser := Parser{}
-	parser.Processors = []igrid.IDataProcessor{}
-	parser.DataSources = []igrid.IDataSource{}
+	parser := Parser{
+		Processors:  []igrid.IDataProcessor{},
+		DataSources: []igrid.IDataSource{},
+	}
 	return &parser
 }
 
@@ -36,9 +37,7 @@ func (gdp *Parser) SetProcessors(rparsers []igrid.IDataProcessor) {
 
 // AddProcessor Add a single row processor
 func (gdp *Parser) AddProcessor(rparser igrid.IDataProcessor) {
-	rparsers := gdp.Processors
-	rparsers = append(rparsers, rparser)
-	gdp.Processors = rparsers
+	gdp.Processors = append(gdp.Processors, rparser)
 }
 
 // GetDataSources Get the data sources
@@ -53,9 +52,7 @@ func (gdp *Parser) SetDataSources(datasources []igrid.IDataSource) {
 
 // AddDataSource Set the data sources
 func (gdp *Parser) AddDataSource(datasource igrid.IDataSource) {
-	datasources := gdp.DataSources
-	datasources = append(datasources, datasource)
-	gdp.DataSources = datasources
+	gdp.DataSources = append(gdp.DataSources, datasource)
 }
 
 // Execute - run the Column or Row Parsers

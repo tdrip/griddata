@@ -10,13 +10,3 @@ type IIndex interface {
 	AddRelatedIndex(relatedi IIndex)
 	String() string
 }
-
-// IHeader This interface can be a row header, column header etc
-type IHeader interface {
-	IIndex
-
-	GetDisplayName() string
-	SetDisplayName(displayname string)
-
-	Matches() bool
-}
