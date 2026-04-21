@@ -1,10 +1,5 @@
 package igrid
 
-type IDataAction interface {
-	GetId() string
-	Perform(any) error
-}
-
 // IDataProcessorOptions Represents the options for parsing a data row
 type IDataProcessorOptions interface {
 	Defaults()

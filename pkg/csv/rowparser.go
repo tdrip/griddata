@@ -22,7 +22,7 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 	if !ok {
 		return errors.New("options type was not a Row Processor Options")
 	}
-	var hrd *gd.RowData
+	var hrd *gd.HeaderRowData
 	hrd = nil
 	if csvdata != nil {
 		row := 0
@@ -36,11 +36,12 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 				return err
 			} else {
 				if row == options.HeaderRowIndex {
-					hrd = CreateRowData(row, pass, record)
+					hrd = gd.FillHeaderRowStringData(row, pass, record)
 				} else {
 
-					//create row data
-					rd := CreateRowData(row, pass, record)
+					// fill row data
+					// it's a csv so we have string data
+					rd := gd.FillRowStringData(row, pass, record)
 
 					// get the row actions
 					for _, rowaction := range rowparser.GetActions() {
@@ -72,23 +73,4 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 
 	return errors.New("data source provided was not of type CSV File or was nil")
 
-}
-
-// CreateRowData creates a row data from a parsed CSV
-func CreateRowData(rowindex int, pass int, columndata []string) *gd.RowData {
-
-	// number of passes and the row index
-	rd := gd.CreateRowData(rowindex, pass)
-
-	for columnindex := 0; columnindex < len(columndata); columnindex++ {
-
-		pnt := gd.CreatePoint(rowindex, columnindex)
-		// csv is always srting so we parse the cells as such
-		cell := gd.CreateStringCell(pnt, columndata[columnindex])
-
-		// add the cell
-		rd.AddCell(cell)
-	}
-
-	return rd
 }

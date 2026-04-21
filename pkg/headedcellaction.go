@@ -14,7 +14,7 @@ type HeadedCellAction struct {
 	igrid.IDataAction
 	ID     string
 	Action HeadedCellActionFunc
-	Header *RowData
+	Header *HeaderRowData
 }
 
 func CreateHeadedCellAction(id string, act HeadedCellActionFunc) HeadedCellAction {
@@ -25,7 +25,7 @@ func CreateHeadedCellAction(id string, act HeadedCellActionFunc) HeadedCellActio
 }
 
 // Set Header
-func (hra *HeadedCellAction) SetHeader(header *RowData) {
+func (hra *HeadedCellAction) SetHeader(header *HeaderRowData) {
 	hra.Header = header
 }
 

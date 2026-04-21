@@ -7,14 +7,14 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-type HeadedRowActionFunc func(*RowData, *RowData) error
+type HeadedRowActionFunc func(*HeaderRowData, *RowData) error
 
 // Headed Row Action An action that occurs on a Row
 type HeadedRowAction struct {
 	igrid.IDataAction
 	ID     string
 	Action HeadedRowActionFunc
-	Header *RowData
+	Header *HeaderRowData
 }
 
 func CreateHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {
