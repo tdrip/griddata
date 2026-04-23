@@ -64,34 +64,41 @@ func (gdp *Parser) Execute() error {
 	// get the data sources and validate each one
 	datasources := gdp.GetDataSources()
 
-	// Let's go through the data sources
-	for d := 0; d < len(datasources); d++ {
+	// Let's go through the data sources an validate them first
+	// don't open files or make a mess and leave
+	for _, ds := range datasources {
 
 		// validate the source
-		parserr := datasources[d].Validate()
-		if parserr != nil {
+		err := ds.Validate()
+		if err != nil {
 			// let's stop on validation
-			return parserr
+			return err
 		}
+	}
+
+	// now open files
+	for _, ds := range datasources {
+
+		defer ds.Close()
 
 		// open the data source (assuming stream based data)
-		parserr = datasources[d].Open()
-		if parserr != nil {
-			return parserr
+		err := ds.Open()
+		if err != nil {
+			return err
 		}
 
 		failed := false
 		// let's walk through the column parsers and parse each one against the datasource
 		for p := 0; p < len(processors); p++ {
-			parserr = processors[p].Parse(gdp, datasources[d])
-			if parserr != nil {
+			err = processors[p].Parse(gdp, ds)
+			if err != nil {
 				failed = true
 				break
 			}
 		}
 
 		if failed {
-			return parserr
+			return err
 		}
 
 	}
@@ -106,9 +113,9 @@ func (gdp *Parser) Close() error {
 	datasources := gdp.GetDataSources()
 
 	// Let's go through the data sources
-	for d := 0; d < len(datasources); d++ {
+	for _, ds := range datasources {
 		// close the data source
-		err := datasources[d].Close()
+		err := ds.Close()
 		if err != nil {
 			return err
 		}

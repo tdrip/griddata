@@ -7,14 +7,13 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
-type HeadedRowActionFunc func(*HeaderRowData, *RowData) error
+type HeadedRowActionFunc func(*HeaderRowData) error
 
 // Headed Row Action An action that occurs on a Row
 type HeadedRowAction struct {
 	igrid.IDataAction
 	ID     string
 	Action HeadedRowActionFunc
-	Header *HeaderRowData
 }
 
 func CreateHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {
@@ -39,15 +38,11 @@ func (hra *HeadedRowAction) Perform(data any) error {
 		return fmt.Errorf("Row data was nil %s", hra.ID)
 	}
 
-	if hra.Header == nil {
-		return fmt.Errorf("No Header data set for %s", hra.ID)
-	}
-
 	// We expect datarow to be correct type
-	datarow, ok := data.(*RowData)
+	datarow, ok := data.(*HeaderRowData)
 	if !ok {
-		return errors.New("data type was not Row Data")
+		return errors.New("data type was not Headed Row Data")
 	}
 
-	return hra.Action(hra.Header, datarow)
+	return hra.Action(datarow)
 }

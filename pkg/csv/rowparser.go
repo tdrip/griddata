@@ -22,7 +22,7 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 	if !ok {
 		return errors.New("options type was not a Row Processor Options")
 	}
-	var hrd *gd.HeaderRowData
+	var hrd *gd.RowData
 	hrd = nil
 	if csvdata != nil {
 		row := 0
@@ -36,26 +36,32 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 				return err
 			} else {
 				if row == options.HeaderRowIndex {
-					hrd = gd.FillHeaderRowStringData(row, pass, record)
+					hrd = gd.FillRowStringData(row, pass, record)
 				} else {
 
-					// fill row data
-					// it's a csv so we have string data
-					rd := gd.FillRowStringData(row, pass, record)
-
-					// get the row actions
-					for _, rowaction := range rowparser.GetActions() {
-						if hrd != nil {
+					if hrd != nil {
+						// get the row actions
+						for _, rowaction := range rowparser.GetActions() {
+							rd, err := gd.FillHeaderRowStringData(row, pass, record, hrd)
+							if err != nil {
+								return err
+							}
 							ra, ok := rowaction.(*gd.HeadedRowAction)
 							if !ok {
 								return errors.New("rowaction type was not a Headed Row Action")
 							}
-							ra.Header = hrd
-							err := ra.Perform(rd)
+							err = ra.Perform(rd)
 							if err != nil {
 								return err
 							}
-						} else {
+						}
+					} else {
+						// fill row data but no header
+						rd := gd.FillRowStringData(row, pass, record)
+
+						// get the row actions
+						for _, rowaction := range rowparser.GetActions() {
+
 							// perform action on the entire row data
 							err := rowaction.Perform(rd)
 							if err != nil {
