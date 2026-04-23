@@ -1,8 +1,6 @@
 package grid
 
 import (
-	"fmt"
-
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
@@ -25,17 +23,6 @@ func CreateHeaderRowProcessor(parse RowParse, headerowindex int) *RowProcessor {
 	rp.Actions = empty
 	rp.ParseFunc = parse
 	return rp
-}
-
-// RowParsingOptions number of passes etc
-type RowProcessorOptions struct {
-
-	// inherit from the row IRowProcessingOptions
-	igrid.IDataProcessorOptions
-
-	TotalPasses int `json:"totalpasses"`
-
-	HeaderRowIndex int `json:"headerrowindex"`
 }
 
 // RowProcessor parses a csv row by row
@@ -95,22 +82,4 @@ func (rp *RowProcessor) RemoveAction(id string) {
 func (rp *RowProcessor) ClearActions() {
 	empty := make(map[string]igrid.IDataAction)
 	rp.Actions = empty
-}
-
-////////////////////////////////////
-// ROW OPTIONS
-////////////////////////////////////
-
-// Defaults
-func (rpo *RowProcessorOptions) Defaults() {
-	//Only pass over the row once
-	rpo.TotalPasses = 1
-
-	// default to no header
-	rpo.HeaderRowIndex = -1
-}
-
-// String the readable version of the options
-func (rpo *RowProcessorOptions) String() string {
-	return fmt.Sprintf("Total Row Passes: %d,Header Index: %d", rpo.TotalPasses, rpo.HeaderRowIndex)
 }

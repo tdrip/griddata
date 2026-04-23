@@ -1,11 +1,5 @@
 package igrid
 
-// IDataProcessorOptions Represents the options for parsing a data row
-type IDataProcessorOptions interface {
-	Defaults()
-	String() string
-}
-
 // IDataProcessor This interface parses a row in the grid
 type IDataProcessor interface {
 

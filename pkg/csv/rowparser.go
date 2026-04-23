@@ -2,6 +2,7 @@ package csv
 
 import (
 	"errors"
+	"fmt"
 	"io"
 
 	gd "github.com/tdrip/griddata/pkg"
@@ -27,6 +28,7 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 	if csvdata != nil {
 		row := 0
 		pass := options.TotalPasses
+		numcols := options.NumOfColumns
 		for {
 			record, err := csvdata.Reader.Read()
 			if err == io.EOF {
@@ -35,6 +37,12 @@ func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IData
 			if err != nil {
 				return err
 			} else {
+
+				if numcols > 0 {
+					if len(record) != options.NumOfColumns {
+						return fmt.Errorf("expected number of columns is %d but data source has %d", options.NumOfColumns, len(record))
+					}
+				}
 				if row == options.HeaderRowIndex {
 					hrd = gd.FillRowStringData(row, pass, record)
 				} else {
