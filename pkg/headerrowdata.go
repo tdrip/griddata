@@ -100,8 +100,67 @@ func (hrd *HeaderRowData) GetValString(name string) (string, error) {
 	return val, nil
 }
 
+func (hrd *HeaderRowData) GetValStringArray(name string, sep string) ([]string, error) {
+
+	data, err := hrd.GetValData(name)
+	if err != nil {
+		return []string{}, err
+	}
+	val, ok := data.(string)
+	if !ok {
+		return []string{}, errors.New("data was not a string")
+	}
+
+	return strings.Split(val, sep), nil
+}
+
 func (hrd *HeaderRowData) GetValInt(name string) (int, error) {
 	data, err := hrd.GetValString(name)
+	if err != nil {
+		return -1, err
+	}
+	return strconv.Atoi(data)
+}
+
+func (hrd *HeaderRowData) GetIValData(columnindex int) (any, error) {
+
+	data, ok := hrd.IndexedRawData[columnindex]
+	if !ok {
+		return nil, fmt.Errorf("could not find data at %d ", columnindex)
+	}
+
+	return data, nil
+}
+
+func (hrd *HeaderRowData) GetIValString(columnindex int) (string, error) {
+	data, err := hrd.GetIValData(columnindex)
+	if err != nil {
+		return "", err
+	}
+	val, ok := data.(string)
+	if !ok {
+		return "", errors.New("data was not a string")
+	}
+
+	return val, nil
+}
+
+func (hrd *HeaderRowData) GetIValStringArray(columnindex int, sep string) ([]string, error) {
+
+	data, err := hrd.GetIValData(columnindex)
+	if err != nil {
+		return []string{}, err
+	}
+	val, ok := data.(string)
+	if !ok {
+		return []string{}, errors.New("data was not a string")
+	}
+
+	return strings.Split(val, sep), nil
+}
+
+func (hrd *HeaderRowData) GetIValInt(columnindex int) (int, error) {
+	data, err := hrd.GetIValString(columnindex)
 	if err != nil {
 		return -1, err
 	}

@@ -11,7 +11,7 @@ func CreateFileParser(filepath string) *gd.Parser {
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateRowProcessor(CSVParse)
+	rowp := gd.CreateRowProcessor(CSVRowParse)
 	gdp.AddProcessor(rowp)
 	return gdp
 }
@@ -23,7 +23,7 @@ func CreateFileParserWithHeader(filepath string, headerowindex int) *gd.Parser {
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateHeaderRowProcessor(CSVParse, headerowindex)
+	rowp := gd.CreateHeaderRowProcessor(CSVRowParse, headerowindex)
 	gdp.AddProcessor(rowp)
 	return gdp
 }
@@ -35,7 +35,7 @@ func CreateFileParserWithAction(filepath string, action *gd.RowAction) *gd.Parse
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateRowProcessor(CSVParse)
+	rowp := gd.CreateRowProcessor(CSVRowParse)
 	rowp.AddAction(action)
 	gdp.AddProcessor(rowp)
 	return gdp
@@ -48,7 +48,7 @@ func CreateFileParserWithActionAndHeader(filepath string, headerowindex int, act
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateHeaderRowProcessor(CSVParse, headerowindex)
+	rowp := gd.CreateHeaderRowProcessor(CSVRowParse, headerowindex)
 	rowp.AddAction(action)
 	gdp.AddProcessor(rowp)
 	return gdp

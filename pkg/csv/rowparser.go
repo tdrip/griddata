@@ -10,7 +10,7 @@ import (
 )
 
 // Parse parse the data source
-func CSVParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
+func CSVRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
 	csvdata, ok := data.(*CSVFile)

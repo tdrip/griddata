@@ -1,6 +1,10 @@
 package grid
 
 import (
+	"errors"
+	"strconv"
+	"strings"
+
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
@@ -13,9 +17,6 @@ type RowData struct {
 
 	// Number of passes over the row
 	Pass int
-
-	// Raw data
-	RawData []any
 
 	// Parsed Cell Data
 	Cells []igrid.ICell
@@ -64,6 +65,48 @@ func (rd *RowData) AddCell(cell igrid.ICell) {
 	cells := rd.Cells
 	cells = append(cells, cell)
 	rd.Cells = cells
+}
+
+func (rd *RowData) GetValData(columnindex int) (any, error) {
+	if columnindex < 0 || columnindex > len(rd.Cells) {
+		return nil, errors.New("columns out of range")
+	}
+	return rd.Cells[columnindex].GetData(), nil
+}
+
+func (rd *RowData) GetValString(columnindex int) (string, error) {
+	data, err := rd.GetValData(columnindex)
+	if err != nil {
+		return "", err
+	}
+	val, ok := data.(string)
+	if !ok {
+		return "", errors.New("data was not a string")
+	}
+
+	return val, nil
+}
+
+func (rd *RowData) GetValStringArray(columnindex int, sep string) ([]string, error) {
+
+	data, err := rd.GetValData(columnindex)
+	if err != nil {
+		return []string{}, err
+	}
+	val, ok := data.(string)
+	if !ok {
+		return []string{}, errors.New("data was not a string")
+	}
+
+	return strings.Split(val, sep), nil
+}
+
+func (rd *RowData) GetValInt(columnindex int) (int, error) {
+	data, err := rd.GetValString(columnindex)
+	if err != nil {
+		return -1, err
+	}
+	return strconv.Atoi(data)
 }
 
 // FillRowStringData creates a row data from a string data array

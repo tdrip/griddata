@@ -1,4 +1,4 @@
 column1,column2,column3,column4
-col1row1,col2row1,col3row1,col4row1
-col1row2,col2row2,col3row2,col4row2
-col1row3,col2row3,col3row3,col4row3
+col1row1,col2row1,col3row1,"col4row1,col4row1"
+col1row2,col2row2,col3row2,"col4row2,col4row2"
+col1row3,col2row3,col3row3,"col4row3,col4row3"
