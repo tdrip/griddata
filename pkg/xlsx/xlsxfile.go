@@ -53,8 +53,6 @@ func (xlsxf *XLSXFile) Open() error {
 		return err
 	}
 	xlsxf.Filestream = f
-	fmt.Println("fsdffssdfsffd")
-
 	return nil
 }
 

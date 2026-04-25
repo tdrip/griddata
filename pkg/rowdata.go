@@ -19,6 +19,7 @@ type RowData struct {
 	Pass int
 
 	// Parsed Cell Data
+	// index these!
 	Cells []igrid.ICell
 }
 
