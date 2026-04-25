@@ -6,8 +6,11 @@ import (
 )
 
 func main() {
+
+	// this is a built in printer
 	xlsxtest := gd.CreateRowAction("PrintAction", gd.PrintCellAction)
 
+	// specify the file and the action
 	gdp := csv.CreateFileParserWithAction("./header.csv", &xlsxtest)
 	defer gdp.Close()
 
