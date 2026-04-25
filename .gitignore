@@ -16,3 +16,4 @@
 *.DS_Store
 examples/readcsv/main
 examples/readxlsx/main
+examples/readxlsx/vendor/

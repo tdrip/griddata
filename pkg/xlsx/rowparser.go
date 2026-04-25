@@ -11,7 +11,6 @@ import (
 
 // Parse parse the data source
 func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
-
 	// convert the idatasource to what we expect which is a XLSX File
 	xsldata, ok := data.(*XLSXFile)
 	if !ok {
@@ -34,12 +33,16 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 		}
 		pass := options.TotalPasses
 		numcols := options.NumOfColumns
-		records, err := reader.GetRows("Sheet1")
-		for row, record := range records {
+		sheets := xsldata.Sheets
+		if len(sheets) == 0 {
+			sheets = reader.GetSheetList()
+		}
+		for _, sheet := range sheets {
+			records, err := reader.GetRows(sheet)
 			if err != nil {
 				return err
-			} else {
-
+			}
+			for row, record := range records {
 				if numcols > 0 {
 					if len(record) != options.NumOfColumns {
 						return fmt.Errorf("expected number of columns is %d but data source has %d", options.NumOfColumns, len(record))
@@ -82,6 +85,7 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 				}
 			}
 		}
+
 		return nil
 
 	}

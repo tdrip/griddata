@@ -2,7 +2,6 @@ package xlsx
 
 import (
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
 
@@ -15,12 +14,31 @@ type XLSXFile struct {
 
 	Filepath   string
 	Filestream *os.File
-	Reader     *io.Reader
+	Sheets     []string
 }
 
 // CreateXLSXFile Creates a XLSX file
 func CreateXLSXFile(fp string) *XLSXFile {
-	source := XLSXFile{Filepath: filepath.Clean(fp)}
+	source := XLSXFile{
+		Filepath: filepath.Clean(fp),
+		Sheets:   []string{},
+	}
+	return &source
+}
+
+func CreateXLSXFileSheet(fp string, sheetname string) *XLSXFile {
+	source := XLSXFile{
+		Filepath: filepath.Clean(fp),
+		Sheets:   []string{sheetname},
+	}
+	return &source
+}
+
+func CreateXLSXFileSheets(fp string, sheetnames []string) *XLSXFile {
+	source := XLSXFile{
+		Filepath: filepath.Clean(fp),
+		Sheets:   sheetnames,
+	}
 	return &source
 }
 
