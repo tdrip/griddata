@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
@@ -19,9 +20,9 @@ type CSVFile struct {
 }
 
 // CreateCSVFile Creates a CSV file
-func CreateCSVFile(filepath string) *CSVFile {
-	csvsource := CSVFile{Filepath: filepath}
-	return &csvsource
+func CreateCSVFile(fp string) *CSVFile {
+	source := CSVFile{Filepath: filepath.Clean(fp)}
+	return &source
 }
 
 // Validate checks if the file exists
