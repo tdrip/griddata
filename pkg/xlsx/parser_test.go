@@ -23,9 +23,7 @@ func TestXLSX(t *testing.T) {
 }
 
 func TestXLSXActions(t *testing.T) {
-	xlsxtest := gd.CreateRowAction("PrintAction", gd.PrintCellAction)
-
-	gdp := CreateFileParserWithAction("../../testdata/noheader.xlsx", &xlsxtest)
+	gdp := CreateFileParserWithAction("../../testdata/noheader.xlsx", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -36,9 +34,7 @@ func TestXLSXActions(t *testing.T) {
 }
 
 func TestXLSX3Passes(t *testing.T) {
-	xlsxtest := gd.CreateRowAction("PrintAction", gd.PrintCellAction)
-
-	gdp := CreateFileParserWithAction("../../testdata/noheader.xlsx", &xlsxtest)
+	gdp := CreateFileParserWithAction("../../testdata/noheader.xlsx", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
 	rowprocessors := gdp.GetProcessors()
 
 	opts := rowprocessors[0].GetOptions()
@@ -62,9 +58,7 @@ func FailAction(cell igrid.ICell) error {
 }
 
 func TestXLSXHeaderActions(t *testing.T) {
-	headtest := gd.CreateHeadedRowAction("testheader", testheader)
-
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, &headtest)
+	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheader", testheader))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -118,9 +112,7 @@ func testheader(rowdata *gd.HeaderRowData) error {
 }
 
 func TestXLSXHeaderActionDecode(t *testing.T) {
-	headtest := gd.CreateHeadedRowAction("testheaderdecode", testheaderdecode)
-
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, &headtest)
+	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheaderdecode", testheaderdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -184,9 +176,7 @@ type TestIndexHRowData struct {
 }
 
 func TestXLSXIndexHeaderActionDecode(t *testing.T) {
-	headtest := gd.CreateHeadedRowAction("testheaderindexdecode", testheaderindexdecode)
-
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, &headtest)
+	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheaderindexdecode", testheaderindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -243,9 +233,7 @@ type TestIndexHNZRowData struct {
 }
 
 func TestXLSXNZIndexHeaderActionDecode(t *testing.T) {
-	headtest := gd.CreateHeadedRowAction("testheadernzindexdecode", testheadernzindexdecode)
-
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, &headtest)
+	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheadernzindexdecode", testheadernzindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()

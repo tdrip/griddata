@@ -29,27 +29,27 @@ func CreateFileParserWithHeader(filepath string, headerowindex int) *gd.Parser {
 }
 
 // CreateFileParser Creates a Parser for a single file
-func CreateFileParserWithAction(filepath string, action *gd.RowAction) *gd.Parser {
+func CreateFileParserWithAction(filepath string, action gd.RowAction) *gd.Parser {
 	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
 	rowp := gd.CreateRowProcessor(CSVRowParse)
-	rowp.AddAction(action)
+	rowp.AddAction(&action)
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
 // CreateFileParser Creates a Parser for a single file
-func CreateFileParserWithActionAndHeader(filepath string, headerowindex int, action *gd.HeadedRowAction) *gd.Parser {
+func CreateFileParserWithActionAndHeader(filepath string, headerowindex int, action gd.HeadedRowAction) *gd.Parser {
 	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
 	rowp := gd.CreateHeaderRowProcessor(CSVRowParse, headerowindex)
-	rowp.AddAction(action)
+	rowp.AddAction(&action)
 	gdp.AddProcessor(rowp)
 	return gdp
 }

@@ -23,9 +23,7 @@ func TestCSV(t *testing.T) {
 }
 
 func TestCSVActions(t *testing.T) {
-	csvtest := gd.CreateRowAction("PrintAction", gd.PrintCellAction)
-
-	gdp := CreateFileParserWithAction("../../testdata/noheader.csv", &csvtest)
+	gdp := CreateFileParserWithAction("../../testdata/noheader.csv", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -36,9 +34,7 @@ func TestCSVActions(t *testing.T) {
 }
 
 func TestCSV3Passes(t *testing.T) {
-	csvtest := gd.CreateRowAction("PrintAction", gd.PrintCellAction)
-
-	gdp := CreateFileParserWithAction("../../testdata/noheader.csv", &csvtest)
+	gdp := CreateFileParserWithAction("../../testdata/noheader.csv", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
 	rowprocessors := gdp.GetProcessors()
 
 	opts := rowprocessors[0].GetOptions()
@@ -62,9 +58,7 @@ func FailAction(cell igrid.ICell) error {
 }
 
 func TestCSVHeaderActions(t *testing.T) {
-	headtest := gd.CreateHeadedRowAction("testheader", testheader)
-
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.csv", 0, &headtest)
+	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.csv", 0, gd.CreateHeadedRowAction("testheader", testheader))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -118,9 +112,7 @@ func testheader(rowdata *gd.HeaderRowData) error {
 }
 
 func TestCSVHeaderActionDecode(t *testing.T) {
-	headtest := gd.CreateHeadedRowAction("testheaderdecode", testheaderdecode)
-
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.csv", 0, &headtest)
+	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.csv", 0, gd.CreateHeadedRowAction("testheaderdecode", testheaderdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -184,9 +176,7 @@ type TestIndexHRowData struct {
 }
 
 func TestCSVIndexHeaderActionDecode(t *testing.T) {
-	headtest := gd.CreateHeadedRowAction("testheaderindexdecode", testheaderindexdecode)
-
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.csv", 0, &headtest)
+	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.csv", 0, gd.CreateHeadedRowAction("testheaderindexdecode", testheaderindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -243,9 +233,7 @@ type TestIndexHNZRowData struct {
 }
 
 func TestCSVNZIndexHeaderActionDecode(t *testing.T) {
-	headtest := gd.CreateHeadedRowAction("testheadernzindexdecode", testheadernzindexdecode)
-
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.csv", 0, &headtest)
+	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.csv", 0, gd.CreateHeadedRowAction("testheadernzindexdecode", testheadernzindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
