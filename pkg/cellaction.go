@@ -15,7 +15,7 @@ func PrintHeadedCellAction(header igrid.ICell, cell igrid.ICell) error {
 	if header == nil {
 		fmt.Println(cell.String())
 	} else {
-		fmt.Printf("Cell (%s) at[%s] has %v", header.GetData(), cell.GetLocation(), cell.GetData())
+		fmt.Printf("Cell (%s) at [%s] has %v", header.GetData(), cell.GetLocation(), cell.GetData())
 	}
 	return nil
 }
