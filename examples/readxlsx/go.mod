@@ -2,7 +2,7 @@ module readxlsx
 
 go 1.24.0
 
-require github.com/tdrip/griddata v0.0.0-20260425104133-c73d355b25e5
+require github.com/tdrip/griddata v0.0.0-20260427190320-617d00986e6d
 
 require (
 	github.com/richardlehane/mscfb v1.0.6 // indirect
