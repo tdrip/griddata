@@ -47,7 +47,7 @@ import (
 func main() {
 	xlsxtest := gd.CreateRowAction("PrintAction", gd.PrintCellAction)
 
-	gdp := csv.CreateFileParserWithAction("./header.csv", &xlsxtest)
+	gdp := csv.CreateRowParserWithAction("./header.csv", &xlsxtest)
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -60,20 +60,20 @@ func main() {
 
 This is the example print out
 ```
-Cell at[X:0,Y:0] has column1
-Cell at[X:0,Y:1] has column2
-Cell at[X:0,Y:2] has column3
-Cell at[X:0,Y:3] has column4
-Cell at[X:1,Y:0] has col1row1
-Cell at[X:1,Y:1] has col2row1
-Cell at[X:1,Y:2] has col3row1
-Cell at[X:1,Y:3] has col4row1,col4row1
-Cell at[X:2,Y:0] has col1row2
-Cell at[X:2,Y:1] has col2row2
-Cell at[X:2,Y:2] has col3row2
-Cell at[X:2,Y:3] has col4row2,col4row2
-Cell at[X:3,Y:0] has col1row3
-Cell at[X:3,Y:1] has col2row3
-Cell at[X:3,Y:2] has col3row3
-Cell at[X:3,Y:3] has col4row3,col4row3
+Cell at [X:0,Y:0] has column1
+Cell at [X:0,Y:1] has column2
+Cell at [X:0,Y:2] has column3
+Cell at [X:0,Y:3] has column4
+Cell at [X:1,Y:0] has col1row1
+Cell at [X:1,Y:1] has col2row1
+Cell at [X:1,Y:2] has col3row1
+Cell at [X:1,Y:3] has col4row1,col4row1
+Cell at [X:2,Y:0] has col1row2
+Cell at [X:2,Y:1] has col2row2
+Cell at [X:2,Y:2] has col3row2
+Cell at [X:2,Y:3] has col4row2,col4row2
+Cell at [X:3,Y:0] has col1row3
+Cell at [X:3,Y:1] has col2row3
+Cell at [X:3,Y:2] has col3row3
+Cell at [X:3,Y:3] has col4row3,col4row3
 ```

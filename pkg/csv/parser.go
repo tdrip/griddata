@@ -4,8 +4,8 @@ import (
 	gd "github.com/tdrip/griddata/pkg"
 )
 
-// CreateFileParser Creates a Parser for a single file
-func CreateFileParser(filepath string) *gd.Parser {
+// CreateRowParser Creates a Parser for a single file
+func CreateRowParser(filepath string) *gd.Parser {
 	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
@@ -16,8 +16,8 @@ func CreateFileParser(filepath string) *gd.Parser {
 	return gdp
 }
 
-// CreateFileParser Creates a Parser for a single file
-func CreateFileParserWithHeader(filepath string, headerowindex int) *gd.Parser {
+// CreateRowParser Creates a Parser for a single file
+func CreateRowParserWithHeader(filepath string, headerowindex int) *gd.Parser {
 	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
@@ -28,8 +28,8 @@ func CreateFileParserWithHeader(filepath string, headerowindex int) *gd.Parser {
 	return gdp
 }
 
-// CreateFileParser Creates a Parser for a single file
-func CreateFileParserWithAction(filepath string, action gd.RowAction) *gd.Parser {
+// CreateRowParser Creates a Parser for a single file
+func CreateRowParserWithAction(filepath string, action gd.RowAction) *gd.Parser {
 	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)
@@ -41,8 +41,8 @@ func CreateFileParserWithAction(filepath string, action gd.RowAction) *gd.Parser
 	return gdp
 }
 
-// CreateFileParser Creates a Parser for a single file
-func CreateFileParserWithActionAndHeader(filepath string, headerowindex int, action gd.HeadedRowAction) *gd.Parser {
+// CreateRowParser Creates a Parser for a single file
+func CreateRowParserWithActionAndHeader(filepath string, headerowindex int, action gd.HeadedRowAction) *gd.Parser {
 	gdp := gd.CreateParser()
 	file := CreateCSVFile(filepath)
 	gdp.AddDataSource(file)

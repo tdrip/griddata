@@ -11,7 +11,7 @@ import (
 )
 
 func TestXLSX(t *testing.T) {
-	gdp := CreateFileParser("../../testdata/noheader.xlsx")
+	gdp := CreateRowParser("../../testdata/noheader.xlsx")
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -23,7 +23,7 @@ func TestXLSX(t *testing.T) {
 }
 
 func TestXLSXActions(t *testing.T) {
-	gdp := CreateFileParserWithAction("../../testdata/noheader.xlsx", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
+	gdp := CreateRowParserWithAction("../../testdata/noheader.xlsx", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -34,7 +34,7 @@ func TestXLSXActions(t *testing.T) {
 }
 
 func TestXLSX3Passes(t *testing.T) {
-	gdp := CreateFileParserWithAction("../../testdata/noheader.xlsx", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
+	gdp := CreateRowParserWithAction("../../testdata/noheader.xlsx", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
 	rowprocessors := gdp.GetProcessors()
 
 	opts := rowprocessors[0].GetOptions()
@@ -58,7 +58,7 @@ func FailAction(cell igrid.ICell) error {
 }
 
 func TestXLSXHeaderActions(t *testing.T) {
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheader", testheader))
+	gdp := CreateRowParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheader", testheader))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -112,7 +112,7 @@ func testheader(rowdata *gd.HeaderRowData) error {
 }
 
 func TestXLSXHeaderActionDecode(t *testing.T) {
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheaderdecode", testheaderdecode))
+	gdp := CreateRowParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheaderdecode", testheaderdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -172,11 +172,11 @@ type TestIndexHRowData struct {
 	Column1 string   `colindex:"0"`
 	Column2 string   `colindex:"1"`
 	Column3 string   `colindex:"2"`
-	Column4 []string `colindex:"5"`
+	Column4 []string `colindex:"3"`
 }
 
 func TestXLSXIndexHeaderActionDecode(t *testing.T) {
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheaderindexdecode", testheaderindexdecode))
+	gdp := CreateRowParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheaderindexdecode", testheaderindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -233,7 +233,7 @@ type TestIndexHNZRowData struct {
 }
 
 func TestXLSXNZIndexHeaderActionDecode(t *testing.T) {
-	gdp := CreateFileParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheadernzindexdecode", testheadernzindexdecode))
+	gdp := CreateRowParserWithActionAndHeader("../../testdata/header.xlsx", 0, gd.CreateHeadedRowAction("testheadernzindexdecode", testheadernzindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
