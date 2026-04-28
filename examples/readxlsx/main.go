@@ -15,7 +15,7 @@ func main() {
 	//	gdp := xlsx.NewRowParserWithAction("./header.xlsx", gd.NewRowAction("PrintAction", gd.PrintCellAction))
 
 	//  slow print
-	gdp := xlsx.NewRowParserWithDefaultHeaderAction("./header.xlsx", gd.NewRowAction("SlowPrint", SlowPrint))
+	gdp := xlsx.NewRowParserDefaultAction("./header.xlsx", gd.NewRowAction("SlowPrint", SlowPrint))
 	defer gdp.Close()
 
 	err := gdp.Execute()

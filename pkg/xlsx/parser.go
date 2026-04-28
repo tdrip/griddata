@@ -28,6 +28,10 @@ func NewRowParserWithHeader(filepath string) *gd.Parser {
 	return gdp
 }
 
+func NewRowParserDefaultAction(filepath string, action gd.RowAction) *gd.Parser {
+	return NewRowParserWithAction(filepath, DefaultXLXSAllSheetsProcessorOptions(), action)
+}
+
 // NewRowParser creates a Parser for a single file
 func NewRowParserWithAction(filepath string, opts *XLXSOptions, action gd.RowAction) *gd.Parser {
 	gdp := gd.NewParser()
