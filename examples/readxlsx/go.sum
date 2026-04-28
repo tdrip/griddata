@@ -8,8 +8,10 @@ github.com/richardlehane/msoleps v1.0.6 h1:9BvkpjvD+iUBalUY4esMwv6uBkfOip/Lzvd93
 github.com/richardlehane/msoleps v1.0.6/go.mod h1:BWev5JBpU9Ko2WAgmZEuiz4/u3ZYTKbjLycmwiWUfWg=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
 github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
-github.com/tdrip/griddata v0.0.0-20260427190320-617d00986e6d h1:EzsKk+lv7r7xsdpWKsel9tg0KCkGHeRyZ8e/E0txmXQ=
-github.com/tdrip/griddata v0.0.0-20260427190320-617d00986e6d/go.mod h1:EhAf7ntfAv9amIEoZ+Rsrgyyc550ZjU1jtSfvd6VLkk=
+github.com/tdrip/griddata v0.0.0-20260428111343-4dbbd736c13c h1:VKM6NTaDZKgkSOPiYMmlqtdkAKzAI7R6CHpxichH3dc=
+github.com/tdrip/griddata v0.0.0-20260428111343-4dbbd736c13c/go.mod h1:EhAf7ntfAv9amIEoZ+Rsrgyyc550ZjU1jtSfvd6VLkk=
+github.com/tdrip/griddata v0.0.0-20260428111545-7ce75b95d821 h1:0DuI9D6lkyf0ZfS/TVbzFVgsA1LUU5wNtUo88cmHWlg=
+github.com/tdrip/griddata v0.0.0-20260428111545-7ce75b95d821/go.mod h1:EhAf7ntfAv9amIEoZ+Rsrgyyc550ZjU1jtSfvd6VLkk=
 github.com/tiendc/go-deepcopy v1.7.2 h1:Ut2yYR7W9tWjTQitganoIue4UGxZwCcJy3orjrrIj44=
 github.com/tiendc/go-deepcopy v1.7.2/go.mod h1:4bKjNC2r7boYOkD2IOuZpYjmlDdzjbpTRyCx+goBCJQ=
 github.com/xuri/efp v0.0.1 h1:fws5Rv3myXyYni8uwj2qKjVaRP30PdjeYe2Y6FDsCL8=
