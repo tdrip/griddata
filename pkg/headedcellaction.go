@@ -57,20 +57,17 @@ func (hra *HeadedCellAction) Perform(data any) error {
 	if !ok {
 		return errors.New("data type was not Row Data")
 	}
-	if datarow != nil {
-		for _, cell := range datarow.GetCells() {
-			for _, hcell := range hra.Header.GetCells() {
-				// same column
-				if hcell.GetLocation().GetY() == cell.GetLocation().GetY() {
-					err := hra.Action(hcell, cell)
-					if err != nil {
-						return err
-					}
-					break
+	for _, cell := range datarow.GetCells() {
+		for _, hcell := range hra.Header.GetCells() {
+			// same column
+			if hcell.GetLocation().GetY() == cell.GetLocation().GetY() {
+				err := hra.Action(hcell, cell)
+				if err != nil {
+					return err
 				}
+				break
 			}
 		}
 	}
-
 	return nil
 }
