@@ -1,12 +1,10 @@
-package data
+package actions
 
 import (
 	"fmt"
 
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
-
-type CellAction func(igrid.ICell) error
 
 func PrintCellAction(cell igrid.ICell) error {
 	fmt.Println(cell.String())

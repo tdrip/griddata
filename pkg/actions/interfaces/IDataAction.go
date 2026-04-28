@@ -1,4 +1,4 @@
-package idata
+package iaction
 
 type Action interface {
 	GetId() string

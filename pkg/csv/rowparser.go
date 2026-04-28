@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 
+	act "github.com/tdrip/griddata/pkg/actions"
 	gd "github.com/tdrip/griddata/pkg/data"
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
@@ -70,7 +71,7 @@ func CSVRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.So
 							if err != nil {
 								return err
 							}
-							ra, ok := rowaction.(*gd.HeadedRowAction)
+							ra, ok := rowaction.(*act.HeadedRowAction)
 							if !ok {
 								return errors.New("row action type was not a Headed Row Action")
 							}

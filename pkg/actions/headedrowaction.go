@@ -1,17 +1,18 @@
-package data
+package actions
 
 import (
 	"fmt"
 
 	uuid "github.com/google/uuid"
-	idata "github.com/tdrip/griddata/pkg/data/interfaces"
+	iaction "github.com/tdrip/griddata/pkg/actions/interfaces"
+	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
-type HeadedRowActionFunc func(*HeaderRowData) error
+type HeadedRowActionFunc func(igrid.IRow) error
 
 // Headed Row Action An action that occurs on a Row
 type HeadedRowAction struct {
-	idata.Action
+	iaction.Action
 	ID         string
 	CellAction HeadedRowActionFunc
 }
@@ -38,7 +39,7 @@ func (hra *HeadedRowAction) GetId() string {
 
 func (hra *HeadedRowAction) Perform(data any) error {
 
-	if hra.Action == nil {
+	if hra.CellAction == nil {
 		return fmt.Errorf("No action set for %s", hra.ID)
 	}
 
@@ -46,8 +47,9 @@ func (hra *HeadedRowAction) Perform(data any) error {
 		return fmt.Errorf("Row data was nil %s", hra.ID)
 	}
 
-	// We expect datarow to be correct type
-	datarow, ok := data.(*HeaderRowData)
+	// We expect data to be the interface for the action
+	// not tied to the data layer
+	datarow, ok := data.(igrid.IRow)
 	if !ok {
 		return fmt.Errorf("data type was not Headed Row Data - Raw Data:  %v", data)
 	}

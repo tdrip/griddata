@@ -1,6 +1,7 @@
 package xlsx
 
 import (
+	acts "github.com/tdrip/griddata/pkg/actions"
 	gd "github.com/tdrip/griddata/pkg/data"
 )
 
@@ -28,12 +29,12 @@ func NewRowParserWithHeader(filepath string) *gd.Parser {
 	return gdp
 }
 
-func NewRowParserDefaultAction(filepath string, action gd.RowAction) *gd.Parser {
+func NewRowParserDefaultAction(filepath string, action acts.RowAction) *gd.Parser {
 	return NewRowParserWithAction(filepath, DefaultXLXSAllSheetsProcessorOptions(), action)
 }
 
 // NewRowParser creates a Parser for a single file
-func NewRowParserWithAction(filepath string, opts *XLXSOptions, action gd.RowAction) *gd.Parser {
+func NewRowParserWithAction(filepath string, opts *XLXSOptions, action acts.RowAction) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
 	gdp.AddSource(file)
@@ -47,12 +48,12 @@ func NewRowParserWithAction(filepath string, opts *XLXSOptions, action gd.RowAct
 	return gdp
 }
 
-func NewRowParserWithDefaultHeaderAction(filepath string, action gd.HeadedRowAction) *gd.Parser {
+func NewRowParserWithDefaultHeaderAction(filepath string, action acts.HeadedRowAction) *gd.Parser {
 	return NewRowParserWithActionAndHeader(filepath, DefaultXLXSAllSheetsHeaderProcessorOptions(), action)
 }
 
 // NewRowParserWithActionAndHeader creates a Parser for a single file
-func NewRowParserWithActionAndHeader(filepath string, opts *XLXSOptions, action gd.HeadedRowAction) *gd.Parser {
+func NewRowParserWithActionAndHeader(filepath string, opts *XLXSOptions, action acts.HeadedRowAction) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
 	gdp.AddSource(file)

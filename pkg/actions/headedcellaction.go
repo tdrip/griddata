@@ -1,10 +1,10 @@
-package data
+package actions
 
 import (
 	"errors"
 	"fmt"
 
-	idata "github.com/tdrip/griddata/pkg/data/interfaces"
+	iaction "github.com/tdrip/griddata/pkg/actions/interfaces"
 	grid "github.com/tdrip/griddata/pkg/grid"
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
@@ -13,10 +13,10 @@ type HeadedCellActionFunc func(igrid.ICell, igrid.ICell) error
 
 // Headed Row Action An action that occurs on a Row
 type HeadedCellAction struct {
-	idata.Action
+	iaction.Action
 	ID         string
 	CellAction HeadedCellActionFunc
-	Header     *HeaderRowData
+	Header     igrid.IRow
 }
 
 func NewHeadedCellAction(id string, act HeadedCellActionFunc) HeadedCellAction {
@@ -27,7 +27,7 @@ func NewHeadedCellAction(id string, act HeadedCellActionFunc) HeadedCellAction {
 }
 
 // Set Header
-func (hra *HeadedCellAction) SetHeader(header *HeaderRowData) {
+func (hra *HeadedCellAction) SetHeader(header igrid.IRow) {
 	hra.Header = header
 }
 
@@ -42,7 +42,7 @@ func (hra *HeadedCellAction) GetId() string {
 
 func (hra *HeadedCellAction) Perform(data any) error {
 
-	if hra.Action == nil {
+	if hra.CellAction == nil {
 		return fmt.Errorf("No action set for %s", hra.ID)
 	}
 
@@ -55,7 +55,7 @@ func (hra *HeadedCellAction) Perform(data any) error {
 	}
 
 	// We expect datarow to be correct type
-	datarow, ok := data.(*RowData)
+	datarow, ok := data.(igrid.IRow)
 	if !ok {
 		return errors.New("data type was not Row Data")
 	}

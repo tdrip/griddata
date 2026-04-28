@@ -1,6 +1,7 @@
 package csv
 
 import (
+	acts "github.com/tdrip/griddata/pkg/actions"
 	gd "github.com/tdrip/griddata/pkg/data"
 )
 
@@ -28,12 +29,12 @@ func NewRowParserWithOptions(filepath string) *gd.Parser {
 	return gdp
 }
 
-func NewRowParserDefaultAction(filepath string, action gd.RowAction) *gd.Parser {
+func NewRowParserDefaultAction(filepath string, action acts.RowAction) *gd.Parser {
 	return NewRowParserWithAction(filepath, DefaultCSVOptions(), action)
 }
 
 // NewRowParser creates a Parser for a single file
-func NewRowParserWithAction(filepath string, opts *CSVOptions, action gd.RowAction) *gd.Parser {
+func NewRowParserWithAction(filepath string, opts *CSVOptions, action acts.RowAction) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
 	gdp.AddSource(file)
@@ -45,12 +46,12 @@ func NewRowParserWithAction(filepath string, opts *CSVOptions, action gd.RowActi
 	return gdp
 }
 
-func NewRowParserWithDefaultHeaderAction(filepath string, action gd.HeadedRowAction) *gd.Parser {
+func NewRowParserWithDefaultHeaderAction(filepath string, action acts.HeadedRowAction) *gd.Parser {
 	return NewRowParserWithHeaderAction(filepath, DefaultCSVHeaderOptions(), action)
 }
 
 // NewRowParser creates a Parser for a single file
-func NewRowParserWithHeaderAction(filepath string, opts *CSVOptions, action gd.HeadedRowAction) *gd.Parser {
+func NewRowParserWithHeaderAction(filepath string, opts *CSVOptions, action acts.HeadedRowAction) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
 	gdp.AddSource(file)

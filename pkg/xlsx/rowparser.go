@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 
+	act "github.com/tdrip/griddata/pkg/actions"
 	gd "github.com/tdrip/griddata/pkg/data"
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 	"github.com/xuri/excelize/v2"
@@ -71,7 +72,7 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.S
 							if err != nil {
 								return err
 							}
-							ra, ok := rowaction.(*gd.HeadedRowAction)
+							ra, ok := rowaction.(*act.HeadedRowAction)
 							if !ok {
 								return errors.New("row action type was not a Headed Row Action")
 							}

@@ -1,6 +1,7 @@
 package data
 
 import (
+	iact "github.com/tdrip/griddata/pkg/actions/interfaces"
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
@@ -15,7 +16,7 @@ func NewRowProcessor(parse RowParse, opts idata.ProcessorOptions) *RowProcessor 
 func NewHeaderRowProcessor(parse RowParse, opts idata.ProcessorOptions) *RowProcessor {
 	rp := &RowProcessor{}
 	rp.SetOptions(opts)
-	empty := make(map[string]idata.Action)
+	empty := make(map[string]iact.Action)
 	rp.Actions = empty
 	rp.ParseFunc = parse
 	return rp
@@ -29,7 +30,7 @@ type RowProcessor struct {
 
 	Options idata.ProcessorOptions
 
-	Actions map[string]idata.Action
+	Actions map[string]iact.Action
 
 	ParseFunc RowParse
 }
@@ -53,11 +54,11 @@ func (rp *RowProcessor) SetOptions(options idata.ProcessorOptions) {
 }
 
 // actions for the row
-func (rp *RowProcessor) GetActions() map[string]idata.Action {
+func (rp *RowProcessor) GetActions() map[string]iact.Action {
 	return rp.Actions
 }
 
-func (rp *RowProcessor) SetActions(actions []idata.Action) {
+func (rp *RowProcessor) SetActions(actions []iact.Action) {
 	data := rp.Actions
 	for _, action := range actions {
 		data[action.GetId()] = action
@@ -65,7 +66,7 @@ func (rp *RowProcessor) SetActions(actions []idata.Action) {
 	rp.Actions = data
 }
 
-func (rp *RowProcessor) AddAction(action idata.Action) {
+func (rp *RowProcessor) AddAction(action iact.Action) {
 	data := rp.Actions
 	data[action.GetId()] = action
 	rp.Actions = data
@@ -78,6 +79,6 @@ func (rp *RowProcessor) RemoveAction(id string) {
 }
 
 func (rp *RowProcessor) ClearActions() {
-	empty := make(map[string]idata.Action)
+	empty := make(map[string]iact.Action)
 	rp.Actions = empty
 }
