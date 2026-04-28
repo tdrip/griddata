@@ -16,8 +16,8 @@ type Parser struct {
 	DataSources []igrid.IDataSource
 }
 
-// CreateParser Creates a Parser
-func CreateParser() *Parser {
+// NewParser creates a Parser
+func NewParser() *Parser {
 	parser := Parser{
 		Processors:  []igrid.IDataProcessor{},
 		DataSources: []igrid.IDataSource{},

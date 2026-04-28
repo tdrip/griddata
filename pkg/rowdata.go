@@ -23,15 +23,15 @@ type RowData struct {
 	Cells []igrid.ICell
 }
 
-// CreateRowData Creates a default row data struct
-func CreateRowData(row int, pass int) *RowData {
+// NewRowData creates a default row data struct
+func NewRowData(row int, pass int) *RowData {
 	rd := RowData{Pass: pass}
 
 	// x,y point
-	rowp := CreatePoint(row, -1)
+	rowp := NewPoint(row, -1)
 
 	// set the index
-	rd.SetIndex(CreateIndex(rowp))
+	rd.SetIndex(NewIndex(rowp))
 
 	return &rd
 }
@@ -114,13 +114,13 @@ func (rd *RowData) GetValInt(columnindex int) (int, error) {
 func FillRowStringData(rowindex int, pass int, columndata []string) *RowData {
 
 	// number of passes and the row index
-	rd := CreateRowData(rowindex, pass)
+	rd := NewRowData(rowindex, pass)
 
 	for columnindex := 0; columnindex < len(columndata); columnindex++ {
 
-		pnt := CreatePoint(rowindex, columnindex)
+		pnt := NewPoint(rowindex, columnindex)
 		// csv is always srting so we parse the cells as such
-		cell := CreateStringCell(pnt, columndata[columnindex])
+		cell := NewStringCell(pnt, columndata[columnindex])
 
 		// add the cell
 		rd.AddCell(cell)

@@ -7,7 +7,7 @@ import (
 
 func main() {
 	// specify the file and the action
-	gdp := csv.CreateRowParserWithAction("./header.csv", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
+	gdp := csv.NewRowParserWithDefaultHeaderAction("./header.csv", gd.NewRowAction("PrintAction", gd.PrintCellAction))
 	defer gdp.Close()
 
 	err := gdp.Execute()

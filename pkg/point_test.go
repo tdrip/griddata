@@ -6,7 +6,7 @@ import (
 
 func TestPointMatches(t *testing.T) {
 
-	firstpoint := CreatePoint(1, 1)
+	firstpoint := NewPoint(1, 1)
 
 	if firstpoint.GetX() != 1 || firstpoint.GetY() != 1 {
 		t.Errorf("X was %d not 1 - Y was %d not 1", firstpoint.GetX(), firstpoint.GetY())
@@ -22,13 +22,13 @@ func TestPointMatches(t *testing.T) {
 
 func TestPointMatch(t *testing.T) {
 
-	firstpoint := CreatePoint(1, 1)
+	firstpoint := NewPoint(1, 1)
 
 	if firstpoint.GetX() != 1 || firstpoint.GetY() != 1 {
 		t.Errorf("X was %d not 1 - Y was %d not 1", firstpoint.GetX(), firstpoint.GetY())
 	}
 
-	secondpoint := CreatePoint(1, 1)
+	secondpoint := NewPoint(1, 1)
 
 	if !firstpoint.Match(secondpoint) {
 		t.Errorf("%s did not match %s ", firstpoint, secondpoint)
@@ -38,7 +38,7 @@ func TestPointMatch(t *testing.T) {
 
 func TestPointSet(t *testing.T) {
 
-	firstpoint := CreatePoint(1, 1)
+	firstpoint := NewPoint(1, 1)
 
 	if firstpoint.GetX() != 1 || firstpoint.GetY() != 1 {
 		t.Errorf("X was %d not 1 - Y was %d not 1", firstpoint.GetX(), firstpoint.GetY())

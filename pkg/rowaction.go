@@ -16,7 +16,7 @@ type RowAction struct {
 	Action CellAction
 }
 
-func CreateRowAction(id string, act CellAction) RowAction {
+func NewRowAction(id string, act CellAction) RowAction {
 	return RowAction{
 		ID:     id,
 		Action: act,

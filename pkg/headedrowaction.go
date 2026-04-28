@@ -15,7 +15,7 @@ type HeadedRowAction struct {
 	Action HeadedRowActionFunc
 }
 
-func CreateHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {
+func NewHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {
 	return HeadedRowAction{
 		ID:     id,
 		Action: act,

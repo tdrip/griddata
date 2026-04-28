@@ -4,51 +4,38 @@ import (
 	gd "github.com/tdrip/griddata/pkg"
 )
 
-// CreateRowParser Creates a Parser for a single file
-func CreateRowParser(filepath string) *gd.Parser {
-	gdp := gd.CreateParser()
-	file := gd.CreateGridFile(filepath)
+// NewRowParser creates a Parser for a single file
+func NewRowParser(filepath string) *gd.Parser {
+	gdp := gd.NewParser()
+	file := gd.NewGridFile(filepath)
 	gdp.AddDataSource(file)
 
-	// create standard xlslx options
-	opts := CreateXLXSProcessorOptions([]string{})
-	opts.Defaults()
-
 	// standard xlsx row parser
-	rowp := gd.CreateRowProcessor(XLSXRowParse, opts)
+	rowp := gd.NewRowProcessor(XLSXRowParse, DefaultXLXSAllSheetsProcessorOptions())
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
-// CreateRowParser Creates a Parser for a single file
-func CreateRowParserWithHeader(filepath string, headerowindex int) *gd.Parser {
-	gdp := gd.CreateParser()
-	file := gd.CreateGridFile(filepath)
+// NewRowParser creates a Parser for a single file
+func NewRowParserWithHeader(filepath string) *gd.Parser {
+	gdp := gd.NewParser()
+	file := gd.NewGridFile(filepath)
 	gdp.AddDataSource(file)
 
-	// create standard xlslx options
-	opts := CreateXLXSProcessorOptions([]string{})
-	opts.Defaults()
-	opts.HeaderRowindex = headerowindex
-
 	// standard xlsx row parser
-	rowp := gd.CreateHeaderRowProcessor(XLSXRowParse, opts)
+	rowp := gd.NewHeaderRowProcessor(XLSXRowParse, DefaultXLXSAllSheetsHeaderProcessorOptions())
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
-// CreateRowParser Creates a Parser for a single file
-func CreateRowParserWithAction(filepath string, action gd.RowAction) *gd.Parser {
-	gdp := gd.CreateParser()
-	file := gd.CreateGridFile(filepath)
+// NewRowParser creates a Parser for a single file
+func NewRowParserWithAction(filepath string, opts *XLXSOptions, action gd.RowAction) *gd.Parser {
+	gdp := gd.NewParser()
+	file := gd.NewGridFile(filepath)
 	gdp.AddDataSource(file)
 
-	// create standard xlslx options
-	opts := CreateXLXSProcessorOptions([]string{})
-	opts.Defaults()
-
 	// standard xlsx row parser
-	rowp := gd.CreateRowProcessor(XLSXRowParse, opts)
+	rowp := gd.NewRowProcessor(XLSXRowParse, opts)
 	rowp.AddAction(&action)
 
 	// add processor
@@ -56,19 +43,18 @@ func CreateRowParserWithAction(filepath string, action gd.RowAction) *gd.Parser 
 	return gdp
 }
 
-// CreateRowParser Creates a Parser for a single file
-func CreateRowParserWithActionAndHeader(filepath string, headerowindex int, action gd.HeadedRowAction) *gd.Parser {
-	gdp := gd.CreateParser()
-	file := gd.CreateGridFile(filepath)
+func NewRowParserWithDefaultHeaderAction(filepath string, action gd.HeadedRowAction) *gd.Parser {
+	return NewRowParserWithActionAndHeader(filepath, DefaultXLXSAllSheetsHeaderProcessorOptions(), action)
+}
+
+// NewRowParserWithActionAndHeader creates a Parser for a single file
+func NewRowParserWithActionAndHeader(filepath string, opts *XLXSOptions, action gd.HeadedRowAction) *gd.Parser {
+	gdp := gd.NewParser()
+	file := gd.NewGridFile(filepath)
 	gdp.AddDataSource(file)
 
-	// create standard xlslx options
-	opts := CreateXLXSProcessorOptions([]string{})
-	opts.Defaults()
-	opts.HeaderRowindex = headerowindex
-
 	// standard xlsx row parser
-	rowp := gd.CreateHeaderRowProcessor(XLSXRowParse, opts)
+	rowp := gd.NewHeaderRowProcessor(XLSXRowParse, opts)
 	rowp.AddAction(&action)
 
 	// add processor

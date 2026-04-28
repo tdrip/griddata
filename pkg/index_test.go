@@ -6,9 +6,9 @@ import (
 
 func TestIndex(t *testing.T) {
 
-	firstpoint := CreatePoint(1, 1)
+	firstpoint := NewPoint(1, 1)
 
-	index := CreateIndex(firstpoint)
+	index := NewIndex(firstpoint)
 
 	if !index.GetLocation().Match(firstpoint) {
 		t.Errorf("%s did not match %s ", index.GetLocation(), firstpoint)

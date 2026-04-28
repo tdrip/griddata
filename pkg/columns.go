@@ -50,24 +50,24 @@ func (gdci *ColumnIndex) SetRelatedIndexes(columns []igrid.IIndex) {
 	gdci.RelatedIndexes = columns
 }
 
-func CreateRColumnIndexbyIndex(Index int, rcolumns []igrid.IIndex) igrid.IIndex {
-	return CreateColumnIndex(Index, "", rcolumns)
+func NewRColumnIndexbyIndex(Index int, rcolumns []igrid.IIndex) igrid.IIndex {
+	return NewColumnIndex(Index, "", rcolumns)
 }
 
-func CreateRColumnIndexbyName(Name string, rcolumns []igrid.IIndex) igrid.IIndex {
-	return CreateColumnIndex(-1, Name, rcolumns)
+func NewRColumnIndexbyName(Name string, rcolumns []igrid.IIndex) igrid.IIndex {
+	return NewColumnIndex(-1, Name, rcolumns)
 }
 
-func CreateColumnIndexbyIndex(Index int) igrid.IIndex {
-	return CreateColumnIndex(Index, "", nil)
+func NewColumnIndexbyIndex(Index int) igrid.IIndex {
+	return NewColumnIndex(Index, "", nil)
 }
 
-func CreateColumnIndexbyName(Name string) igrid.IIndex {
-	return CreateColumnIndex(-1, Name, nil)
+func NewColumnIndexbyName(Name string) igrid.IIndex {
+	return NewColumnIndex(-1, Name, nil)
 }
 
-// Create Column Index
-func CreateColumnIndex(index int, name string, rcolumns []igrid.IIndex) igrid.IIndex {
+// New Column Index
+func NewColumnIndex(index int, name string, rcolumns []igrid.IIndex) igrid.IIndex {
 	ci := ColumnIndex{Index: index, Name: name, RelatedIndexes: rcolumns}
 	return &ci
 }

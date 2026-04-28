@@ -21,7 +21,7 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 	if opts == nil {
 		return errors.New("row processor options were nil")
 	}
-	options, ok := opts.(*XLXSProcessorOptions)
+	options, ok := opts.(*XLXSOptions)
 	if !ok {
 		return errors.New("options type was not a XLXS Processor Options")
 	}

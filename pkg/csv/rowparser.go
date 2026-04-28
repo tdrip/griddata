@@ -23,7 +23,7 @@ func CSVRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.ID
 	if opts == nil {
 		return errors.New("row processor options were nil")
 	}
-	options, ok := opts.(*CSVProcessorOptions)
+	options, ok := opts.(*CSVOptions)
 	if !ok {
 		return errors.New("options type was not a Row Processor Options")
 	}

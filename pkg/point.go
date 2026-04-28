@@ -13,8 +13,8 @@ type Point struct {
 	x int
 }
 
-// CreatePoint creates a Grid Data Point
-func CreatePoint(x int, y int) *Point {
+// NewPoint creates a Grid Data Point
+func NewPoint(x int, y int) *Point {
 	gdp := Point{y: y, x: x}
 	return &gdp
 }

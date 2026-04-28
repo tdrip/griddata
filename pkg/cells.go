@@ -20,8 +20,8 @@ type Cell struct {
 	RelatedData map[igrid.IIndex]any
 }
 
-// CreateStringCell creates a cell with string data
-func CreateStringCell(location igrid.IPoint, data string) *Cell {
+// NewStringCell creates a cell with string data
+func NewStringCell(location igrid.IPoint, data string) *Cell {
 	gdc := Cell{}
 	gdc.Location = location
 	gdc.Data = data

@@ -4,55 +4,55 @@ import (
 	gd "github.com/tdrip/griddata/pkg"
 )
 
-// CreateRowParser Creates a Parser for a single file
-func CreateRowParser(filepath string) *gd.Parser {
-	gdp := gd.CreateParser()
-	file := gd.CreateGridFile(filepath)
+// NewRowParser creates a Parser for a single file
+func NewRowParser(filepath string) *gd.Parser {
+	gdp := gd.NewParser()
+	file := gd.NewGridFile(filepath)
 	gdp.AddDataSource(file)
 
-	// create standard csv options
-	opts := CreateCSVProcessorOptions(',')
-	opts.Defaults()
-
 	// standard csv row parser
-	rowp := gd.CreateRowProcessor(CSVRowParse, opts)
+	rowp := gd.NewRowProcessor(CSVRowParse, DefaultCSVOptions())
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
-// CreateRowParser Creates a Parser for a single file
-func CreateRowParserWithOptions(filepath string, opts *CSVProcessorOptions) *gd.Parser {
-	gdp := gd.CreateParser()
-	file := gd.CreateGridFile(filepath)
+// NewRowParser creates a Parser for a single file
+func NewRowParserWithOptions(filepath string) *gd.Parser {
+	gdp := gd.NewParser()
+	file := gd.NewGridFile(filepath)
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateHeaderRowProcessor(CSVRowParse, opts)
+	rowp := gd.NewHeaderRowProcessor(CSVRowParse, DefaultCSVHeaderOptions())
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
-// CreateRowParser Creates a Parser for a single file
-func CreateRowParserWithAction(filepath string, opts *CSVProcessorOptions, action gd.RowAction) *gd.Parser {
-	gdp := gd.CreateParser()
-	file := gd.CreateGridFile(filepath)
+// NewRowParser creates a Parser for a single file
+func NewRowParserWithAction(filepath string, opts *CSVOptions, action gd.RowAction) *gd.Parser {
+	gdp := gd.NewParser()
+	file := gd.NewGridFile(filepath)
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateRowProcessor(CSVRowParse, opts)
+	rowp := gd.NewRowProcessor(CSVRowParse, opts)
 	rowp.AddAction(&action)
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
-// CreateRowParser Creates a Parser for a single file
-func CreateRowParserWithHeaderAction(filepath string, opts *CSVProcessorOptions, action gd.HeadedRowAction) *gd.Parser {
-	gdp := gd.CreateParser()
-	file := gd.CreateGridFile(filepath)
+func NewRowParserWithDefaultHeaderAction(filepath string, action gd.HeadedRowAction) *gd.Parser {
+	return NewRowParserWithHeaderAction(filepath, DefaultCSVHeaderOptions(), action)
+}
+
+// NewRowParser creates a Parser for a single file
+func NewRowParserWithHeaderAction(filepath string, opts *CSVOptions, action gd.HeadedRowAction) *gd.Parser {
+	gdp := gd.NewParser()
+	file := gd.NewGridFile(filepath)
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateHeaderRowProcessor(CSVRowParse, opts)
+	rowp := gd.NewHeaderRowProcessor(CSVRowParse, opts)
 	rowp.AddAction(&action)
 	gdp.AddProcessor(rowp)
 	return gdp

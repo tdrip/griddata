@@ -15,8 +15,8 @@ type Index struct {
 	RelatedIndexes []igrid.IIndex
 }
 
-// CreateIndex Creates a pointer to the Index struct
-func CreateIndex(location igrid.IPoint) *Index {
+// NewIndex ceates a pointer to the Index struct
+func NewIndex(location igrid.IPoint) *Index {
 	gdi := Index{}
 	gdi.Location = location
 	return &gdi

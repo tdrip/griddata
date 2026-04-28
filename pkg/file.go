@@ -17,8 +17,8 @@ type GridFile struct {
 	Filestream *os.File
 }
 
-// Create File Creates a file
-func CreateGridFile(fp string) *GridFile {
+// New Grid File to represent a file datasource
+func NewGridFile(fp string) *GridFile {
 	source := &GridFile{Filepath: filepath.Clean(fp)}
 	return source
 }

@@ -45,9 +45,9 @@ import (
 )
 
 func main() {
-	xlsxtest := gd.CreateRowAction("PrintAction", gd.PrintCellAction)
+	xlsxtest := gd.NewRowAction("PrintAction", gd.PrintCellAction)
 
-	gdp := csv.CreateRowParserWithAction("./header.csv", &xlsxtest)
+	gdp := csv.NewRowParserWithAction("./header.csv", &xlsxtest)
 	defer gdp.Close()
 
 	err := gdp.Execute()

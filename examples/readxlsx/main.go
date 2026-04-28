@@ -12,10 +12,10 @@ func main() {
 	// specify the file and the action
 
 	// normal print
-	//	gdp := xlsx.CreateRowParserWithAction("./header.xlsx", gd.CreateRowAction("PrintAction", gd.PrintCellAction))
+	//	gdp := xlsx.NewRowParserWithAction("./header.xlsx", gd.NewRowAction("PrintAction", gd.PrintCellAction))
 
 	//  slow print
-	gdp := xlsx.CreateRowParserWithAction("./header.xlsx", gd.CreateRowAction("SlowPrint", SlowPrint))
+	gdp := xlsx.NewRowParserWithDefaultHeaderAction("./header.xlsx", gd.NewRowAction("SlowPrint", SlowPrint))
 	defer gdp.Close()
 
 	err := gdp.Execute()

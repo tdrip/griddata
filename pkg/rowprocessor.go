@@ -6,13 +6,13 @@ import (
 
 type RowParse func(rp *RowProcessor, parent igrid.IParser, data igrid.IDataSource) error
 
-// CreateRowProcessor creates the row parser
-func CreateRowProcessor(parse RowParse, opts igrid.IDataProcessorOptions) *RowProcessor {
-	return CreateHeaderRowProcessor(parse, opts)
+// NewRowProcessor News the row parser
+func NewRowProcessor(parse RowParse, opts igrid.IDataProcessorOptions) *RowProcessor {
+	return NewHeaderRowProcessor(parse, opts)
 }
 
-// CreateRowProcessor creates the row parser
-func CreateHeaderRowProcessor(parse RowParse, opts igrid.IDataProcessorOptions) *RowProcessor {
+// NewRowProcessor News the row parser
+func NewHeaderRowProcessor(parse RowParse, opts igrid.IDataProcessorOptions) *RowProcessor {
 	rp := &RowProcessor{}
 	rp.SetOptions(opts)
 	empty := make(map[string]igrid.IDataAction)

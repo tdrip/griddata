@@ -17,7 +17,7 @@ type HeadedCellAction struct {
 	Header *HeaderRowData
 }
 
-func CreateHeadedCellAction(id string, act HeadedCellActionFunc) HeadedCellAction {
+func NewHeadedCellAction(id string, act HeadedCellActionFunc) HeadedCellAction {
 	return HeadedCellAction{
 		ID:     id,
 		Action: act,

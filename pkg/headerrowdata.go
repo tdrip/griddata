@@ -16,9 +16,9 @@ type HeaderRowData struct {
 	Header         *RowData
 }
 
-// CreateRowData Creates a default row data struct
-func CreateHeaderRowData(row int, pass int, header *RowData) *HeaderRowData {
-	rd := HeaderRowData{RowData: *CreateRowData(row, pass)}
+// NewRowData creates a default row data struct
+func NewHeaderRowData(row int, pass int, header *RowData) *HeaderRowData {
+	rd := HeaderRowData{RowData: *NewRowData(row, pass)}
 	rd.Header = header
 	return &rd
 }
@@ -35,15 +35,15 @@ func FillHeaderRowStringData(rowindex int, pass int, columndata []string, header
 		return nil, fmt.Errorf("row index %d column data has %d columns but does not have the expected headers %d", rowindex, len(columndata), len(headers))
 	}
 	// number of passes and the row index
-	rd := CreateHeaderRowData(rowindex, pass, header)
+	rd := NewHeaderRowData(rowindex, pass, header)
 	indexeddata := make(map[int]any, len(columndata))
 	namelookup := make(map[string]int, len(columndata))
 
 	for columnindex := 0; columnindex < len(columndata); columnindex++ {
 
-		pnt := CreatePoint(rowindex, columnindex)
+		pnt := NewPoint(rowindex, columnindex)
 		// csv is always srting so we parse the cells as such
-		cell := CreateStringCell(pnt, columndata[columnindex])
+		cell := NewStringCell(pnt, columndata[columnindex])
 
 		head := headers[columnindex].GetData()
 		headv, ok := head.(string)
