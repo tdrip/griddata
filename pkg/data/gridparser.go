@@ -7,7 +7,7 @@ import (
 // Parser Grid data Parser with structs
 type Parser struct {
 	// inherit from the engine interface
-	idata.IParser
+	idata.Parser
 
 	//Processors
 	Processors []idata.Processor

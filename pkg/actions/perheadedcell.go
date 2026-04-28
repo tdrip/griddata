@@ -10,14 +10,14 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
-type PerHeadedCellFunc func(igrid.ICell, igrid.ICell) error
+type PerHeadedCellFunc func(igrid.Cell, igrid.Cell) error
 
 // Headed Row Action An action that occurs on a Row
 type PerHeadedCell struct {
 	iaction.Action
 	ID         string
 	CellAction PerHeadedCellFunc
-	Header     igrid.IRow
+	Header     igrid.Row
 }
 
 // creates a uuid for each action
@@ -36,7 +36,7 @@ func NewPerHeadedCell(id string, act PerHeadedCellFunc) PerHeadedCell {
 }
 
 // Set Header
-func (hra *PerHeadedCell) SetHeader(header igrid.IRow) {
+func (hra *PerHeadedCell) SetHeader(header igrid.Row) {
 	hra.Header = header
 }
 
@@ -64,7 +64,7 @@ func (hra *PerHeadedCell) Perform(data any) error {
 	}
 
 	// We expect datarow to be correct type
-	datarow, ok := data.(igrid.IRow)
+	datarow, ok := data.(igrid.Row)
 	if !ok {
 		return errors.New("data type was not Row Data")
 	}

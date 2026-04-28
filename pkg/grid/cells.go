@@ -8,17 +8,17 @@ import (
 
 // Cell represents a cell of data
 type Cell struct {
-	igrid.ICell
+	igrid.Cell
 
 	// Location of the Cell
-	Location igrid.IPoint
+	Location igrid.Point
 
 	// data in the cell
 	Data any
 }
 
 // NewStringCell creates a cell with string data
-func NewStringCell(location igrid.IPoint, data string) *Cell {
+func NewStringCell(location igrid.Point, data string) *Cell {
 	gdc := Cell{}
 	gdc.Location = location
 	gdc.Data = data
@@ -26,12 +26,12 @@ func NewStringCell(location igrid.IPoint, data string) *Cell {
 }
 
 // GetLocation Gets the position
-func (cell *Cell) GetLocation() igrid.IPoint {
+func (cell *Cell) GetLocation() igrid.Point {
 	return cell.Location
 }
 
 // SetLocation Sets the position
-func (cell *Cell) SetLocation(point igrid.IPoint) {
+func (cell *Cell) SetLocation(point igrid.Point) {
 	cell.Location = point
 }
 

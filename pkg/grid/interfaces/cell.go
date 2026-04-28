@@ -1,9 +1,9 @@
 package igrid
 
 // ICell This interface is data and location of data
-type ICell interface {
-	GetLocation() IPoint
-	SetLocation(point IPoint)
+type Cell interface {
+	GetLocation() Point
+	SetLocation(point Point)
 
 	GetData() any
 	SetData(data any)

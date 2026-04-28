@@ -1,57 +1,58 @@
-package csv
+package xlsx
 
 import (
-	"encoding/csv"
 	"errors"
 	"fmt"
-	"io"
 
 	act "github.com/tdrip/griddata/pkg/actions"
 	gd "github.com/tdrip/griddata/pkg/data"
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"
+	"github.com/xuri/excelize/v2"
 )
 
 // Parse parse the data source
-func CSVRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.Source) error {
-
-	// convert the idatasource to what we expect which is a CSV File
+func XLSXRowParse(rowparser *gd.RowProcessor, parent idata.Parser, data idata.Source) error {
+	// convert the idatasource to what we expect which is a XLSX File
 	cdata, ok := data.(*gd.GridFile)
 	if !ok {
-		return errors.New("data type was not a File")
+		return errors.New("data type was not a XLSX File")
 	}
 	// We need a GD Parser for the logging
 	opts := rowparser.GetOptions()
 	if opts == nil {
 		return errors.New("row processor options were nil")
 	}
-	options, ok := opts.(*CSVOptions)
+	options, ok := opts.(*XLXSOptions)
 	if !ok {
-		return errors.New("options type was not a Row Processor Options")
+		return errors.New("options type was not a XLXS Processor Options")
 	}
 
 	hrd := &gd.RowData{}
 	hrd = nil
 	if cdata != nil {
-		row := 0
+
+		reader, err := excelize.OpenReader(cdata.Filestream)
+		if err != nil {
+			return err
+		}
 		pass := options.TotalPasses()
 		numcols := options.NumOfColumns()
-		if cdata.Filestream == nil {
-			return errors.New("Filestream was nil - was it opened correctly")
+		sheets := options.Sheets
+		if len(sheets) == 0 {
+			sheets = reader.GetSheetList()
 		}
-		reader := csv.NewReader(cdata.Filestream)
-		if reader == nil {
-			return errors.New("failed to create csv reader for file stream")
-		}
-		reader.Comma = options.Seperator
-		for {
-			record, err := reader.Read()
-			if err == io.EOF {
-				break
-			}
+		for _, sheet := range sheets {
+
+			rows, err := reader.Rows(sheet)
 			if err != nil {
 				return err
-			} else {
-
+			}
+			row := 0
+			for rows.Next() {
+				record, err := rows.Columns()
+				if err != nil {
+					return err
+				}
 				if numcols > 0 {
 					if len(record) != numcols {
 						return fmt.Errorf("expected number of columns is %d but data source has %d", numcols, len(record))
@@ -95,9 +96,10 @@ func CSVRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.So
 						}
 					}
 				}
+				row++
 			}
-			row++
 		}
+
 		return nil
 
 	}

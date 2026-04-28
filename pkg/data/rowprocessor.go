@@ -5,7 +5,7 @@ import (
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
-type RowParse func(rp *RowProcessor, parent idata.IParser, data idata.Source) error
+type RowParse func(rp *RowProcessor, parent idata.Parser, data idata.Source) error
 
 // NewRowProcessor News the row parser
 func NewRowProcessor(parse RowParse, opts idata.ProcessorOptions) *RowProcessor {
@@ -35,7 +35,7 @@ type RowProcessor struct {
 	ParseFunc RowParse
 }
 
-func (rp *RowProcessor) Parse(parent idata.IParser, data idata.Source) error {
+func (rp *RowProcessor) Parse(parent idata.Parser, data idata.Source) error {
 	if rp.ParseFunc != nil {
 		return rp.ParseFunc(rp, parent, data)
 	}

@@ -8,7 +8,7 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
-type HeadedRowFunc func(igrid.IRow) error
+type HeadedRowFunc func(igrid.Row) error
 
 // Headed Row Action An action that occurs on a Row
 type HeadedRow struct {
@@ -49,7 +49,7 @@ func (hra *HeadedRow) Perform(data any) error {
 
 	// We expect data to be the interface for the action
 	// not tied to the data layer
-	datarow, ok := data.(igrid.IRow)
+	datarow, ok := data.(igrid.Row)
 	if !ok {
 		return fmt.Errorf("data type was not Headed Row Data - Raw Data:  %v", data)
 	}

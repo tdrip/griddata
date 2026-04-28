@@ -54,7 +54,7 @@ func TestCSV3Passes(t *testing.T) {
 
 }
 
-func FailAction(cell igrid.ICell) error {
+func FailAction(cell igrid.Cell) error {
 	return errors.New("I should fail")
 }
 
@@ -70,7 +70,7 @@ func TestCSVHeaderActions(t *testing.T) {
 }
 
 // column1,column2,column3,column4
-func testheader(irow igrid.IRow) error {
+func testheader(irow igrid.Row) error {
 
 	rowdata, err := gd.GetHeaderRowData(irow)
 	if err != nil {
@@ -137,7 +137,7 @@ type TestRowHData struct {
 }
 
 // column1,column2,column3,column4
-func testheaderdecode(rowdata igrid.IRow) error {
+func testheaderdecode(rowdata igrid.Row) error {
 
 	trd := TestRowHData{
 		Column1: "NOTSET",
@@ -194,7 +194,7 @@ func TestCSVIndexHeaderActionDecode(t *testing.T) {
 }
 
 // column1,column2,column3,column4
-func testheaderindexdecode(rowdata igrid.IRow) error {
+func testheaderindexdecode(rowdata igrid.Row) error {
 
 	trd := TestIndexHRowData{
 		Column1: "NOTSET",
@@ -251,7 +251,7 @@ func TestCSVNZIndexHeaderActionDecode(t *testing.T) {
 }
 
 // column1,column2,column3,column4
-func testheadernzindexdecode(rowdata igrid.IRow) error {
+func testheadernzindexdecode(rowdata igrid.Row) error {
 
 	trd := TestIndexHNZRowData{
 		Column1: "NOTSET",

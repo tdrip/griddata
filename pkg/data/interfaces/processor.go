@@ -10,7 +10,7 @@ type Processor interface {
 	SetOptions(options ProcessorOptions)
 
 	// Parse the row
-	Parse(parent IParser, data Source) error
+	Parse(parent Parser, data Source) error
 
 	// actions for the row or column
 	GetActions() map[string]iaction.Action

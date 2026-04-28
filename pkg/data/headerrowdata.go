@@ -3,6 +3,7 @@ package data
 import (
 	"errors"
 	"fmt"
+	"reflect"
 	"strconv"
 	"strings"
 
@@ -26,13 +27,21 @@ func NewHeaderRowData(row int, pass int, header *RowData) *HeaderRowData {
 	return &rd
 }
 
-func GetHeaderRowData(row igrid.IRow) (*HeaderRowData, error) {
+func GetHeaderRowData(row igrid.Row) (*HeaderRowData, error) {
 	rd, ok := row.(*HeaderRowData)
 	if !ok {
 		return nil, errors.New("data was not Header Row Data")
 	}
 
 	return rd, nil
+}
+
+func DecodeHeaderIRowData(irow igrid.Row, out interface{}) error {
+	hrd, ok := irow.(*HeaderRowData)
+	if !ok {
+		return errors.New("data was not a Header Row Data")
+	}
+	return assignhrd(reflect.ValueOf(out).Elem(), hrd)
 }
 
 // FillHeaderRowStringData creates a row data from a string data array

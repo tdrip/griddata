@@ -6,12 +6,12 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
-func PrintCell(cell igrid.ICell) error {
+func PrintCell(cell igrid.Cell) error {
 	fmt.Println(cell.String())
 	return nil
 }
 
-func PrintHeadedCell(header igrid.ICell, cell igrid.ICell) error {
+func PrintHeadedCell(header igrid.Cell, cell igrid.Cell) error {
 	if header == nil {
 		fmt.Println(cell.String())
 	} else {

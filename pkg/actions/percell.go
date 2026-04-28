@@ -9,7 +9,7 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
-type PerCellFunc func(igrid.ICell) error
+type PerCellFunc func(igrid.Cell) error
 
 // PerCell An action that occurs on a Row
 type PerCell struct {
@@ -51,7 +51,7 @@ func (ra *PerCell) Perform(data any) error {
 
 	// We expect data to be the interface for the action
 	// not tied to the data layer
-	datarow, ok := data.(igrid.IRow)
+	datarow, ok := data.(igrid.Row)
 	if !ok {
 		return errors.New("data type was not Row Data")
 	}

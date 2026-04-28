@@ -1,7 +1,7 @@
 package idata
 
-// IParser this is the parser interface
-type IParser interface {
+// Parser this is the parser interface
+type Parser interface {
 	GetProcessors() []Processor
 	SetProcessors([]Processor)
 	AddProcessor(Processor)

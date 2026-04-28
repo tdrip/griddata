@@ -8,7 +8,7 @@ import (
 
 // Point A grid data point
 type Point struct {
-	igrid.IPoint
+	igrid.Point
 	y int
 	x int
 }
@@ -40,7 +40,7 @@ func (point *Point) SetX(X int) {
 }
 
 // Match This matches one point against this one
-func (point *Point) Match(position igrid.IPoint) bool {
+func (point *Point) Match(position igrid.Point) bool {
 	return point.Matches(position.GetX(), position.GetY())
 }
 
@@ -85,10 +85,10 @@ func JustYPoint(y int) *Point {
 	return NewPoint(igrid.UNKNOWNX, y)
 }
 
-func MatchesY(loc1 igrid.IPoint, loc2 igrid.IPoint) bool {
+func MatchesY(loc1 igrid.Point, loc2 igrid.Point) bool {
 	return loc1.GetY() == loc2.GetY()
 }
 
-func MatchesX(loc1 igrid.IPoint, loc2 igrid.IPoint) bool {
+func MatchesX(loc1 igrid.Point, loc2 igrid.Point) bool {
 	return loc1.GetX() == loc2.GetX()
 }

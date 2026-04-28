@@ -5,8 +5,8 @@ const (
 	UNKNOWNX = -1
 )
 
-// IPoint This represents where the Cell is
-type IPoint interface {
+// Point This represents where the Cell is
+type Point interface {
 	// Gets the X Co-Ordinate where it is in the GRID
 	GetX() int
 	SetX(X int)
@@ -17,6 +17,6 @@ type IPoint interface {
 
 	// Do matches
 	Matches(Y int, X int) bool
-	Match(point IPoint) bool
+	Match(point Point) bool
 	String() string
 }

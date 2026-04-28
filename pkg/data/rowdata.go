@@ -2,6 +2,7 @@ package data
 
 import (
 	"errors"
+	"reflect"
 	"strconv"
 	"strings"
 
@@ -23,13 +24,21 @@ func NewRowData(rowindex int, pass int) *RowData {
 	return &rd
 }
 
-func GetRowData(row igrid.IRow) (*RowData, error) {
+func GetRowData(row igrid.Row) (*RowData, error) {
 	rd, ok := row.(*RowData)
 	if !ok {
 		return nil, errors.New("data was not Row Data")
 	}
 
 	return rd, nil
+}
+
+func DecodeIRowData(irow igrid.Row, out interface{}) error {
+	hrd, ok := irow.(*HeaderRowData)
+	if !ok {
+		return errors.New("data was not a Header Row Data")
+	}
+	return assignhrd(reflect.ValueOf(out).Elem(), hrd)
 }
 
 func (rd *RowData) GetValData(columnindex int) (any, error) {

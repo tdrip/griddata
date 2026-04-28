@@ -25,7 +25,7 @@ func main() {
 	}
 }
 
-func SlowPrint(cell igrid.ICell) error {
+func SlowPrint(cell igrid.Cell) error {
 	time.Sleep(500 * time.Millisecond)
 	act.PrintCell(cell)
 	return nil
