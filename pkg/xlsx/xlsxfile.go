@@ -14,7 +14,7 @@ type XLSXFile struct {
 
 	Filepath   string
 	Filestream *os.File
-	Sheets     []string
+	Sheets     []string // sheets we aim to parse
 }
 
 // CreateXLSXFile Creates a XLSX file
