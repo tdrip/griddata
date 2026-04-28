@@ -28,7 +28,7 @@ func NewRowData(row int, pass int) *RowData {
 	rd := RowData{Pass: pass}
 
 	// x,y point
-	rowp := NewPoint(row, -1)
+	rowp := NewPoint(row, igrid.UNKNOWNY)
 
 	// set the index
 	rd.SetIndex(NewIndex(rowp))

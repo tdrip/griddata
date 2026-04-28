@@ -55,7 +55,7 @@ func NewRColumnIndexbyIndex(Index int, rcolumns []igrid.IIndex) igrid.IIndex {
 }
 
 func NewRColumnIndexbyName(Name string, rcolumns []igrid.IIndex) igrid.IIndex {
-	return NewColumnIndex(-1, Name, rcolumns)
+	return NewColumnIndex(igrid.UNKNOWNY, Name, rcolumns)
 }
 
 func NewColumnIndexbyIndex(Index int) igrid.IIndex {
@@ -63,7 +63,7 @@ func NewColumnIndexbyIndex(Index int) igrid.IIndex {
 }
 
 func NewColumnIndexbyName(Name string) igrid.IIndex {
-	return NewColumnIndex(-1, Name, nil)
+	return NewColumnIndex(igrid.UNKNOWNY, Name, nil)
 }
 
 // New Column Index
