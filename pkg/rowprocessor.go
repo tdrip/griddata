@@ -7,17 +7,13 @@ import (
 type RowParse func(rp *RowProcessor, parent igrid.IParser, data igrid.IDataSource) error
 
 // CreateRowProcessor creates the row parser
-func CreateRowProcessor(parse RowParse) *RowProcessor {
-	return CreateHeaderRowProcessor(parse, -1)
+func CreateRowProcessor(parse RowParse, opts igrid.IDataProcessorOptions) *RowProcessor {
+	return CreateHeaderRowProcessor(parse, opts)
 }
 
 // CreateRowProcessor creates the row parser
-func CreateHeaderRowProcessor(parse RowParse, headerowindex int) *RowProcessor {
+func CreateHeaderRowProcessor(parse RowParse, opts igrid.IDataProcessorOptions) *RowProcessor {
 	rp := &RowProcessor{}
-	//Option
-	opts := &RowProcessorOptions{}
-	opts.Defaults()
-	opts.HeaderRowIndex = headerowindex
 	rp.SetOptions(opts)
 	empty := make(map[string]igrid.IDataAction)
 	rp.Actions = empty
@@ -31,7 +27,7 @@ type RowProcessor struct {
 	// inherit from the row parser
 	igrid.IDataProcessor
 
-	Options *RowProcessorOptions
+	Options igrid.IDataProcessorOptions
 
 	Actions map[string]igrid.IDataAction
 
@@ -53,7 +49,7 @@ func (rp *RowProcessor) GetOptions() igrid.IDataProcessorOptions {
 
 // SetOptions Set the options for the row parser
 func (rp *RowProcessor) SetOptions(options igrid.IDataProcessorOptions) {
-	rp.Options = options.(*RowProcessorOptions)
+	rp.Options = options
 }
 
 // actions for the row

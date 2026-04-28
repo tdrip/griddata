@@ -38,8 +38,8 @@ func TestXLSX3Passes(t *testing.T) {
 	rowprocessors := gdp.GetProcessors()
 
 	opts := rowprocessors[0].GetOptions()
-	rpo := opts.(*gd.RowProcessorOptions)
-	rpo.TotalPasses = 3
+	rpo := opts.(*XLXSProcessorOptions)
+	rpo.Passes = 3
 	rowprocessors[0].SetOptions(rpo)
 
 	gdp.SetProcessors(rowprocessors)

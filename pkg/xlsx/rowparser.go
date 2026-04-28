@@ -12,18 +12,18 @@ import (
 // Parse parse the data source
 func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
 	// convert the idatasource to what we expect which is a XLSX File
-	cdata, ok := data.(*XLSXFile)
+	cdata, ok := data.(*gd.GridFile)
 	if !ok {
 		return errors.New("data type was not a XLSX File")
 	}
 	// We need a GD Parser for the logging
 	opts := rowparser.GetOptions()
 	if opts == nil {
-		return errors.New("options were nil")
+		return errors.New("row processor options were nil")
 	}
-	options, ok := opts.(*gd.RowProcessorOptions)
+	options, ok := opts.(*XLXSProcessorOptions)
 	if !ok {
-		return errors.New("options type was not a Row Processor Options")
+		return errors.New("options type was not a XLXS Processor Options")
 	}
 
 	hrd := &gd.RowData{}
@@ -34,9 +34,9 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 		if err != nil {
 			return err
 		}
-		pass := options.TotalPasses
-		numcols := options.NumOfColumns
-		sheets := cdata.Sheets
+		pass := options.TotalPasses()
+		numcols := options.NumOfColumns()
+		sheets := options.Sheets
 		if len(sheets) == 0 {
 			sheets = reader.GetSheetList()
 		}
@@ -53,13 +53,13 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 					return err
 				}
 				if numcols > 0 {
-					if len(record) != options.NumOfColumns {
-						return fmt.Errorf("expected number of columns is %d but data source has %d", options.NumOfColumns, len(record))
+					if len(record) != numcols {
+						return fmt.Errorf("expected number of columns is %d but data source has %d", numcols, len(record))
 					}
 				}
 
 				// are we dealing with a header row?
-				if options.HeaderRowIndex >= 0 && row == options.HeaderRowIndex {
+				if options.HeaderRowIndex() >= 0 && row == options.HeaderRowIndex() {
 					// set the header row data
 					hrd = gd.FillRowStringData(row, pass, record)
 				} else {

@@ -7,48 +7,52 @@ import (
 // CreateRowParser Creates a Parser for a single file
 func CreateRowParser(filepath string) *gd.Parser {
 	gdp := gd.CreateParser()
-	file := CreateCSVFile(filepath)
+	file := gd.CreateGridFile(filepath)
 	gdp.AddDataSource(file)
 
+	// create standard csv options
+	opts := CreateCSVProcessorOptions(',')
+	opts.Defaults()
+
 	// standard csv row parser
-	rowp := gd.CreateRowProcessor(CSVRowParse)
+	rowp := gd.CreateRowProcessor(CSVRowParse, opts)
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
 // CreateRowParser Creates a Parser for a single file
-func CreateRowParserWithHeader(filepath string, headerowindex int) *gd.Parser {
+func CreateRowParserWithOptions(filepath string, opts *CSVProcessorOptions) *gd.Parser {
 	gdp := gd.CreateParser()
-	file := CreateCSVFile(filepath)
+	file := gd.CreateGridFile(filepath)
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateHeaderRowProcessor(CSVRowParse, headerowindex)
+	rowp := gd.CreateHeaderRowProcessor(CSVRowParse, opts)
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
 // CreateRowParser Creates a Parser for a single file
-func CreateRowParserWithAction(filepath string, action gd.RowAction) *gd.Parser {
+func CreateRowParserWithAction(filepath string, opts *CSVProcessorOptions, action gd.RowAction) *gd.Parser {
 	gdp := gd.CreateParser()
-	file := CreateCSVFile(filepath)
+	file := gd.CreateGridFile(filepath)
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateRowProcessor(CSVRowParse)
+	rowp := gd.CreateRowProcessor(CSVRowParse, opts)
 	rowp.AddAction(&action)
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
 // CreateRowParser Creates a Parser for a single file
-func CreateRowParserWithActionAndHeader(filepath string, headerowindex int, action gd.HeadedRowAction) *gd.Parser {
+func CreateRowParserWithHeaderAction(filepath string, opts *CSVProcessorOptions, action gd.HeadedRowAction) *gd.Parser {
 	gdp := gd.CreateParser()
-	file := CreateCSVFile(filepath)
+	file := gd.CreateGridFile(filepath)
 	gdp.AddDataSource(file)
 
 	// standard csv row parser
-	rowp := gd.CreateHeaderRowProcessor(CSVRowParse, headerowindex)
+	rowp := gd.CreateHeaderRowProcessor(CSVRowParse, opts)
 	rowp.AddAction(&action)
 	gdp.AddProcessor(rowp)
 	return gdp

@@ -1,6 +1,7 @@
 package csv
 
 import (
+	"encoding/csv"
 	"errors"
 	"fmt"
 	"io"
@@ -13,16 +14,16 @@ import (
 func CSVRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
-	cdata, ok := data.(*CSVFile)
+	cdata, ok := data.(*gd.GridFile)
 	if !ok {
-		return errors.New("data type was not a CSV File")
+		return errors.New("data type was not a File")
 	}
 	// We need a GD Parser for the logging
 	opts := rowparser.GetOptions()
 	if opts == nil {
-		return errors.New("options were nil")
+		return errors.New("row processor options were nil")
 	}
-	options, ok := opts.(*gd.RowProcessorOptions)
+	options, ok := opts.(*CSVProcessorOptions)
 	if !ok {
 		return errors.New("options type was not a Row Processor Options")
 	}
@@ -31,10 +32,18 @@ func CSVRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.ID
 	hrd = nil
 	if cdata != nil {
 		row := 0
-		pass := options.TotalPasses
-		numcols := options.NumOfColumns
+		pass := options.TotalPasses()
+		numcols := options.NumOfColumns()
+		if cdata.Filestream == nil {
+			return errors.New("Filestream was nil - was it opened correctly")
+		}
+		reader := csv.NewReader(cdata.Filestream)
+		if reader == nil {
+			return errors.New("failed to create csv reader for file stream")
+		}
+		reader.Comma = options.Seperator
 		for {
-			record, err := cdata.Reader.Read()
+			record, err := reader.Read()
 			if err == io.EOF {
 				break
 			}
@@ -43,13 +52,13 @@ func CSVRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.ID
 			} else {
 
 				if numcols > 0 {
-					if len(record) != options.NumOfColumns {
-						return fmt.Errorf("expected number of columns is %d but data source has %d", options.NumOfColumns, len(record))
+					if len(record) != numcols {
+						return fmt.Errorf("expected number of columns is %d but data source has %d", numcols, len(record))
 					}
 				}
 
 				// are we dealing with a header row?
-				if options.HeaderRowIndex >= 0 && row == options.HeaderRowIndex {
+				if options.HeaderRowIndex() >= 0 && row == options.HeaderRowIndex() {
 					// set the header row data
 					hrd = gd.FillRowStringData(row, pass, record)
 				} else {
