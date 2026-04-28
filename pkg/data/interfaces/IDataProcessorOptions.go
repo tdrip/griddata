@@ -1,4 +1,4 @@
-package igrid
+package idata
 
 const (
 	DEFAULTNUMOFPASSES = 1

@@ -4,14 +4,14 @@ import (
 	"fmt"
 
 	uuid "github.com/google/uuid"
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
 type HeadedRowActionFunc func(*HeaderRowData) error
 
 // Headed Row Action An action that occurs on a Row
 type HeadedRowAction struct {
-	igrid.IDataAction
+	idata.IDataAction
 	ID     string
 	Action HeadedRowActionFunc
 }

@@ -5,12 +5,12 @@ import (
 	"fmt"
 
 	gd "github.com/tdrip/griddata/pkg"
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 	"github.com/xuri/excelize/v2"
 )
 
 // Parse parse the data source
-func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
+func XLSXRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.IDataSource) error {
 	// convert the idatasource to what we expect which is a XLSX File
 	cdata, ok := data.(*gd.GridFile)
 	if !ok {

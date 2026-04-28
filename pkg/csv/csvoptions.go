@@ -3,7 +3,7 @@ package csv
 import (
 	"fmt"
 
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 type CSVOptions struct {
 
 	// inherit from the row IRowProcessingOptions
-	igrid.IDataProcessorOptions
+	idata.IDataProcessorOptions
 
 	Passes int `json:"total_passes"`
 
@@ -57,12 +57,12 @@ func NewCSVOptions(seperator rune) *CSVOptions {
 // Defaults
 func (rpo *CSVOptions) Defaults() {
 	//Only pass over the row once
-	rpo.Passes = igrid.DEFAULTNUMOFPASSES
+	rpo.Passes = idata.DEFAULTNUMOFPASSES
 
 	// default to no header
-	rpo.HeaderRowindex = igrid.NOHEADERROWINDEX
+	rpo.HeaderRowindex = idata.NOHEADERROWINDEX
 
-	rpo.NumOfcolumns = igrid.IGNORECOLUMNCOUNT
+	rpo.NumOfcolumns = idata.IGNORECOLUMNCOUNT
 }
 
 func (rpo *CSVOptions) TotalPasses() int {

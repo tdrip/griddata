@@ -5,12 +5,12 @@ import (
 	"fmt"
 
 	uuid "github.com/google/uuid"
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
 // RowAction An action that occurs on a Row
 type RowAction struct {
-	igrid.IDataAction
+	idata.IDataAction
 	ID     string
 	Action CellAction
 }

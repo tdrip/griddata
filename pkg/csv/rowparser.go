@@ -7,11 +7,11 @@ import (
 	"io"
 
 	gd "github.com/tdrip/griddata/pkg"
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
 // Parse parse the data source
-func CSVRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
+func CSVRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
 	cdata, ok := data.(*gd.GridFile)

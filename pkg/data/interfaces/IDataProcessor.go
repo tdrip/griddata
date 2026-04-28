@@ -1,4 +1,4 @@
-package igrid
+package idata
 
 // IDataProcessor This interface parses a row in the grid
 type IDataProcessor interface {

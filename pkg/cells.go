@@ -3,7 +3,7 @@ package grid
 import (
 	"fmt"
 
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
 // Cell represents a cell of data

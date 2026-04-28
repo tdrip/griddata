@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	gd "github.com/tdrip/griddata/pkg"
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
 func TestCSV(t *testing.T) {

@@ -1,21 +1,21 @@
 package grid
 
 import (
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
-type RowParse func(rp *RowProcessor, parent igrid.IParser, data igrid.IDataSource) error
+type RowParse func(rp *RowProcessor, parent idata.IParser, data idata.IDataSource) error
 
 // NewRowProcessor News the row parser
-func NewRowProcessor(parse RowParse, opts igrid.IDataProcessorOptions) *RowProcessor {
+func NewRowProcessor(parse RowParse, opts idata.IDataProcessorOptions) *RowProcessor {
 	return NewHeaderRowProcessor(parse, opts)
 }
 
 // NewRowProcessor News the row parser
-func NewHeaderRowProcessor(parse RowParse, opts igrid.IDataProcessorOptions) *RowProcessor {
+func NewHeaderRowProcessor(parse RowParse, opts idata.IDataProcessorOptions) *RowProcessor {
 	rp := &RowProcessor{}
 	rp.SetOptions(opts)
-	empty := make(map[string]igrid.IDataAction)
+	empty := make(map[string]idata.IDataAction)
 	rp.Actions = empty
 	rp.ParseFunc = parse
 	return rp
@@ -25,16 +25,16 @@ func NewHeaderRowProcessor(parse RowParse, opts igrid.IDataProcessorOptions) *Ro
 type RowProcessor struct {
 
 	// inherit from the row parser
-	igrid.IDataProcessor
+	idata.IDataProcessor
 
-	Options igrid.IDataProcessorOptions
+	Options idata.IDataProcessorOptions
 
-	Actions map[string]igrid.IDataAction
+	Actions map[string]idata.IDataAction
 
 	ParseFunc RowParse
 }
 
-func (rp *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSource) error {
+func (rp *RowProcessor) Parse(parent idata.IParser, data idata.IDataSource) error {
 	if rp.ParseFunc != nil {
 		return rp.ParseFunc(rp, parent, data)
 	}
@@ -43,21 +43,21 @@ func (rp *RowProcessor) Parse(parent igrid.IParser, data igrid.IDataSource) erro
 }
 
 // GetOptions Get the options for the row parser
-func (rp *RowProcessor) GetOptions() igrid.IDataProcessorOptions {
+func (rp *RowProcessor) GetOptions() idata.IDataProcessorOptions {
 	return rp.Options
 }
 
 // SetOptions Set the options for the row parser
-func (rp *RowProcessor) SetOptions(options igrid.IDataProcessorOptions) {
+func (rp *RowProcessor) SetOptions(options idata.IDataProcessorOptions) {
 	rp.Options = options
 }
 
 // actions for the row
-func (rp *RowProcessor) GetActions() map[string]igrid.IDataAction {
+func (rp *RowProcessor) GetActions() map[string]idata.IDataAction {
 	return rp.Actions
 }
 
-func (rp *RowProcessor) SetActions(actions []igrid.IDataAction) {
+func (rp *RowProcessor) SetActions(actions []idata.IDataAction) {
 	data := rp.Actions
 	for _, action := range actions {
 		data[action.GetId()] = action
@@ -65,7 +65,7 @@ func (rp *RowProcessor) SetActions(actions []igrid.IDataAction) {
 	rp.Actions = data
 }
 
-func (rp *RowProcessor) AddAction(action igrid.IDataAction) {
+func (rp *RowProcessor) AddAction(action idata.IDataAction) {
 	data := rp.Actions
 	data[action.GetId()] = action
 	rp.Actions = data
@@ -78,6 +78,6 @@ func (rp *RowProcessor) RemoveAction(id string) {
 }
 
 func (rp *RowProcessor) ClearActions() {
-	empty := make(map[string]igrid.IDataAction)
+	empty := make(map[string]idata.IDataAction)
 	rp.Actions = empty
 }

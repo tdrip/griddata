@@ -5,13 +5,13 @@ import (
 	"os"
 	"path/filepath"
 
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
 // Grid File represents a sandard file
 // basic open,close and validation
 type GridFile struct {
-	igrid.IDataSource
+	idata.IDataSource
 
 	Filepath   string
 	Filestream *os.File

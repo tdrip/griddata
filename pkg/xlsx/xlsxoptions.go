@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"strings"
 
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
 // XLXSOptions number of passes etc
 type XLXSOptions struct {
 
 	// inherit from the row IRowProcessingOptions
-	igrid.IDataProcessorOptions
+	idata.IDataProcessorOptions
 
 	Passes int `json:"total_passes"`
 
@@ -42,12 +42,12 @@ func NewXLXSOptions(sheets []string) *XLXSOptions {
 // Defaults
 func (rpo *XLXSOptions) Defaults() {
 	//Only pass over the row once
-	rpo.Passes = igrid.DEFAULTNUMOFPASSES
+	rpo.Passes = idata.DEFAULTNUMOFPASSES
 
 	// default to no header
-	rpo.HeaderRowindex = igrid.NOHEADERROWINDEX
+	rpo.HeaderRowindex = idata.NOHEADERROWINDEX
 
-	rpo.NumOfcolumns = igrid.IGNORECOLUMNCOUNT
+	rpo.NumOfcolumns = idata.IGNORECOLUMNCOUNT
 }
 
 func (rpo *XLXSOptions) TotalPasses() int {

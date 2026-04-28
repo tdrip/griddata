@@ -1,4 +1,4 @@
-package igrid
+package idata
 
 type IDataAction interface {
 	GetId() string

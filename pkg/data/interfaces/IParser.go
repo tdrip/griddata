@@ -1,4 +1,4 @@
-package igrid
+package idata
 
 // IParser this is the parser interface
 type IParser interface {

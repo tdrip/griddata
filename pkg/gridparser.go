@@ -1,57 +1,57 @@
 package grid
 
 import (
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
 // Parser Grid data Parser with structs
 type Parser struct {
 	// inherit from the engine interface
-	igrid.IParser
+	idata.IParser
 
 	//Processors
-	Processors []igrid.IDataProcessor
+	Processors []idata.IDataProcessor
 
 	//DataSource
-	DataSources []igrid.IDataSource
+	DataSources []idata.IDataSource
 }
 
 // NewParser creates a Parser
 func NewParser() *Parser {
 	parser := Parser{
-		Processors:  []igrid.IDataProcessor{},
-		DataSources: []igrid.IDataSource{},
+		Processors:  []idata.IDataProcessor{},
+		DataSources: []idata.IDataSource{},
 	}
 	return &parser
 }
 
 // GetProcessors Get the processors
-func (gdp *Parser) GetProcessors() []igrid.IDataProcessor {
+func (gdp *Parser) GetProcessors() []idata.IDataProcessor {
 	return gdp.Processors
 }
 
 // SetRowProcessors Set the row processors
-func (gdp *Parser) SetProcessors(rparsers []igrid.IDataProcessor) {
+func (gdp *Parser) SetProcessors(rparsers []idata.IDataProcessor) {
 	gdp.Processors = rparsers
 }
 
 // AddProcessor Add a single row processor
-func (gdp *Parser) AddProcessor(rparser igrid.IDataProcessor) {
+func (gdp *Parser) AddProcessor(rparser idata.IDataProcessor) {
 	gdp.Processors = append(gdp.Processors, rparser)
 }
 
 // GetDataSources Get the data sources
-func (gdp *Parser) GetDataSources() []igrid.IDataSource {
+func (gdp *Parser) GetDataSources() []idata.IDataSource {
 	return gdp.DataSources
 }
 
 // SetDataSources Set the data sources
-func (gdp *Parser) SetDataSources(datasources []igrid.IDataSource) {
+func (gdp *Parser) SetDataSources(datasources []idata.IDataSource) {
 	gdp.DataSources = datasources
 }
 
 // AddDataSource Set the data sources
-func (gdp *Parser) AddDataSource(datasource igrid.IDataSource) {
+func (gdp *Parser) AddDataSource(datasource idata.IDataSource) {
 	gdp.DataSources = append(gdp.DataSources, datasource)
 }
 

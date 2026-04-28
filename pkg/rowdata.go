@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
 // RowData This represents a row of data

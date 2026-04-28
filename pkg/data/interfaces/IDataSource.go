@@ -1,4 +1,4 @@
-package igrid
+package idata
 
 // IDataSource The data source for the Parser
 type IDataSource interface {
