@@ -41,11 +41,17 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 			sheets = reader.GetSheetList()
 		}
 		for _, sheet := range sheets {
-			records, err := reader.GetRows(sheet)
+
+			rows, err := reader.Rows(sheet)
 			if err != nil {
 				return err
 			}
-			for row, record := range records {
+			row := 0
+			for rows.Next() {
+				record, err := rows.Columns()
+				if err != nil {
+					return err
+				}
 				if numcols > 0 {
 					if len(record) != options.NumOfColumns {
 						return fmt.Errorf("expected number of columns is %d but data source has %d", options.NumOfColumns, len(record))
@@ -89,6 +95,7 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 						}
 					}
 				}
+				row++
 			}
 		}
 
