@@ -74,15 +74,11 @@ func (gdp *Parser) Execute() error {
 			// let's stop on validation
 			return err
 		}
-	}
-
-	// now open files
-	for _, ds := range datasources {
 
 		defer ds.Close()
 
 		// open the data source (assuming stream based data)
-		err := ds.Open()
+		err = ds.Open()
 		if err != nil {
 			return err
 		}
