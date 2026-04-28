@@ -2,10 +2,10 @@ package igrid
 
 // IRow This interface is data for the row
 type IRow interface {
-	GetIndex() IIndex
-	SetIndex(index IIndex)
+	GetIndex() IPoint
+	SetIndex(index IPoint)
 
-	Matches(index IIndex) bool
+	Matches(index IPoint) bool
 
 	GetCells() []ICell
 	SetCells(cells []ICell)

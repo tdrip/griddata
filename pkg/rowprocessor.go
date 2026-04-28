@@ -58,9 +58,11 @@ func (rp *RowProcessor) GetActions() map[string]igrid.IDataAction {
 }
 
 func (rp *RowProcessor) SetActions(actions []igrid.IDataAction) {
+	data := rp.Actions
 	for _, action := range actions {
-		rp.AddAction(action)
+		data[action.GetId()] = action
 	}
+	rp.Actions = data
 }
 
 func (rp *RowProcessor) AddAction(action igrid.IDataAction) {

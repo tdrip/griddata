@@ -13,7 +13,7 @@ type RowData struct {
 	igrid.IRow
 
 	// Index of the row
-	Index igrid.IIndex
+	Index igrid.IPoint
 
 	// Number of passes over the row
 	Pass int
@@ -27,27 +27,27 @@ type RowData struct {
 func NewRowData(rowindex int, pass int) *RowData {
 	rd := RowData{Pass: pass}
 
-	// x,y point doesn;t matter
-
+	// x,y point doesn't matter
+	// just need X as this is a row
 	// set the index
-	rd.SetIndex(JustXIndex(rowindex))
+	rd.SetIndex(JustXPoint(rowindex))
 
 	return &rd
 }
 
 // GetIndex Gets the index for the row
-func (rd *RowData) GetIndex() igrid.IIndex {
+func (rd *RowData) GetIndex() igrid.IPoint {
 	return rd.Index
 }
 
 // SetIndex Sets the index for the row
-func (rd *RowData) SetIndex(index igrid.IIndex) {
+func (rd *RowData) SetIndex(index igrid.IPoint) {
 	rd.Index = index
 }
 
 // Matches Matches the index passed in against the index for the row
-func (rd *RowData) Matches(index igrid.IIndex) bool {
-	return rd.GetIndex().GetLocation().Match(index.GetLocation())
+func (rd *RowData) Matches(index igrid.IPoint) bool {
+	return rd.GetIndex().Match(index)
 }
 
 // GetCells Gets the cells for the row
