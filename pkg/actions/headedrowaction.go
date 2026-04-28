@@ -13,22 +13,22 @@ type HeadedRowActionFunc func(igrid.IRow) error
 // Headed Row Action An action that occurs on a Row
 type HeadedRowAction struct {
 	iaction.Action
-	ID         string
-	CellAction HeadedRowActionFunc
+	ID        string
+	RowAction HeadedRowActionFunc
 }
 
 // creates a uuid for each action
 func NewSimpleHeadedRowAction(act HeadedRowActionFunc) HeadedRowAction {
 	return HeadedRowAction{
-		ID:         uuid.NewString(),
-		CellAction: act,
+		ID:        uuid.NewString(),
+		RowAction: act,
 	}
 }
 
 func NewHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {
 	return HeadedRowAction{
-		ID:         id,
-		CellAction: act,
+		ID:        id,
+		RowAction: act,
 	}
 }
 
@@ -39,8 +39,8 @@ func (hra *HeadedRowAction) GetId() string {
 
 func (hra *HeadedRowAction) Perform(data any) error {
 
-	if hra.CellAction == nil {
-		return fmt.Errorf("No action set for %s", hra.ID)
+	if hra.RowAction == nil {
+		return fmt.Errorf("No row action set for %s", hra.ID)
 	}
 
 	if data == nil {
@@ -54,5 +54,5 @@ func (hra *HeadedRowAction) Perform(data any) error {
 		return fmt.Errorf("data type was not Headed Row Data - Raw Data:  %v", data)
 	}
 
-	return hra.CellAction(datarow)
+	return hra.RowAction(datarow)
 }
