@@ -12,7 +12,7 @@ func main() {
 	// specify the file and the action
 
 	// normal print
-	//	gdp := xlsx.NewRowParserWithAction("./header.xlsx", act.NewPerCellAction("PrintAction", act.PrintCellAction))
+	//	gdp := xlsx.NewRowParserWithAction("./header.xlsx", act.NewPerCellAction("PrintAction", act.PrintCell))
 
 	//  slow print
 	gdp := xlsx.NewRowParserDefaultAction("./header.xlsx", act.NewPerCellAction("SlowPrint", SlowPrint))
@@ -27,6 +27,6 @@ func main() {
 
 func SlowPrint(cell igrid.ICell) error {
 	time.Sleep(500 * time.Millisecond)
-	act.PrintCellAction(cell)
+	act.PrintCell(cell)
 	return nil
 }
