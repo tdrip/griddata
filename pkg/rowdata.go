@@ -69,7 +69,7 @@ func (rd *RowData) AddCell(cell igrid.ICell) {
 }
 
 func (rd *RowData) GetValData(columnindex int) (any, error) {
-	if columnindex < 0 || columnindex > len(rd.Cells) {
+	if columnindex < 0 || columnindex >= len(rd.Cells) {
 		return nil, errors.New("columns out of range")
 	}
 	return rd.Cells[columnindex].GetData(), nil
