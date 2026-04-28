@@ -30,7 +30,7 @@ func (hra *HeadedCellAction) SetHeader(header *HeaderRowData) {
 }
 
 func (hra *HeadedCellAction) HasHeader() bool {
-	return hra.Header == nil
+	return hra.Header != nil
 }
 
 // Get Id for this action
