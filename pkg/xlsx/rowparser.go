@@ -27,6 +27,7 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 	}
 
 	hrd := &gd.RowData{}
+	hrd = nil
 	if cdata != nil {
 
 		reader, err := excelize.OpenReader(cdata.Filestream)
@@ -50,10 +51,13 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 						return fmt.Errorf("expected number of columns is %d but data source has %d", options.NumOfColumns, len(record))
 					}
 				}
-				if row == options.HeaderRowIndex {
+
+				// are we dealing with a header row?
+				if options.HeaderRowIndex >= 0 && row == options.HeaderRowIndex {
+					// set the header row data
 					hrd = gd.FillRowStringData(row, pass, record)
 				} else {
-
+					// we have header row data
 					if hrd != nil {
 						// get the row actions
 						for _, rowaction := range rowparser.GetActions() {
@@ -63,7 +67,7 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.I
 							}
 							ra, ok := rowaction.(*gd.HeadedRowAction)
 							if !ok {
-								return errors.New("rowaction type was not a Headed Row Action")
+								return errors.New("row action type was not a Headed Row Action")
 							}
 							err = ra.Perform(rd)
 							if err != nil {
