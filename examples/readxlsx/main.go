@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	gd "github.com/tdrip/griddata/pkg/data"
+	act "github.com/tdrip/griddata/pkg/actions"
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 	"github.com/tdrip/griddata/pkg/xlsx"
 )
@@ -12,10 +12,10 @@ func main() {
 	// specify the file and the action
 
 	// normal print
-	//	gdp := xlsx.NewRowParserWithAction("./header.xlsx", gd.NewRowAction("PrintAction", gd.PrintCellAction))
+	//	gdp := xlsx.NewRowParserWithAction("./header.xlsx", act.NewPerCellAction("PrintAction", act.PrintCellAction))
 
 	//  slow print
-	gdp := xlsx.NewRowParserDefaultAction("./header.xlsx", gd.NewRowAction("SlowPrint", SlowPrint))
+	gdp := xlsx.NewRowParserDefaultAction("./header.xlsx", act.NewPerCellAction("SlowPrint", SlowPrint))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -27,6 +27,6 @@ func main() {
 
 func SlowPrint(cell igrid.ICell) error {
 	time.Sleep(500 * time.Millisecond)
-	gd.PrintCellAction(cell)
+	act.PrintCellAction(cell)
 	return nil
 }

@@ -1,13 +1,13 @@
 package main
 
 import (
+	act "github.com/tdrip/griddata/pkg/actions"
 	"github.com/tdrip/griddata/pkg/csv"
-	gd "github.com/tdrip/griddata/pkg/data"
 )
 
 func main() {
 	// specify the file and the action
-	gdp := csv.NewRowParserDefaultAction("./header.csv", gd.NewRowAction("PrintAction", gd.PrintCellAction))
+	gdp := csv.NewRowParserDefaultAction("./header.csv", act.NewPerCellAction("PrintAction", act.PrintCellAction))
 	defer gdp.Close()
 
 	err := gdp.Execute()

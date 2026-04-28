@@ -25,7 +25,7 @@ func TestXLSX(t *testing.T) {
 }
 
 func TestXLSXActions(t *testing.T) {
-	gdp := NewRowParserWithAction("../../testdata/noheader.xlsx", DefaultXLXSAllSheetsProcessorOptions(), act.NewRowAction("PrintAction", act.PrintCellAction))
+	gdp := NewRowParserWithAction("../../testdata/noheader.xlsx", DefaultXLXSAllSheetsProcessorOptions(), act.NewPerCellAction("PrintAction", act.PrintCellAction))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -39,7 +39,7 @@ func TestXLSX3Passes(t *testing.T) {
 	opts := DefaultXLXSAllSheetsProcessorOptions()
 	opts.Passes = 3
 
-	gdp := NewRowParserWithAction("../../testdata/noheader.xlsx", opts, act.NewRowAction("PrintAction", act.PrintCellAction))
+	gdp := NewRowParserWithAction("../../testdata/noheader.xlsx", opts, act.NewPerCellAction("PrintAction", act.PrintCellAction))
 	rowprocessors := gdp.GetProcessors()
 
 	gdp.SetProcessors(rowprocessors)

@@ -40,12 +40,12 @@ This example reads a csv with a header
 package main
 
 import (
-	gd "github.com/tdrip/griddata/pkg"
+	act "github.com/tdrip/griddata/pkg/actions"
 	"github.com/tdrip/griddata/pkg/csv"
 )
 
 func main() {
-	printcell := gd.NewRowAction("print", gd.PrintCellAction)
+	printcell := act.NewPerCellAction("print", act.PrintCellAction)
 
 	// this has default options like seperator being a comma (,)
 	gdp := csv.NewRowParserDefaultAction("./noheader.csv", &printcell)

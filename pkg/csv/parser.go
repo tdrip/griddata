@@ -29,12 +29,12 @@ func NewRowParserWithOptions(filepath string) *gd.Parser {
 	return gdp
 }
 
-func NewRowParserDefaultAction(filepath string, action acts.RowAction) *gd.Parser {
+func NewRowParserDefaultAction(filepath string, action acts.PerCell) *gd.Parser {
 	return NewRowParserWithAction(filepath, DefaultCSVOptions(), action)
 }
 
 // NewRowParser creates a Parser for a single file
-func NewRowParserWithAction(filepath string, opts *CSVOptions, action acts.RowAction) *gd.Parser {
+func NewRowParserWithAction(filepath string, opts *CSVOptions, action acts.PerCell) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
 	gdp.AddSource(file)

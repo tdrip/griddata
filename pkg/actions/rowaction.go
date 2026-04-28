@@ -9,37 +9,37 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
-type CellAction func(igrid.ICell) error
+type PerCellFunc func(igrid.ICell) error
 
 // RowAction An action that occurs on a Row
-type RowAction struct {
+type PerCell struct {
 	iaction.Action
 	ID         string
-	CellAction CellAction
+	CellAction PerCellFunc
 }
 
 // creates a uuid for each action
-func NewSimpleRowAction(act CellAction) RowAction {
-	return RowAction{
+func NewSimplePerCell(act PerCellFunc) PerCell {
+	return PerCell{
 		ID:         uuid.NewString(),
 		CellAction: act,
 	}
 }
 
 // Applied to every cell of the of the row
-func NewRowAction(id string, act CellAction) RowAction {
-	return RowAction{
+func NewPerCellAction(id string, act PerCellFunc) PerCell {
+	return PerCell{
 		ID:         id,
 		CellAction: act,
 	}
 }
 
 // Get Id for this action
-func (ra *RowAction) GetId() string {
+func (ra *PerCell) GetId() string {
 	return ra.ID
 }
 
-func (ra *RowAction) Perform(data any) error {
+func (ra *PerCell) Perform(data any) error {
 
 	if ra.CellAction == nil {
 		return fmt.Errorf("No action set for %s", ra.ID)
