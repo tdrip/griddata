@@ -51,5 +51,5 @@ func (cell *Cell) SetData(data any) {
 
 // String Makes a respresentation of cell at point X:,Y: has data
 func (cell Cell) String() string {
-	return fmt.Sprintf("Cell at[%s] has %v", cell.GetLocation(), cell.GetData())
+	return fmt.Sprintf("Cell at [%s] has %v", cell.GetLocation(), cell.GetData())
 }
