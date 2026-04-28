@@ -8,7 +8,7 @@ import (
 func NewRowParser(filepath string) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
-	gdp.AddDataSource(file)
+	gdp.AddSource(file)
 
 	// standard xlsx row parser
 	rowp := gd.NewRowProcessor(XLSXRowParse, DefaultXLXSAllSheetsProcessorOptions())
@@ -20,7 +20,7 @@ func NewRowParser(filepath string) *gd.Parser {
 func NewRowParserWithHeader(filepath string) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
-	gdp.AddDataSource(file)
+	gdp.AddSource(file)
 
 	// standard xlsx row parser
 	rowp := gd.NewHeaderRowProcessor(XLSXRowParse, DefaultXLXSAllSheetsHeaderProcessorOptions())
@@ -36,7 +36,7 @@ func NewRowParserDefaultAction(filepath string, action gd.RowAction) *gd.Parser 
 func NewRowParserWithAction(filepath string, opts *XLXSOptions, action gd.RowAction) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
-	gdp.AddDataSource(file)
+	gdp.AddSource(file)
 
 	// standard xlsx row parser
 	rowp := gd.NewRowProcessor(XLSXRowParse, opts)
@@ -55,7 +55,7 @@ func NewRowParserWithDefaultHeaderAction(filepath string, action gd.HeadedRowAct
 func NewRowParserWithActionAndHeader(filepath string, opts *XLXSOptions, action gd.HeadedRowAction) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
-	gdp.AddDataSource(file)
+	gdp.AddSource(file)
 
 	// standard xlsx row parser
 	rowp := gd.NewHeaderRowProcessor(XLSXRowParse, opts)

@@ -11,7 +11,7 @@ import (
 // Grid File represents a sandard file
 // basic open,close and validation
 type GridFile struct {
-	idata.IDataSource
+	idata.Source
 
 	Filepath   string
 	Filestream *os.File

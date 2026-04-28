@@ -10,24 +10,24 @@ import (
 
 // RowAction An action that occurs on a Row
 type RowAction struct {
-	idata.IDataAction
-	ID     string
-	Action CellAction
+	idata.Action
+	ID         string
+	CellAction CellAction
 }
 
 // creates a uuid for each action
 func NewSimpleRowAction(act CellAction) RowAction {
 	return RowAction{
-		ID:     uuid.NewString(),
-		Action: act,
+		ID:         uuid.NewString(),
+		CellAction: act,
 	}
 }
 
 // Applied to every cell of the of the row
 func NewRowAction(id string, act CellAction) RowAction {
 	return RowAction{
-		ID:     id,
-		Action: act,
+		ID:         id,
+		CellAction: act,
 	}
 }
 
@@ -53,7 +53,7 @@ func (ra *RowAction) Perform(data any) error {
 	}
 	if datarow != nil {
 		for _, cell := range datarow.GetCells() {
-			err := ra.Action(cell)
+			err := ra.CellAction(cell)
 			if err != nil {
 				return err
 			}

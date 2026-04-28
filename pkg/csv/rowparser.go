@@ -11,7 +11,7 @@ import (
 )
 
 // Parse parse the data source
-func CSVRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.IDataSource) error {
+func CSVRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.Source) error {
 
 	// convert the idatasource to what we expect which is a CSV File
 	cdata, ok := data.(*gd.GridFile)

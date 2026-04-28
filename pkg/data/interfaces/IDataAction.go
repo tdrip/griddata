@@ -1,6 +1,6 @@
 package idata
 
-type IDataAction interface {
+type Action interface {
 	GetId() string
 	Perform(any) error
 }

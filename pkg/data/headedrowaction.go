@@ -11,23 +11,23 @@ type HeadedRowActionFunc func(*HeaderRowData) error
 
 // Headed Row Action An action that occurs on a Row
 type HeadedRowAction struct {
-	idata.IDataAction
-	ID     string
-	Action HeadedRowActionFunc
+	idata.Action
+	ID         string
+	CellAction HeadedRowActionFunc
 }
 
 // creates a uuid for each action
 func NewSimpleHeadedRowAction(act HeadedRowActionFunc) HeadedRowAction {
 	return HeadedRowAction{
-		ID:     uuid.NewString(),
-		Action: act,
+		ID:         uuid.NewString(),
+		CellAction: act,
 	}
 }
 
 func NewHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {
 	return HeadedRowAction{
-		ID:     id,
-		Action: act,
+		ID:         id,
+		CellAction: act,
 	}
 }
 
@@ -52,5 +52,5 @@ func (hra *HeadedRowAction) Perform(data any) error {
 		return fmt.Errorf("data type was not Headed Row Data - Raw Data:  %v", data)
 	}
 
-	return hra.Action(datarow)
+	return hra.CellAction(datarow)
 }

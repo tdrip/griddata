@@ -1,7 +1,7 @@
 package idata
 
-// IDataSource The data source for the Parser
-type IDataSource interface {
+// Source The data source for the Parser
+type Source interface {
 	// Validate the source
 	// for checks etc
 	Validate() error

@@ -10,49 +10,49 @@ type Parser struct {
 	idata.IParser
 
 	//Processors
-	Processors []idata.IDataProcessor
+	Processors []idata.Processor
 
-	//DataSource
-	DataSources []idata.IDataSource
+	//Source
+	Sources []idata.Source
 }
 
 // NewParser creates a Parser
 func NewParser() *Parser {
 	parser := Parser{
-		Processors:  []idata.IDataProcessor{},
-		DataSources: []idata.IDataSource{},
+		Processors: []idata.Processor{},
+		Sources:    []idata.Source{},
 	}
 	return &parser
 }
 
 // GetProcessors Get the processors
-func (gdp *Parser) GetProcessors() []idata.IDataProcessor {
+func (gdp *Parser) GetProcessors() []idata.Processor {
 	return gdp.Processors
 }
 
 // SetRowProcessors Set the row processors
-func (gdp *Parser) SetProcessors(rparsers []idata.IDataProcessor) {
+func (gdp *Parser) SetProcessors(rparsers []idata.Processor) {
 	gdp.Processors = rparsers
 }
 
 // AddProcessor Add a single row processor
-func (gdp *Parser) AddProcessor(rparser idata.IDataProcessor) {
+func (gdp *Parser) AddProcessor(rparser idata.Processor) {
 	gdp.Processors = append(gdp.Processors, rparser)
 }
 
 // GetDataSources Get the data sources
-func (gdp *Parser) GetDataSources() []idata.IDataSource {
-	return gdp.DataSources
+func (gdp *Parser) GetSources() []idata.Source {
+	return gdp.Sources
 }
 
 // SetDataSources Set the data sources
-func (gdp *Parser) SetDataSources(datasources []idata.IDataSource) {
-	gdp.DataSources = datasources
+func (gdp *Parser) SetSources(datasources []idata.Source) {
+	gdp.Sources = datasources
 }
 
 // AddDataSource Set the data sources
-func (gdp *Parser) AddDataSource(datasource idata.IDataSource) {
-	gdp.DataSources = append(gdp.DataSources, datasource)
+func (gdp *Parser) AddSource(source idata.Source) {
+	gdp.Sources = append(gdp.Sources, source)
 }
 
 // Execute - run the Column or Row Parsers
@@ -62,7 +62,7 @@ func (gdp *Parser) Execute() error {
 	processors := gdp.GetProcessors()
 
 	// get the data sources and validate each one
-	datasources := gdp.GetDataSources()
+	datasources := gdp.GetSources()
 
 	// Let's go through the data sources an validate them first
 	// don't open files or make a mess and leave
@@ -106,7 +106,7 @@ func (gdp *Parser) Execute() error {
 func (gdp *Parser) Close() error {
 
 	// get the data sources and validate each one
-	datasources := gdp.GetDataSources()
+	datasources := gdp.GetSources()
 
 	// Let's go through the data sources
 	for _, ds := range datasources {

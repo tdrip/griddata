@@ -6,8 +6,8 @@ const (
 	IGNORECOLUMNCOUNT  = -1
 )
 
-// IDataProcessorOptions Represents the options for parsing a data row
-type IDataProcessorOptions interface {
+// ProcessorOptions Represents the options for parsing a data row
+type ProcessorOptions interface {
 	String() string
 
 	// Pass over the data this many times

@@ -8,7 +8,7 @@ import (
 func NewRowParser(filepath string) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
-	gdp.AddDataSource(file)
+	gdp.AddSource(file)
 
 	// standard csv row parser
 	rowp := gd.NewRowProcessor(CSVRowParse, DefaultCSVOptions())
@@ -20,7 +20,7 @@ func NewRowParser(filepath string) *gd.Parser {
 func NewRowParserWithOptions(filepath string) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
-	gdp.AddDataSource(file)
+	gdp.AddSource(file)
 
 	// standard csv row parser
 	rowp := gd.NewHeaderRowProcessor(CSVRowParse, DefaultCSVHeaderOptions())
@@ -36,7 +36,7 @@ func NewRowParserDefaultAction(filepath string, action gd.RowAction) *gd.Parser 
 func NewRowParserWithAction(filepath string, opts *CSVOptions, action gd.RowAction) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
-	gdp.AddDataSource(file)
+	gdp.AddSource(file)
 
 	// standard csv row parser
 	rowp := gd.NewRowProcessor(CSVRowParse, opts)
@@ -53,7 +53,7 @@ func NewRowParserWithDefaultHeaderAction(filepath string, action gd.HeadedRowAct
 func NewRowParserWithHeaderAction(filepath string, opts *CSVOptions, action gd.HeadedRowAction) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
-	gdp.AddDataSource(file)
+	gdp.AddSource(file)
 
 	// standard csv row parser
 	rowp := gd.NewHeaderRowProcessor(CSVRowParse, opts)

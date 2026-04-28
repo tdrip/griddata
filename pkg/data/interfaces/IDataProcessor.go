@@ -1,19 +1,19 @@
 package idata
 
-// IDataProcessor This interface parses a row in the grid
-type IDataProcessor interface {
+// Processor This interface parses a row in the grid
+type Processor interface {
 
 	// Options for parsing the row
-	GetOptions() IDataProcessorOptions
-	SetOptions(options IDataProcessorOptions)
+	GetOptions() ProcessorOptions
+	SetOptions(options ProcessorOptions)
 
 	// Parse the row
-	Parse(parent IParser, data IDataSource) error
+	Parse(parent IParser, data Source) error
 
 	// actions for the row or column
-	GetActions() map[string]IDataAction
-	SetActions(actions []IDataAction)
-	AddAction(action IDataAction)
+	GetActions() map[string]Action
+	SetActions(actions []Action)
+	AddAction(action Action)
 	RemoveAction(string)
 	ClearActions()
 }

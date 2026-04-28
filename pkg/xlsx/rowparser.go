@@ -10,7 +10,7 @@ import (
 )
 
 // Parse parse the data source
-func XLSXRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.IDataSource) error {
+func XLSXRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.Source) error {
 	// convert the idatasource to what we expect which is a XLSX File
 	cdata, ok := data.(*gd.GridFile)
 	if !ok {

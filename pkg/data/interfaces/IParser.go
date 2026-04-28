@@ -2,14 +2,14 @@ package idata
 
 // IParser this is the parser interface
 type IParser interface {
-	GetProcessors() []IDataProcessor
-	SetProcessors([]IDataProcessor)
-	AddProcessor(IDataProcessor)
+	GetProcessors() []Processor
+	SetProcessors([]Processor)
+	AddProcessor(Processor)
 
-	GetDataSources() []IDataSource
-	SetDataSources([]IDataSource)
+	GetSources() []Source
+	SetSources([]Source)
 
-	AddDataSource(IDataSource)
+	AddSource(Source)
 
 	Execute() error
 

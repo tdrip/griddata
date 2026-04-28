@@ -13,16 +13,16 @@ type HeadedCellActionFunc func(igrid.ICell, igrid.ICell) error
 
 // Headed Row Action An action that occurs on a Row
 type HeadedCellAction struct {
-	idata.IDataAction
-	ID     string
-	Action HeadedCellActionFunc
-	Header *HeaderRowData
+	idata.Action
+	ID         string
+	CellAction HeadedCellActionFunc
+	Header     *HeaderRowData
 }
 
 func NewHeadedCellAction(id string, act HeadedCellActionFunc) HeadedCellAction {
 	return HeadedCellAction{
-		ID:     id,
-		Action: act,
+		ID:         id,
+		CellAction: act,
 	}
 }
 
@@ -63,7 +63,7 @@ func (hra *HeadedCellAction) Perform(data any) error {
 		for _, hcell := range hra.Header.GetCells() {
 			// same column
 			if grid.MatchesY(hcell.GetLocation(), cell.GetLocation()) {
-				err := hra.Action(hcell, cell)
+				err := hra.CellAction(hcell, cell)
 				if err != nil {
 					return err
 				}
