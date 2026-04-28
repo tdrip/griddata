@@ -13,24 +13,27 @@ import (
 func CSVRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
 
 	// convert the idatasource to what we expect which is a CSV File
-	csvdata, ok := data.(*CSVFile)
+	cdata, ok := data.(*CSVFile)
 	if !ok {
 		return errors.New("data type was not a CSV File")
 	}
 	// We need a GD Parser for the logging
 	opts := rowparser.GetOptions()
+	if opts == nil {
+		return errors.New("options were nil")
+	}
 	options, ok := opts.(*gd.RowProcessorOptions)
 	if !ok {
 		return errors.New("options type was not a Row Processor Options")
 	}
-	var hrd *gd.RowData
-	hrd = nil
-	if csvdata != nil {
+
+	hrd := &gd.RowData{}
+	if cdata != nil {
 		row := 0
 		pass := options.TotalPasses
 		numcols := options.NumOfColumns
 		for {
-			record, err := csvdata.Reader.Read()
+			record, err := cdata.Reader.Read()
 			if err == io.EOF {
 				break
 			}

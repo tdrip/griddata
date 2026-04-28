@@ -12,28 +12,30 @@ import (
 // Parse parse the data source
 func XLSXRowParse(rowparser *gd.RowProcessor, parent igrid.IParser, data igrid.IDataSource) error {
 	// convert the idatasource to what we expect which is a XLSX File
-	xsldata, ok := data.(*XLSXFile)
+	cdata, ok := data.(*XLSXFile)
 	if !ok {
 		return errors.New("data type was not a XLSX File")
 	}
 	// We need a GD Parser for the logging
 	opts := rowparser.GetOptions()
+	if opts == nil {
+		return errors.New("options were nil")
+	}
 	options, ok := opts.(*gd.RowProcessorOptions)
 	if !ok {
 		return errors.New("options type was not a Row Processor Options")
 	}
 
-	var hrd *gd.RowData
-	hrd = nil
-	if xsldata != nil {
+	hrd := &gd.RowData{}
+	if cdata != nil {
 
-		reader, err := excelize.OpenReader(xsldata.Filestream)
+		reader, err := excelize.OpenReader(cdata.Filestream)
 		if err != nil {
 			return err
 		}
 		pass := options.TotalPasses
 		numcols := options.NumOfColumns
-		sheets := xsldata.Sheets
+		sheets := cdata.Sheets
 		if len(sheets) == 0 {
 			sheets = reader.GetSheetList()
 		}
