@@ -10,8 +10,8 @@ func TestIndex(t *testing.T) {
 
 	index := CreateIndex(firstpoint)
 
-	if !index.GetPosition().Match(firstpoint) {
-		t.Errorf("%s did not match %s ", index.GetPosition(), firstpoint)
+	if !index.GetLocation().Match(firstpoint) {
+		t.Errorf("%s did not match %s ", index.GetLocation(), firstpoint)
 	}
 
 }

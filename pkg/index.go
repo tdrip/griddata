@@ -23,12 +23,12 @@ func CreateIndex(location igrid.IPoint) *Index {
 }
 
 // GetPosition return the position of this Index
-func (gdi *Index) GetPosition() igrid.IPoint {
+func (gdi *Index) GetLocation() igrid.IPoint {
 	return gdi.Location
 }
 
 // SetPosition set the position of this Index
-func (gdi *Index) SetPosition(position igrid.IPoint) {
+func (gdi *Index) SetLocation(position igrid.IPoint) {
 	gdi.Location = position
 }
 
@@ -51,5 +51,5 @@ func (gdi *Index) AddRelatedIndex(relatedi igrid.IIndex) {
 
 // String Print Index
 func (gdi *Index) String() string {
-	return fmt.Sprintf("Index at [%s]", gdi.GetPosition())
+	return fmt.Sprintf("Index at [%s]", gdi.GetLocation())
 }
