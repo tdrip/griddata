@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	gd "github.com/tdrip/griddata/pkg"
+	gd "github.com/tdrip/griddata/pkg/data"
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 

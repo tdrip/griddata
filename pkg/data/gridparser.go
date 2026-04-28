@@ -1,4 +1,4 @@
-package grid
+package data
 
 import (
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"

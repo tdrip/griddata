@@ -1,70 +1,25 @@
-package grid
+package data
 
 import (
 	"errors"
 	"strconv"
 	"strings"
 
-	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
+	grid "github.com/tdrip/griddata/pkg/grid"
 )
 
-// RowData This represents a row of data
+// Row This represents a row of data
 type RowData struct {
-	igrid.IRow
-
-	// Index of the row
-	Index igrid.IPoint
-
-	// Number of passes over the row
-	Pass int
-
-	// Parsed Cell Data
-	// index these!
-	Cells []igrid.ICell
+	grid.Row
 }
 
-// NewRowData creates a default row data struct
 func NewRowData(rowindex int, pass int) *RowData {
-	rd := RowData{Pass: pass}
+	row := grid.NewRow(rowindex, pass)
 
-	// x,y point doesn't matter
-	// just need X as this is a row
-	// set the index
-	rd.SetIndex(JustXPoint(rowindex))
-
+	rd := RowData{
+		Row: *row,
+	}
 	return &rd
-}
-
-// GetIndex Gets the index for the row
-func (rd *RowData) GetIndex() igrid.IPoint {
-	return rd.Index
-}
-
-// SetIndex Sets the index for the row
-func (rd *RowData) SetIndex(index igrid.IPoint) {
-	rd.Index = index
-}
-
-// Matches Matches the index passed in against the index for the row
-func (rd *RowData) Matches(index igrid.IPoint) bool {
-	return rd.GetIndex().Match(index)
-}
-
-// GetCells Gets the cells for the row
-func (rd *RowData) GetCells() []igrid.ICell {
-	return rd.Cells
-}
-
-// SetCells Sets the cells for the row
-func (rd *RowData) SetCells(cells []igrid.ICell) {
-	rd.Cells = cells
-}
-
-// AddCell Add a cells to the row
-func (rd *RowData) AddCell(cell igrid.ICell) {
-	cells := rd.Cells
-	cells = append(cells, cell)
-	rd.Cells = cells
 }
 
 func (rd *RowData) GetValData(columnindex int) (any, error) {
@@ -117,9 +72,9 @@ func FillRowStringData(rowindex int, pass int, columndata []string) *RowData {
 
 	for columnindex := 0; columnindex < len(columndata); columnindex++ {
 
-		pnt := NewPoint(rowindex, columnindex)
+		pnt := grid.NewPoint(rowindex, columnindex)
 		// csv is always srting so we parse the cells as such
-		cell := NewStringCell(pnt, columndata[columnindex])
+		cell := grid.NewStringCell(pnt, columndata[columnindex])
 
 		// add the cell
 		rd.AddCell(cell)

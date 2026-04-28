@@ -1,7 +1,7 @@
 package xlsx
 
 import (
-	gd "github.com/tdrip/griddata/pkg"
+	gd "github.com/tdrip/griddata/pkg/data"
 )
 
 // NewRowParser creates a Parser for a single file

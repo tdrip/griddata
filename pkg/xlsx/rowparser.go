@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	gd "github.com/tdrip/griddata/pkg"
+	gd "github.com/tdrip/griddata/pkg/data"
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 	"github.com/xuri/excelize/v2"
 )

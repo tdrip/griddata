@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	gd "github.com/tdrip/griddata/pkg"
+	gd "github.com/tdrip/griddata/pkg/data"
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 

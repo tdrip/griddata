@@ -1,10 +1,12 @@
-package grid
+package data
 
 import (
 	"errors"
 	"fmt"
 	"strconv"
 	"strings"
+
+	grid "github.com/tdrip/griddata/pkg/grid"
 )
 
 // RowData This represents a row of data
@@ -41,9 +43,9 @@ func FillHeaderRowStringData(rowindex int, pass int, columndata []string, header
 
 	for columnindex := 0; columnindex < len(columndata); columnindex++ {
 
-		pnt := NewPoint(rowindex, columnindex)
+		pnt := grid.NewPoint(rowindex, columnindex)
 		// csv is always srting so we parse the cells as such
-		cell := NewStringCell(pnt, columndata[columnindex])
+		cell := grid.NewStringCell(pnt, columndata[columnindex])
 
 		head := headers[columnindex].GetData()
 		headv, ok := head.(string)

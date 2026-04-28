@@ -1,10 +1,11 @@
-package grid
+package data
 
 import (
 	"errors"
 	"fmt"
 
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"
+	grid "github.com/tdrip/griddata/pkg/grid"
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
@@ -61,7 +62,7 @@ func (hra *HeadedCellAction) Perform(data any) error {
 	for _, cell := range datarow.GetCells() {
 		for _, hcell := range hra.Header.GetCells() {
 			// same column
-			if MatchesY(hcell.GetLocation(), cell.GetLocation()) {
+			if grid.MatchesY(hcell.GetLocation(), cell.GetLocation()) {
 				err := hra.Action(hcell, cell)
 				if err != nil {
 					return err
