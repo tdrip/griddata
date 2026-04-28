@@ -1,7 +1,6 @@
 package grid
 
 import (
-	"errors"
 	"fmt"
 
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
@@ -41,7 +40,7 @@ func (hra *HeadedRowAction) Perform(data any) error {
 	// We expect datarow to be correct type
 	datarow, ok := data.(*HeaderRowData)
 	if !ok {
-		return errors.New("data type was not Headed Row Data")
+		return fmt.Errorf("data type was not Headed Row Data - Raw Data:  %v", data)
 	}
 
 	return hra.Action(datarow)
