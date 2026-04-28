@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	grid "github.com/tdrip/griddata/pkg/grid"
+	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
 // Row This represents a row of data
@@ -20,6 +21,15 @@ func NewRowData(rowindex int, pass int) *RowData {
 		Row: *row,
 	}
 	return &rd
+}
+
+func GetRowData(row igrid.IRow) (*RowData, error) {
+	rd, ok := row.(*RowData)
+	if !ok {
+		return nil, errors.New("data was not Row Data")
+	}
+
+	return rd, nil
 }
 
 func (rd *RowData) GetValData(columnindex int) (any, error) {

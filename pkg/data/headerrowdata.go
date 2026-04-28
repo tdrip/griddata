@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	grid "github.com/tdrip/griddata/pkg/grid"
+	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
 // RowData This represents a row of data
@@ -23,6 +24,15 @@ func NewHeaderRowData(row int, pass int, header *RowData) *HeaderRowData {
 	rd := HeaderRowData{RowData: *NewRowData(row, pass)}
 	rd.Header = header
 	return &rd
+}
+
+func GetHeaderRowData(row igrid.IRow) (*HeaderRowData, error) {
+	rd, ok := row.(*HeaderRowData)
+	if !ok {
+		return nil, errors.New("data was not Header Row Data")
+	}
+
+	return rd, nil
 }
 
 // FillHeaderRowStringData creates a row data from a string data array

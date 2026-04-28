@@ -6,6 +6,8 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+
+	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
 const (
@@ -13,7 +15,23 @@ const (
 	ColIndexTag = "colindex"
 )
 
+func DecodeHeaderIRowData(irow igrid.IRow, out interface{}) error {
+	hrd, ok := irow.(*HeaderRowData)
+	if !ok {
+		return errors.New("data was not a Header Row Data")
+	}
+	return assignhrd(reflect.ValueOf(out).Elem(), hrd)
+}
+
 func DecodeHeaderRowData(hrd *HeaderRowData, out interface{}) error {
+	return assignhrd(reflect.ValueOf(out).Elem(), hrd)
+}
+
+func DecodeIRowData(irow igrid.IRow, out interface{}) error {
+	hrd, ok := irow.(*HeaderRowData)
+	if !ok {
+		return errors.New("data was not a Header Row Data")
+	}
 	return assignhrd(reflect.ValueOf(out).Elem(), hrd)
 }
 
