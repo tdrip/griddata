@@ -11,7 +11,7 @@ import (
 
 type PerCellFunc func(igrid.ICell) error
 
-// RowAction An action that occurs on a Row
+// PerCell An action that occurs on a Row
 type PerCell struct {
 	iaction.Action
 	ID         string

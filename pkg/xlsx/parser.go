@@ -48,12 +48,12 @@ func NewRowParserWithAction(filepath string, opts *XLXSOptions, action acts.PerC
 	return gdp
 }
 
-func NewRowParserWithDefaultHeaderAction(filepath string, action acts.HeadedRowAction) *gd.Parser {
+func NewRowParserWithDefaultHeaderAction(filepath string, action acts.HeadedRow) *gd.Parser {
 	return NewRowParserWithActionAndHeader(filepath, DefaultXLXSAllSheetsHeaderProcessorOptions(), action)
 }
 
 // NewRowParserWithActionAndHeader creates a Parser for a single file
-func NewRowParserWithActionAndHeader(filepath string, opts *XLXSOptions, action acts.HeadedRowAction) *gd.Parser {
+func NewRowParserWithActionAndHeader(filepath string, opts *XLXSOptions, action acts.HeadedRow) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
 	gdp.AddSource(file)

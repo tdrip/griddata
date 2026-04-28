@@ -8,36 +8,36 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
-type HeadedRowActionFunc func(igrid.IRow) error
+type HeadedRowFunc func(igrid.IRow) error
 
 // Headed Row Action An action that occurs on a Row
-type HeadedRowAction struct {
+type HeadedRow struct {
 	iaction.Action
 	ID        string
-	RowAction HeadedRowActionFunc
+	RowAction HeadedRowFunc
 }
 
 // creates a uuid for each action
-func NewSimpleHeadedRowAction(act HeadedRowActionFunc) HeadedRowAction {
-	return HeadedRowAction{
+func NewSimpleHeadedRow(act HeadedRowFunc) HeadedRow {
+	return HeadedRow{
 		ID:        uuid.NewString(),
 		RowAction: act,
 	}
 }
 
-func NewHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {
-	return HeadedRowAction{
+func NewHeadedRow(id string, act HeadedRowFunc) HeadedRow {
+	return HeadedRow{
 		ID:        id,
 		RowAction: act,
 	}
 }
 
 // Get Id for this action
-func (hra *HeadedRowAction) GetId() string {
+func (hra *HeadedRow) GetId() string {
 	return hra.ID
 }
 
-func (hra *HeadedRowAction) Perform(data any) error {
+func (hra *HeadedRow) Perform(data any) error {
 
 	if hra.RowAction == nil {
 		return fmt.Errorf("No row action set for %s", hra.ID)

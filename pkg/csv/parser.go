@@ -46,12 +46,12 @@ func NewRowParserWithAction(filepath string, opts *CSVOptions, action acts.PerCe
 	return gdp
 }
 
-func NewRowParserWithDefaultHeaderAction(filepath string, action acts.HeadedRowAction) *gd.Parser {
+func NewRowParserWithDefaultHeaderAction(filepath string, action acts.HeadedRow) *gd.Parser {
 	return NewRowParserWithHeaderAction(filepath, DefaultCSVHeaderOptions(), action)
 }
 
 // NewRowParser creates a Parser for a single file
-func NewRowParserWithHeaderAction(filepath string, opts *CSVOptions, action acts.HeadedRowAction) *gd.Parser {
+func NewRowParserWithHeaderAction(filepath string, opts *CSVOptions, action acts.HeadedRow) *gd.Parser {
 	gdp := gd.NewParser()
 	file := gd.NewGridFile(filepath)
 	gdp.AddSource(file)

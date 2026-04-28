@@ -27,7 +27,7 @@ func TestCSV(t *testing.T) {
 func TestCSVActions(t *testing.T) {
 	gdp := NewRowParserWithAction("../../testdata/noheader.csv",
 		DefaultCSVOptions(),
-		act.NewPerCellAction("PrintAction", act.PrintCellAction))
+		act.NewPerCellAction("PrintAction", act.PrintCell))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -40,7 +40,7 @@ func TestCSVActions(t *testing.T) {
 func TestCSV3Passes(t *testing.T) {
 	opts := DefaultCSVOptions()
 	opts.Passes = 3
-	gdp := NewRowParserWithAction("../../testdata/noheader.csv", opts, act.NewPerCellAction("PrintAction", act.PrintCellAction))
+	gdp := NewRowParserWithAction("../../testdata/noheader.csv", opts, act.NewPerCellAction("PrintAction", act.PrintCell))
 	rowprocessors := gdp.GetProcessors()
 
 	gdp.SetProcessors(rowprocessors)
@@ -59,7 +59,7 @@ func FailAction(cell igrid.ICell) error {
 }
 
 func TestCSVHeaderActions(t *testing.T) {
-	gdp := NewRowParserWithHeaderAction("../../testdata/header.csv", DefaultCSVHeaderOptions(), act.NewHeadedRowAction("testheader", testheader))
+	gdp := NewRowParserWithHeaderAction("../../testdata/header.csv", DefaultCSVHeaderOptions(), act.NewHeadedRow("testheader", testheader))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -119,7 +119,7 @@ func testheader(irow igrid.IRow) error {
 }
 
 func TestCSVHeaderActionDecode(t *testing.T) {
-	gdp := NewRowParserWithHeaderAction("../../testdata/header.csv", DefaultCSVHeaderOptions(), act.NewHeadedRowAction("testheaderdecode", testheaderdecode))
+	gdp := NewRowParserWithHeaderAction("../../testdata/header.csv", DefaultCSVHeaderOptions(), act.NewHeadedRow("testheaderdecode", testheaderdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -183,7 +183,7 @@ type TestIndexHRowData struct {
 }
 
 func TestCSVIndexHeaderActionDecode(t *testing.T) {
-	gdp := NewRowParserWithHeaderAction("../../testdata/header.csv", DefaultCSVHeaderOptions(), act.NewHeadedRowAction("testheaderindexdecode", testheaderindexdecode))
+	gdp := NewRowParserWithHeaderAction("../../testdata/header.csv", DefaultCSVHeaderOptions(), act.NewHeadedRow("testheaderindexdecode", testheaderindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -240,7 +240,7 @@ type TestIndexHNZRowData struct {
 }
 
 func TestCSVNZIndexHeaderActionDecode(t *testing.T) {
-	gdp := NewRowParserWithHeaderAction("../../testdata/header.csv", DefaultCSVHeaderOptions(), act.NewHeadedRowAction("testheadernzindexdecode", testheadernzindexdecode))
+	gdp := NewRowParserWithHeaderAction("../../testdata/header.csv", DefaultCSVHeaderOptions(), act.NewHeadedRow("testheadernzindexdecode", testheadernzindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -290,7 +290,7 @@ func testheadernzindexdecode(rowdata igrid.IRow) error {
 }
 
 func TestTSVNZIndexHeaderActionDecode(t *testing.T) {
-	gdp := NewRowParserWithHeaderAction("../../testdata/header.tsv", DefaultTSVHeaderOptions(), act.NewHeadedRowAction("testheadernzindexdecode", testheadernzindexdecode))
+	gdp := NewRowParserWithHeaderAction("../../testdata/header.tsv", DefaultTSVHeaderOptions(), act.NewHeadedRow("testheadernzindexdecode", testheadernzindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -301,7 +301,7 @@ func TestTSVNZIndexHeaderActionDecode(t *testing.T) {
 }
 
 func TestTSVIndexHeaderActionDecode(t *testing.T) {
-	gdp := NewRowParserWithHeaderAction("../../testdata/header.tsv", DefaultTSVHeaderOptions(), act.NewHeadedRowAction("testheaderindexdecode", testheaderindexdecode))
+	gdp := NewRowParserWithHeaderAction("../../testdata/header.tsv", DefaultTSVHeaderOptions(), act.NewHeadedRow("testheaderindexdecode", testheaderindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -312,7 +312,7 @@ func TestTSVIndexHeaderActionDecode(t *testing.T) {
 }
 
 func TestTSVHeaderActionDecode(t *testing.T) {
-	gdp := NewRowParserWithHeaderAction("../../testdata/header.tsv", DefaultTSVHeaderOptions(), act.NewHeadedRowAction("testheaderdecode", testheaderdecode))
+	gdp := NewRowParserWithHeaderAction("../../testdata/header.tsv", DefaultTSVHeaderOptions(), act.NewHeadedRow("testheaderdecode", testheaderdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -325,7 +325,7 @@ func TestTSVHeaderActionDecode(t *testing.T) {
 func TestTSVActions(t *testing.T) {
 	gdp := NewRowParserWithAction("../../testdata/noheader.tsv",
 		DefaultTSVOptions(),
-		act.NewPerCellAction("PrintAction", act.PrintCellAction))
+		act.NewPerCellAction("PrintAction", act.PrintCell))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -338,7 +338,7 @@ func TestTSVActions(t *testing.T) {
 func TestTSV3Passes(t *testing.T) {
 	opts := DefaultTSVOptions()
 	opts.Passes = 3
-	gdp := NewRowParserWithAction("../../testdata/noheader.tsv", opts, act.NewPerCellAction("PrintAction", act.PrintCellAction))
+	gdp := NewRowParserWithAction("../../testdata/noheader.tsv", opts, act.NewPerCellAction("PrintAction", act.PrintCell))
 	rowprocessors := gdp.GetProcessors()
 
 	gdp.SetProcessors(rowprocessors)

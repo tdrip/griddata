@@ -4,43 +4,52 @@ import (
 	"errors"
 	"fmt"
 
+	uuid "github.com/google/uuid"
 	iaction "github.com/tdrip/griddata/pkg/actions/interfaces"
 	grid "github.com/tdrip/griddata/pkg/grid"
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
-type HeadedCellActionFunc func(igrid.ICell, igrid.ICell) error
+type PerHeadedCellFunc func(igrid.ICell, igrid.ICell) error
 
 // Headed Row Action An action that occurs on a Row
-type HeadedCellAction struct {
+type PerHeadedCell struct {
 	iaction.Action
 	ID         string
-	CellAction HeadedCellActionFunc
+	CellAction PerHeadedCellFunc
 	Header     igrid.IRow
 }
 
-func NewHeadedCellAction(id string, act HeadedCellActionFunc) HeadedCellAction {
-	return HeadedCellAction{
+// creates a uuid for each action
+func NewSimplePerHeadedCell(act PerHeadedCellFunc) PerHeadedCell {
+	return PerHeadedCell{
+		ID:         uuid.NewString(),
+		CellAction: act,
+	}
+}
+
+func NewPerHeadedCell(id string, act PerHeadedCellFunc) PerHeadedCell {
+	return PerHeadedCell{
 		ID:         id,
 		CellAction: act,
 	}
 }
 
 // Set Header
-func (hra *HeadedCellAction) SetHeader(header igrid.IRow) {
+func (hra *PerHeadedCell) SetHeader(header igrid.IRow) {
 	hra.Header = header
 }
 
-func (hra *HeadedCellAction) HasHeader() bool {
+func (hra *PerHeadedCell) HasHeader() bool {
 	return hra.Header != nil
 }
 
 // Get Id for this action
-func (hra *HeadedCellAction) GetId() string {
+func (hra *PerHeadedCell) GetId() string {
 	return hra.ID
 }
 
-func (hra *HeadedCellAction) Perform(data any) error {
+func (hra *PerHeadedCell) Perform(data any) error {
 
 	if hra.CellAction == nil {
 		return fmt.Errorf("No action set for %s", hra.ID)

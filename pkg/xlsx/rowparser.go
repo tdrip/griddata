@@ -72,7 +72,7 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent idata.IParser, data idata.S
 							if err != nil {
 								return err
 							}
-							ra, ok := rowaction.(*act.HeadedRowAction)
+							ra, ok := rowaction.(*act.HeadedRow)
 							if !ok {
 								return errors.New("row action type was not a Headed Row Action")
 							}
