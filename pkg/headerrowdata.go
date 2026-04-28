@@ -26,9 +26,13 @@ func CreateHeaderRowData(row int, pass int, header *RowData) *HeaderRowData {
 // FillHeaderRowStringData creates a row data from a string data array
 func FillHeaderRowStringData(rowindex int, pass int, columndata []string, header *RowData) (*HeaderRowData, error) {
 
+	if header == nil {
+		return nil, errors.New("header is nil")
+	}
 	headers := header.GetCells()
+
 	if len(columndata) != len(headers) {
-		return nil, errors.New("headers does not have the same number of columns as header")
+		return nil, fmt.Errorf("row index %d column data has %d columns but does not have the expected headers %d", rowindex, len(columndata), len(headers))
 	}
 	// number of passes and the row index
 	rd := CreateHeaderRowData(rowindex, pass, header)
