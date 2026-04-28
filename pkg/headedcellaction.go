@@ -60,7 +60,7 @@ func (hra *HeadedCellAction) Perform(data any) error {
 	for _, cell := range datarow.GetCells() {
 		for _, hcell := range hra.Header.GetCells() {
 			// same column
-			if hcell.GetLocation().GetY() == cell.GetLocation().GetY() {
+			if MatchesY(hcell.GetLocation(), cell.GetLocation()) {
 				err := hra.Action(hcell, cell)
 				if err != nil {
 					return err

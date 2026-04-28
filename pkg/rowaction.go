@@ -4,10 +4,9 @@ import (
 	"errors"
 	"fmt"
 
+	uuid "github.com/google/uuid"
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
-
-type CellAction func(igrid.ICell) error
 
 // RowAction An action that occurs on a Row
 type RowAction struct {
@@ -16,6 +15,15 @@ type RowAction struct {
 	Action CellAction
 }
 
+// creates a uuid for each action
+func NewSimpleRowAction(act CellAction) RowAction {
+	return RowAction{
+		ID:     uuid.NewString(),
+		Action: act,
+	}
+}
+
+// Applied to every cell of the of the row
 func NewRowAction(id string, act CellAction) RowAction {
 	return RowAction{
 		ID:     id,

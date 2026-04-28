@@ -1,2 +1,4 @@
+github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
+github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/tdrip/griddata v0.0.0-20260428173358-3e366739d343 h1:V8Zk94/w7oi2rzVL6Iw9ilxvsOVhaUC62fRAfsedw8E=
 github.com/tdrip/griddata v0.0.0-20260428173358-3e366739d343/go.mod h1:EhAf7ntfAv9amIEoZ+Rsrgyyc550ZjU1jtSfvd6VLkk=

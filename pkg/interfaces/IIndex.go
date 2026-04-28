@@ -1,17 +1,11 @@
 package igrid
 
-const (
-	UNKNOWNY = -1
-	UNKNOWNX = -1
-)
-
-// IIndex This interface has location and relationships
+// IIndex This interface has location
 type IIndex interface {
 	GetLocation() IPoint
 	SetLocation(position IPoint)
 
-	GetRelatedIndexes() []IIndex
-	SetRelatedIndexes(relatedindexs []IIndex)
-	AddRelatedIndex(relatedi IIndex)
+	Matches(pos IPoint) bool
+
 	String() string
 }

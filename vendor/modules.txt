@@ -1,3 +1,6 @@
+# github.com/google/uuid v1.6.0
+## explicit
+github.com/google/uuid
 # github.com/richardlehane/mscfb v1.0.6
 ## explicit; go 1.18
 github.com/richardlehane/mscfb

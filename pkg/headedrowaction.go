@@ -3,6 +3,7 @@ package grid
 import (
 	"fmt"
 
+	uuid "github.com/google/uuid"
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
@@ -13,6 +14,14 @@ type HeadedRowAction struct {
 	igrid.IDataAction
 	ID     string
 	Action HeadedRowActionFunc
+}
+
+// creates a uuid for each action
+func NewSimpleHeadedRowAction(act HeadedRowActionFunc) HeadedRowAction {
+	return HeadedRowAction{
+		ID:     uuid.NewString(),
+		Action: act,
+	}
 }
 
 func NewHeadedRowAction(id string, act HeadedRowActionFunc) HeadedRowAction {

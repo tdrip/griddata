@@ -6,6 +6,8 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/interfaces"
 )
 
+type CellAction func(igrid.ICell) error
+
 func PrintCellAction(cell igrid.ICell) error {
 	fmt.Println(cell.String())
 	return nil

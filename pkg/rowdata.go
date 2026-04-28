@@ -24,14 +24,13 @@ type RowData struct {
 }
 
 // NewRowData creates a default row data struct
-func NewRowData(row int, pass int) *RowData {
+func NewRowData(rowindex int, pass int) *RowData {
 	rd := RowData{Pass: pass}
 
-	// x,y point
-	rowp := NewPoint(row, igrid.UNKNOWNY)
+	// x,y point doesn;t matter
 
 	// set the index
-	rd.SetIndex(NewIndex(rowp))
+	rd.SetIndex(JustXIndex(rowindex))
 
 	return &rd
 }

@@ -1,5 +1,10 @@
 package igrid
 
+const (
+	UNKNOWNY = -1
+	UNKNOWNX = -1
+)
+
 // IPoint This represents where the Cell is
 type IPoint interface {
 	// Gets the X Co-Ordinate where it is in the GRID

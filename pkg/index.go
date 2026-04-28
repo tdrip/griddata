@@ -11,8 +11,20 @@ type Index struct {
 	igrid.IIndex
 
 	Location igrid.IPoint
+}
 
-	RelatedIndexes []igrid.IIndex
+// JustXIndex ceates a pointer to the Index struct with just x set
+func JustXIndex(x int) *Index {
+	gdi := Index{}
+	gdi.Location = NewPoint(x, igrid.UNKNOWNY)
+	return &gdi
+}
+
+// JustYIndex ceates a pointer to the Index struct with just x set
+func JustYIndex(y int) *Index {
+	gdi := Index{}
+	gdi.Location = NewPoint(igrid.UNKNOWNX, y)
+	return &gdi
 }
 
 // NewIndex ceates a pointer to the Index struct
@@ -32,24 +44,12 @@ func (gdi *Index) SetLocation(position igrid.IPoint) {
 	gdi.Location = position
 }
 
-// GetRelatedIndexes return indexes that are related to this one
-func (gdi *Index) GetRelatedIndexes() []igrid.IIndex {
-	return gdi.RelatedIndexes
-}
-
-// SetRelatedIndexes set indexes that are related to this one
-func (gdi *Index) SetRelatedIndexes(relatedi []igrid.IIndex) {
-	gdi.RelatedIndexes = relatedi
-}
-
-// AddRelatedIndex add an index that is related to this one
-func (gdi *Index) AddRelatedIndex(relatedi igrid.IIndex) {
-	rindices := gdi.RelatedIndexes
-	rindices = append(rindices, relatedi)
-	gdi.RelatedIndexes = rindices
-}
-
 // String Print Index
 func (gdi *Index) String() string {
 	return fmt.Sprintf("Index at [%s]", gdi.GetLocation())
+}
+
+// Does it match a point?
+func (gdi *Index) Matches(pos igrid.IPoint) bool {
+	return gdi.GetLocation().Match(pos)
 }

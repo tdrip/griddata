@@ -2,7 +2,10 @@ module github.com/tdrip/griddata
 
 go 1.24.0
 
-require github.com/xuri/excelize/v2 v2.10.1
+require (
+	github.com/google/uuid v1.6.0
+	github.com/xuri/excelize/v2 v2.10.1
+)
 
 require (
 	github.com/richardlehane/mscfb v1.0.6 // indirect

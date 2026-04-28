@@ -15,9 +15,6 @@ type Cell struct {
 
 	// data in the cell
 	Data any
-
-	// any other cell data that should be related
-	RelatedData map[igrid.IIndex]any
 }
 
 // NewStringCell creates a cell with string data
@@ -45,7 +42,6 @@ func (cell *Cell) GetData() any {
 
 // SetData Sets the Data for the cell
 func (cell *Cell) SetData(data any) {
-	//cell.Data = data.(string)
 	cell.Data = data
 }
 
