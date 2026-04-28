@@ -38,7 +38,7 @@ func assignhrd(dst reflect.Value, hrd *HeaderRowData) error {
 				tag = field.Tag.Get(ColIndexTag)
 				indexstring, nonzero = parseRowTag(tag)
 				if len(indexstring) == 0 {
-					name = field.Name
+					return nil
 				}
 			}
 			if len(indexstring) > 0 {

@@ -6,20 +6,22 @@ import (
 )
 
 type TestRowHData struct {
-	Column1 string   `row:"column1"`
-	Column2 string   `row:"column2"`
-	Column3 string   `row:"column3"`
-	Column4 []string `row:"column4"`
+	Column1         string   `row:"column1"`
+	Column2         string   `row:"column2"`
+	Column3         string   `row:"column3"`
+	Column4         []string `row:"column4"`
+	IgnoreThisField string
 }
 
 // column1,column2,column3,column4
 func TestRowHDataDecode(t *testing.T) {
 
 	trd := TestRowHData{
-		Column1: "NOTSET",
-		Column2: "NOTSET",
-		Column3: "NOTSET",
-		Column4: []string{},
+		Column1:         "NOTSET",
+		Column2:         "NOTSET",
+		Column3:         "NOTSET",
+		Column4:         []string{},
+		IgnoreThisField: "ignored",
 	}
 
 	rowdata, err := makeHeaderData()
@@ -57,18 +59,20 @@ func TestRowHDataDecode(t *testing.T) {
 }
 
 type TestIndexHRowData struct {
-	Column1 string   `colindex:"0"`
-	Column2 string   `colindex:"1"`
-	Column3 string   `colindex:"2"`
-	Column4 []string `colindex:"3"`
+	Column1         string   `colindex:"0"`
+	Column2         string   `colindex:"1"`
+	Column3         string   `colindex:"2"`
+	Column4         []string `colindex:"3"`
+	IgnoreThisField string
 }
 
 func TestIndexHDataDecode(t *testing.T) {
 	trd := TestIndexHRowData{
-		Column1: "NOTSET",
-		Column2: "NOTSET",
-		Column3: "NOTSET",
-		Column4: []string{},
+		Column1:         "NOTSET",
+		Column2:         "NOTSET",
+		Column3:         "NOTSET",
+		Column4:         []string{},
+		IgnoreThisField: "ignored",
 	}
 
 	rowdata, err := makeHeaderData()
@@ -106,19 +110,21 @@ func TestIndexHDataDecode(t *testing.T) {
 }
 
 type TestIndexHNZRowData struct {
-	Column1 string   `colindex:"1,nonzero"`
-	Column2 string   `colindex:"2,nonzero"`
-	Column3 string   `colindex:"3,nonzero"`
-	Column4 []string `colindex:"4,nonzero"`
+	Column1         string   `colindex:"1,nonzero"`
+	Column2         string   `colindex:"2,nonzero"`
+	Column3         string   `colindex:"3,nonzero"`
+	Column4         []string `colindex:"4,nonzero"`
+	IgnoreThisField string
 }
 
 func TestIndexHNZHeaderRowDataDecode(t *testing.T) {
 
 	trd := TestIndexHNZRowData{
-		Column1: "NOTSET",
-		Column2: "NOTSET",
-		Column3: "NOTSET",
-		Column4: []string{},
+		Column1:         "NOTSET",
+		Column2:         "NOTSET",
+		Column3:         "NOTSET",
+		Column4:         []string{},
+		IgnoreThisField: "ignored",
 	}
 
 	rowdata, err := makeHeaderData()
@@ -163,10 +169,11 @@ func makeHeaderData() (*HeaderRowData, error) {
 func TestIndexHNZRowDataDecode(t *testing.T) {
 
 	trd := TestIndexHNZRowData{
-		Column1: "NOTSET",
-		Column2: "NOTSET",
-		Column3: "NOTSET",
-		Column4: []string{},
+		Column1:         "NOTSET",
+		Column2:         "NOTSET",
+		Column3:         "NOTSET",
+		Column4:         []string{},
+		IgnoreThisField: "ignored",
 	}
 
 	rowdata := FillRowStringData(0, 1, []string{"col1row1", "col2row1", "col3row1", "\"col4row1,col4row1\""})
@@ -202,10 +209,11 @@ func TestIndexHNZRowDataDecode(t *testing.T) {
 
 func TestIndexDataDecode(t *testing.T) {
 	trd := TestIndexHRowData{
-		Column1: "NOTSET",
-		Column2: "NOTSET",
-		Column3: "NOTSET",
-		Column4: []string{},
+		Column1:         "NOTSET",
+		Column2:         "NOTSET",
+		Column3:         "NOTSET",
+		Column4:         []string{},
+		IgnoreThisField: "ignored",
 	}
 
 	rowdata := FillRowStringData(0, 1, []string{"col1row1", "col2row1", "col3row1", "\"col4row1,col4row1\""})
