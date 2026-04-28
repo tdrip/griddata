@@ -45,9 +45,10 @@ import (
 )
 
 func main() {
-	xlsxtest := gd.NewRowAction("PrintAction", gd.PrintCellAction)
+	printcell := gd.NewRowAction("print", gd.PrintCellAction)
 
-	gdp := csv.NewRowParserWithAction("./header.csv", &xlsxtest)
+	// this has default options like seperator being a comma (,)
+	gdp := csv.NewRowParserDefaultAction("./noheader.csv", &printcell)
 	defer gdp.Close()
 
 	err := gdp.Execute()
