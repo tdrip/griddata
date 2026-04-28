@@ -3,8 +3,8 @@ package main
 import (
 	"time"
 
-	gd "github.com/tdrip/griddata/pkg"
-	igrid "github.com/tdrip/griddata/pkg/interfaces"
+	gd "github.com/tdrip/griddata/pkg/data"
+	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 	"github.com/tdrip/griddata/pkg/xlsx"
 )
 

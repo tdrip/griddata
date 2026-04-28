@@ -73,6 +73,7 @@ func FillRowStringData(rowindex int, pass int, columndata []string) *RowData {
 	for columnindex := 0; columnindex < len(columndata); columnindex++ {
 
 		pnt := grid.NewPoint(rowindex, columnindex)
+
 		// csv is always srting so we parse the cells as such
 		cell := grid.NewStringCell(pnt, columndata[columnindex])
 

@@ -1,8 +1,8 @@
 package main
 
 import (
-	gd "github.com/tdrip/griddata/pkg"
 	"github.com/tdrip/griddata/pkg/csv"
+	gd "github.com/tdrip/griddata/pkg/data"
 )
 
 func main() {
