@@ -17,7 +17,6 @@ func TestPointMatches(t *testing.T) {
 	if !firstpoint.Matches(1, 1) {
 		t.Errorf("%s did not match 1,1 ", firstpoint)
 	}
-	//t.Errorf("%s", firstpoint)
 }
 
 func TestPointMatch(t *testing.T) {
