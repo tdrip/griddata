@@ -22,20 +22,9 @@ type XLXSOptions struct {
 	sheets []string
 }
 
-func DefaultXLXSAllSheetsHeaderProcessorOptions() *XLXSOptions {
-	opts := NewXLXSOptions([]string{})
-	opts.headerRowindex = 0
-	return opts
-}
-
-func DefaultXLXSAllSheetsProcessorOptions() *XLXSOptions {
-	return NewXLXSOptions([]string{})
-}
-
-func NewXLXSOptions(sheets []string) *XLXSOptions {
+func NewXLXSOptions() *XLXSOptions {
 	opts := XLXSOptions{}
 	opts.Defaults()
-	opts.sheets = sheets
 	return &opts
 }
 

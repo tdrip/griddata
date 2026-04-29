@@ -13,7 +13,7 @@ func NewRowParser(filepath string) *gd.Parser {
 	gdp.AddSource(file)
 
 	// standard csv row parser
-	rowp := gd.NewRowProcessor(CSVRowParse, DefaultCSVOptions())
+	rowp := gd.NewRowProcessor(CSVRowParse, NewCSVOptions())
 	gdp.AddProcessor(rowp)
 	return gdp
 }
@@ -24,14 +24,21 @@ func NewRowParserWithOptions(filepath string) *gd.Parser {
 	file := gd.NewGridFile(filepath)
 	gdp.AddSource(file)
 
+	// set the options
+	o := NewCSVOptions()
+
+	// default header is 0
+	defhead := WithHeaderIndex(0)
+	defhead(o)
+
 	// standard csv row parser
-	rowp := gd.NewHeaderRowProcessor(CSVRowParse, DefaultCSVHeaderOptions())
+	rowp := gd.NewHeaderRowProcessor(CSVRowParse, o)
 	gdp.AddProcessor(rowp)
 	return gdp
 }
 
 func NewRowParserDefaultAction(filepath string, action acts.PerCell) *gd.Parser {
-	return NewRowParserWithAction(filepath, DefaultCSVOptions(), action)
+	return NewRowParserWithAction(filepath, NewCSVOptions(), action)
 }
 
 // NewRowParser creates a Parser for a single file
@@ -48,7 +55,13 @@ func NewRowParserWithAction(filepath string, opts *CSVOptions, action acts.PerCe
 }
 
 func NewRowParserWithDefaultHeaderAction(filepath string, action acts.HeadedRow) *gd.Parser {
-	return NewRowParserWithHeaderAction(filepath, DefaultCSVHeaderOptions(), action)
+	// set the options
+	o := NewCSVOptions()
+
+	// default header is 0
+	defhead := WithHeaderIndex(0)
+	defhead(o)
+	return NewRowParserWithHeaderAction(filepath, o, action)
 }
 
 // NewRowParser creates a Parser for a single file
@@ -98,7 +111,12 @@ func NewHeadedRowParserWithAction(filepath string, action acts.HeadedRow, opts .
 	gdp.AddSource(file)
 
 	// set the options
-	o := DefaultCSVHeaderOptions()
+	o := NewCSVOptions()
+
+	// default header is 0
+	defhead := WithHeaderIndex(0)
+	defhead(o)
+
 	for _, setopt := range opts {
 		setopt(o)
 	}

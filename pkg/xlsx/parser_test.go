@@ -12,6 +12,14 @@ import (
 	igrid "github.com/tdrip/griddata/pkg/grid/interfaces"
 )
 
+func getHeaderDefault() *XLXSOptions {
+	opts := NewXLXSOptions()
+	p := WithHeaderIndex(0)
+	p(opts)
+
+	return opts
+}
+
 func TestXLSX(t *testing.T) {
 	gdp := NewRowParser("../../testdata/noheader.xlsx")
 	defer gdp.Close()
@@ -25,7 +33,7 @@ func TestXLSX(t *testing.T) {
 }
 
 func TestXLSXActions(t *testing.T) {
-	gdp := NewRowParserWithAction("../../testdata/noheader.xlsx", DefaultXLXSAllSheetsProcessorOptions(), act.NewPerCellAction("PrintAction", act.PrintCell))
+	gdp := NewRowParserWithAction("../../testdata/noheader.xlsx", NewXLXSOptions(), act.NewPerCellAction("PrintAction", act.PrintCell))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -36,7 +44,7 @@ func TestXLSXActions(t *testing.T) {
 }
 
 func TestXLSX3Passes(t *testing.T) {
-	opts := DefaultXLXSAllSheetsProcessorOptions()
+	opts := NewXLXSOptions()
 	//opts.Passes = 3
 	p := WithRowPasses(3)
 	p(opts)
@@ -59,7 +67,7 @@ func FailAction(cell igrid.Cell) error {
 }
 
 func TestXLSXHeaderActions(t *testing.T) {
-	gdp := NewRowParserWithActionAndHeader("../../testdata/header.xlsx", DefaultXLXSAllSheetsHeaderProcessorOptions(), act.NewHeadedRow("testheader", testheader))
+	gdp := NewRowParserWithActionAndHeader("../../testdata/header.xlsx", getHeaderDefault(), act.NewHeadedRow("testheader", testheader))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -119,7 +127,7 @@ func testheader(irow igrid.Row) error {
 }
 
 func TestXLSXHeaderActionDecode(t *testing.T) {
-	gdp := NewRowParserWithActionAndHeader("../../testdata/header.xlsx", DefaultXLXSAllSheetsHeaderProcessorOptions(), act.NewHeadedRow("testheaderdecode", testheaderdecode))
+	gdp := NewRowParserWithActionAndHeader("../../testdata/header.xlsx", getHeaderDefault(), act.NewHeadedRow("testheaderdecode", testheaderdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -183,7 +191,7 @@ type TestIndexHRowData struct {
 }
 
 func TestXLSXIndexHeaderActionDecode(t *testing.T) {
-	gdp := NewRowParserWithActionAndHeader("../../testdata/header.xlsx", DefaultXLXSAllSheetsHeaderProcessorOptions(), act.NewHeadedRow("testheaderindexdecode", testheaderindexdecode))
+	gdp := NewRowParserWithActionAndHeader("../../testdata/header.xlsx", getHeaderDefault(), act.NewHeadedRow("testheaderindexdecode", testheaderindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()
@@ -240,7 +248,7 @@ type TestIndexHNZRowData struct {
 }
 
 func TestXLSXNZIndexHeaderActionDecode(t *testing.T) {
-	gdp := NewRowParserWithActionAndHeader("../../testdata/header.xlsx", DefaultXLXSAllSheetsHeaderProcessorOptions(), act.NewHeadedRow("testheadernzindexdecode", testheadernzindexdecode))
+	gdp := NewRowParserWithActionAndHeader("../../testdata/header.xlsx", getHeaderDefault(), act.NewHeadedRow("testheadernzindexdecode", testheadernzindexdecode))
 	defer gdp.Close()
 
 	err := gdp.Execute()

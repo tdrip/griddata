@@ -26,33 +26,22 @@ type CSVOptions struct {
 	seperator rune
 }
 
-func DefaultCSVOptions() *CSVOptions {
-	return NewCSVOptions(CSVSep)
-}
-
-func DefaultCSVHeaderOptions() *CSVOptions {
-	opts := NewCSVOptions(CSVSep)
-	opts.headerRowindex = 0
+// Constructors
+func NewTSVOptions() *CSVOptions {
+	opts := NewCSVOptions()
+	sepf := WithSeperator(TSVSep)
+	sepf(opts)
 	return opts
 }
 
-func DefaultTSVOptions() *CSVOptions {
-	opts := NewCSVOptions(TSVSep)
-	return opts
-}
-
-func DefaultTSVHeaderOptions() *CSVOptions {
-	opts := NewCSVOptions(TSVSep)
-	opts.headerRowindex = 0
-	return opts
-}
-
-func NewCSVOptions(seperator rune) *CSVOptions {
+func NewCSVOptions() *CSVOptions {
 	opts := CSVOptions{}
 	opts.Defaults()
-	opts.seperator = seperator
+	opts.seperator = CSVSep
 	return &opts
 }
+
+// With Option Functions
 
 func WithHeaderIndex(rowindex int) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
