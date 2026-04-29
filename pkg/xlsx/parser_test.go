@@ -37,8 +37,9 @@ func TestXLSXActions(t *testing.T) {
 
 func TestXLSX3Passes(t *testing.T) {
 	opts := DefaultXLXSAllSheetsProcessorOptions()
-	opts.Passes = 3
-
+	//opts.Passes = 3
+	p := WithRowPasses(3)
+	p(opts)
 	gdp := NewRowParserWithAction("../../testdata/noheader.xlsx", opts, act.NewPerCellAction("PrintAction", act.PrintCell))
 	rowprocessors := gdp.GetProcessors()
 

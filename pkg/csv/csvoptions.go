@@ -17,13 +17,13 @@ type CSVOptions struct {
 	// inherit from the row IRowProcessingOptions
 	idata.ProcessorOpts
 
-	Passes int `json:"passes"`
+	rowPasses int
 
-	HeaderRowindex int `json:"header_row_index"`
+	headerRowindex int
 
-	NumOfcolumns int `json:"number_columns"`
+	minColumns int
 
-	Seperator rune `json:"sheet_names"`
+	seperator rune
 }
 
 func DefaultCSVOptions() *CSVOptions {
@@ -32,7 +32,7 @@ func DefaultCSVOptions() *CSVOptions {
 
 func DefaultCSVHeaderOptions() *CSVOptions {
 	opts := NewCSVOptions(CSVSep)
-	opts.HeaderRowindex = 0
+	opts.headerRowindex = 0
 	return opts
 }
 
@@ -43,69 +43,73 @@ func DefaultTSVOptions() *CSVOptions {
 
 func DefaultTSVHeaderOptions() *CSVOptions {
 	opts := NewCSVOptions(TSVSep)
-	opts.HeaderRowindex = 0
+	opts.headerRowindex = 0
 	return opts
 }
 
 func NewCSVOptions(seperator rune) *CSVOptions {
 	opts := CSVOptions{}
 	opts.Defaults()
-	opts.Seperator = seperator
+	opts.seperator = seperator
 	return &opts
 }
 
 func WithHeaderIndex(rowindex int) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
 		xol := opts.(*CSVOptions)
-		xol.HeaderRowindex = rowindex
+		xol.headerRowindex = rowindex
 	}
 }
 
-func WithNumOfcolumns(numofcolumns int) idata.SetOpt {
+func WithMinColumns(numofcolumns int) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
 		xol := opts.(*CSVOptions)
-		xol.NumOfcolumns = numofcolumns
+		xol.minColumns = numofcolumns
 	}
 }
 
-func WithPasses(passes int) idata.SetOpt {
+func WithRowPasses(passes int) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
 		xol := opts.(*CSVOptions)
-		xol.Passes = passes
+		xol.rowPasses = passes
 	}
 }
 
 func WithSeperator(seperator rune) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
 		xol := opts.(*CSVOptions)
-		xol.Seperator = seperator
+		xol.seperator = seperator
 	}
 }
 
 // Defaults
 func (rpo *CSVOptions) Defaults() {
 	//Only pass over the row once
-	rpo.Passes = idata.DEFAULTNUMOFPASSES
+	rpo.rowPasses = idata.DEFAULTNUMOFPASSES
 
 	// default to no header
-	rpo.HeaderRowindex = idata.NOHEADERROWINDEX
+	rpo.headerRowindex = idata.NOHEADERROWINDEX
 
-	rpo.NumOfcolumns = idata.IGNORECOLUMNCOUNT
+	rpo.minColumns = idata.IGNORECOLUMNCOUNT
 }
 
-func (rpo *CSVOptions) TotalPasses() int {
-	return rpo.Passes
+func (rpo *CSVOptions) RowPasses() int {
+	return rpo.rowPasses
 }
 
 func (rpo *CSVOptions) HeaderRowIndex() int {
-	return rpo.HeaderRowindex
+	return rpo.headerRowindex
 }
 
-func (rpo *CSVOptions) NumOfColumns() int {
-	return rpo.NumOfcolumns
+func (rpo *CSVOptions) MinColumns() int {
+	return rpo.minColumns
+}
+
+func (rpo *CSVOptions) Seperator() rune {
+	return rpo.seperator
 }
 
 // String the readable version of the options
 func (rpo *CSVOptions) String() string {
-	return fmt.Sprintf("Total Row Passes: %d, Header Index: %d, Number of Columns Index: %d, Seperator: %s", rpo.TotalPasses(), rpo.HeaderRowIndex(), rpo.NumOfColumns(), string(rpo.Seperator))
+	return fmt.Sprintf("Total Row Passes: %d, Header Index: %d, Number of Columns Index: %d, Seperator: %s", rpo.RowPasses(), rpo.HeaderRowIndex(), rpo.MinColumns(), string(rpo.Seperator()))
 }

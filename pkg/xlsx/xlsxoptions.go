@@ -13,18 +13,18 @@ type XLXSOptions struct {
 	// inherit from the row IRowProcessingOptions
 	idata.ProcessorOpts
 
-	Passes int `json:"total_passes"`
+	rowPasses int
 
-	HeaderRowindex int `json:"header_row_index"`
+	headerRowindex int
 
-	NumOfcolumns int `json:"number_columns"`
+	minColumns int
 
-	Sheets []string `json:"sheet_names"`
+	sheets []string
 }
 
 func DefaultXLXSAllSheetsHeaderProcessorOptions() *XLXSOptions {
 	opts := NewXLXSOptions([]string{})
-	opts.HeaderRowindex = 0
+	opts.headerRowindex = 0
 	return opts
 }
 
@@ -35,71 +35,75 @@ func DefaultXLXSAllSheetsProcessorOptions() *XLXSOptions {
 func NewXLXSOptions(sheets []string) *XLXSOptions {
 	opts := XLXSOptions{}
 	opts.Defaults()
-	opts.Sheets = sheets
+	opts.sheets = sheets
 	return &opts
 }
 
 func WithHeaderIndex(rowindex int) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
 		xol := opts.(*XLXSOptions)
-		xol.HeaderRowindex = rowindex
+		xol.headerRowindex = rowindex
 	}
 }
 
 func WithSheetName(name string) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
 		xol := opts.(*XLXSOptions)
-		xol.Sheets = append(xol.Sheets, name)
+		xol.sheets = append(xol.sheets, name)
 	}
 }
 
-func WithNumOfcolumns(numofcolumns int) idata.SetOpt {
+func WithMinColumns(numofcolumns int) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
 		xol := opts.(*XLXSOptions)
-		xol.NumOfcolumns = numofcolumns
+		xol.minColumns = numofcolumns
 	}
 }
 
-func WithPasses(passes int) idata.SetOpt {
+func WithRowPasses(passes int) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
 		xol := opts.(*XLXSOptions)
-		xol.Passes = passes
+		xol.rowPasses = passes
 	}
 }
 
 func AllSheets(name string) idata.SetOpt {
 	return func(opts idata.ProcessorOpts) {
 		xol := opts.(*XLXSOptions)
-		xol.Sheets = []string{}
+		xol.sheets = []string{}
 	}
 }
 
 // Defaults
 func (rpo *XLXSOptions) Defaults() {
 	//Only pass over the row once
-	rpo.Passes = idata.DEFAULTNUMOFPASSES
+	rpo.rowPasses = idata.DEFAULTNUMOFPASSES
 
 	// default to no header
-	rpo.HeaderRowindex = idata.NOHEADERROWINDEX
+	rpo.headerRowindex = idata.NOHEADERROWINDEX
 
-	rpo.NumOfcolumns = idata.IGNORECOLUMNCOUNT
+	rpo.minColumns = idata.IGNORECOLUMNCOUNT
 
-	rpo.Sheets = []string{}
+	rpo.sheets = []string{}
 }
 
-func (rpo *XLXSOptions) TotalPasses() int {
-	return rpo.Passes
+func (rpo *XLXSOptions) RowPasses() int {
+	return rpo.rowPasses
 }
 
 func (rpo *XLXSOptions) HeaderRowIndex() int {
-	return rpo.HeaderRowindex
+	return rpo.headerRowindex
 }
 
-func (rpo *XLXSOptions) NumOfColumns() int {
-	return rpo.NumOfcolumns
+func (rpo *XLXSOptions) MinColumns() int {
+	return rpo.minColumns
+}
+
+func (rpo *XLXSOptions) Sheets() []string {
+	return rpo.sheets
 }
 
 // String the readable version of the options
 func (rpo *XLXSOptions) String() string {
-	return fmt.Sprintf("Total Row Passes: %d, Header Index: %d, Number of Columns Index: %d, Sheets: %s", rpo.TotalPasses(), rpo.HeaderRowIndex(), rpo.NumOfColumns(), strings.Join(rpo.Sheets, ","))
+	return fmt.Sprintf("Total Row Passes: %d, Header Index: %d, Number of Columns Index: %d, Sheets: %s", rpo.RowPasses(), rpo.HeaderRowIndex(), rpo.MinColumns(), strings.Join(rpo.Sheets(), ","))
 }

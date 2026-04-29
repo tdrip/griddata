@@ -39,7 +39,9 @@ func TestCSVActions(t *testing.T) {
 
 func TestCSV3Passes(t *testing.T) {
 	opts := DefaultCSVOptions()
-	opts.Passes = 3
+	//opts.Passes = 3
+	p := WithRowPasses(3)
+	p(opts)
 	gdp := NewRowParserWithAction("../../testdata/noheader.csv", opts, act.NewPerCellAction("PrintAction", act.PrintCell))
 	rowprocessors := gdp.GetProcessors()
 
@@ -337,7 +339,10 @@ func TestTSVActions(t *testing.T) {
 
 func TestTSV3Passes(t *testing.T) {
 	opts := DefaultTSVOptions()
-	opts.Passes = 3
+	//opts.RowPasses() = 3
+	p := WithRowPasses(3)
+	p(opts)
+
 	gdp := NewRowParserWithAction("../../testdata/noheader.tsv", opts, act.NewPerCellAction("PrintAction", act.PrintCell))
 	rowprocessors := gdp.GetProcessors()
 

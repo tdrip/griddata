@@ -35,9 +35,9 @@ func XLSXRowParse(rowparser *gd.RowProcessor, parent idata.Parser, data idata.So
 		if err != nil {
 			return err
 		}
-		pass := options.TotalPasses()
-		numcols := options.NumOfColumns()
-		sheets := options.Sheets
+		pass := options.RowPasses()
+		numcols := options.MinColumns()
+		sheets := options.Sheets()
 		if len(sheets) == 0 {
 			sheets = reader.GetSheetList()
 		}

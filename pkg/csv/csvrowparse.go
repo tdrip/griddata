@@ -33,8 +33,8 @@ func CSVRowParse(rowparser *gd.RowProcessor, parent idata.Parser, data idata.Sou
 	hrd = nil
 	if cdata != nil {
 		row := 0
-		pass := options.TotalPasses()
-		numcols := options.NumOfColumns()
+		pass := options.RowPasses()
+		numcols := options.MinColumns()
 		if cdata.Filestream == nil {
 			return errors.New("Filestream was nil - was it opened correctly")
 		}
@@ -42,7 +42,7 @@ func CSVRowParse(rowparser *gd.RowProcessor, parent idata.Parser, data idata.Sou
 		if reader == nil {
 			return errors.New("failed to create csv reader for file stream")
 		}
-		reader.Comma = options.Seperator
+		reader.Comma = options.Seperator()
 		for {
 			record, err := reader.Read()
 			if err == io.EOF {

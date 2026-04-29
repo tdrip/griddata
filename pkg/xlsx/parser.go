@@ -3,6 +3,7 @@ package xlsx
 import (
 	acts "github.com/tdrip/griddata/pkg/actions"
 	gd "github.com/tdrip/griddata/pkg/data"
+	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
 // NewRowParser creates a Parser for a single file
@@ -63,6 +64,30 @@ func NewRowParserWithActionAndHeader(filepath string, opts *XLXSOptions, action 
 	rowp.AddAction(&action)
 
 	// add processor
+	gdp.AddProcessor(rowp)
+	return gdp
+}
+
+// NewHeadedRowParserWithAction creates a Parser for a single file
+func NewHeadedRowParserWithAction(filepath string, action acts.HeadedRow, opts ...idata.SetOpt) *gd.Parser {
+	gdp := gd.NewParser()
+
+	file := gd.NewGridFile(filepath)
+	// add the source
+	gdp.AddSource(file)
+
+	// set the options
+	o := DefaultXLXSAllSheetsHeaderProcessorOptions()
+	for _, setopt := range opts {
+		setopt(o)
+	}
+
+	// standard csv row parser
+	rowp := gd.NewHeaderRowProcessor(XLSXRowParse, o)
+
+	// add action
+	rowp.AddAction(&action)
+
 	gdp.AddProcessor(rowp)
 	return gdp
 }
