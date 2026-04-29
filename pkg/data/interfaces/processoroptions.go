@@ -6,8 +6,11 @@ const (
 	IGNORECOLUMNCOUNT  = -1
 )
 
+// Sets an Option
+type SetOpt func(ProcessorOpts)
+
 // ProcessorOptions Represents the options for parsing a data row
-type ProcessorOptions interface {
+type ProcessorOpts interface {
 	String() string
 
 	// Pass over the data this many times

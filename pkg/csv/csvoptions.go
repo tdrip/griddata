@@ -15,7 +15,7 @@ const (
 type CSVOptions struct {
 
 	// inherit from the row IRowProcessingOptions
-	idata.ProcessorOptions
+	idata.ProcessorOpts
 
 	Passes int `json:"total_passes"`
 

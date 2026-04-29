@@ -6,8 +6,8 @@ import iaction "github.com/tdrip/griddata/pkg/actions/interfaces"
 type Processor interface {
 
 	// Options for parsing the row
-	GetOptions() ProcessorOptions
-	SetOptions(options ProcessorOptions)
+	GetOptions() ProcessorOpts
+	SetOptions(options ProcessorOpts)
 
 	// Parse the row
 	Parse(parent Parser, data Source) error

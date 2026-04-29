@@ -5,22 +5,7 @@ import (
 	idata "github.com/tdrip/griddata/pkg/data/interfaces"
 )
 
-type RowParse func(rp *RowProcessor, parent idata.Parser, data idata.Source) error
-
-// NewRowProcessor News the row parser
-func NewRowProcessor(parse RowParse, opts idata.ProcessorOptions) *RowProcessor {
-	return NewHeaderRowProcessor(parse, opts)
-}
-
-// NewRowProcessor News the row parser
-func NewHeaderRowProcessor(parse RowParse, opts idata.ProcessorOptions) *RowProcessor {
-	rp := &RowProcessor{}
-	rp.SetOptions(opts)
-	empty := make(map[string]iact.Action)
-	rp.Actions = empty
-	rp.ParseFunc = parse
-	return rp
-}
+type ParseRow func(rp *RowProcessor, parent idata.Parser, data idata.Source) error
 
 // RowProcessor parses a csv row by row
 type RowProcessor struct {
@@ -28,11 +13,26 @@ type RowProcessor struct {
 	// inherit from the row parser
 	idata.Processor
 
-	Options idata.ProcessorOptions
+	Options idata.ProcessorOpts
 
 	Actions map[string]iact.Action
 
-	ParseFunc RowParse
+	ParseFunc ParseRow
+}
+
+// NewRowProcessor News the row parser
+func NewRowProcessor(parse ParseRow, opts idata.ProcessorOpts) *RowProcessor {
+	return NewHeaderRowProcessor(parse, opts)
+}
+
+// NewRowProcessor News the row parser
+func NewHeaderRowProcessor(parse ParseRow, opts idata.ProcessorOpts) *RowProcessor {
+	rp := &RowProcessor{}
+	rp.SetOptions(opts)
+	empty := make(map[string]iact.Action)
+	rp.Actions = empty
+	rp.ParseFunc = parse
+	return rp
 }
 
 func (rp *RowProcessor) Parse(parent idata.Parser, data idata.Source) error {
@@ -44,12 +44,12 @@ func (rp *RowProcessor) Parse(parent idata.Parser, data idata.Source) error {
 }
 
 // GetOptions Get the options for the row parser
-func (rp *RowProcessor) GetOptions() idata.ProcessorOptions {
+func (rp *RowProcessor) GetOptions() idata.ProcessorOpts {
 	return rp.Options
 }
 
 // SetOptions Set the options for the row parser
-func (rp *RowProcessor) SetOptions(options idata.ProcessorOptions) {
+func (rp *RowProcessor) SetOptions(options idata.ProcessorOpts) {
 	rp.Options = options
 }
 
