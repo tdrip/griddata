@@ -39,6 +39,41 @@ func NewXLXSOptions(sheets []string) *XLXSOptions {
 	return &opts
 }
 
+func WithHeaderIndex(rowindex int) idata.SetOpt {
+	return func(opts idata.ProcessorOpts) {
+		xol := opts.(*XLXSOptions)
+		xol.HeaderRowindex = rowindex
+	}
+}
+
+func WithSheetName(name string) idata.SetOpt {
+	return func(opts idata.ProcessorOpts) {
+		xol := opts.(*XLXSOptions)
+		xol.Sheets = append(xol.Sheets, name)
+	}
+}
+
+func WithNumOfcolumns(numofcolumns int) idata.SetOpt {
+	return func(opts idata.ProcessorOpts) {
+		xol := opts.(*XLXSOptions)
+		xol.NumOfcolumns = numofcolumns
+	}
+}
+
+func WithPasses(passes int) idata.SetOpt {
+	return func(opts idata.ProcessorOpts) {
+		xol := opts.(*XLXSOptions)
+		xol.Passes = passes
+	}
+}
+
+func AllSheets(name string) idata.SetOpt {
+	return func(opts idata.ProcessorOpts) {
+		xol := opts.(*XLXSOptions)
+		xol.Sheets = []string{}
+	}
+}
+
 // Defaults
 func (rpo *XLXSOptions) Defaults() {
 	//Only pass over the row once
@@ -48,6 +83,8 @@ func (rpo *XLXSOptions) Defaults() {
 	rpo.HeaderRowindex = idata.NOHEADERROWINDEX
 
 	rpo.NumOfcolumns = idata.IGNORECOLUMNCOUNT
+
+	rpo.Sheets = []string{}
 }
 
 func (rpo *XLXSOptions) TotalPasses() int {

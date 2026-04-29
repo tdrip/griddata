@@ -17,7 +17,7 @@ type CSVOptions struct {
 	// inherit from the row IRowProcessingOptions
 	idata.ProcessorOpts
 
-	Passes int `json:"total_passes"`
+	Passes int `json:"passes"`
 
 	HeaderRowindex int `json:"header_row_index"`
 
@@ -52,6 +52,34 @@ func NewCSVOptions(seperator rune) *CSVOptions {
 	opts.Defaults()
 	opts.Seperator = seperator
 	return &opts
+}
+
+func WithHeaderIndex(rowindex int) idata.SetOpt {
+	return func(opts idata.ProcessorOpts) {
+		xol := opts.(*CSVOptions)
+		xol.HeaderRowindex = rowindex
+	}
+}
+
+func WithNumOfcolumns(numofcolumns int) idata.SetOpt {
+	return func(opts idata.ProcessorOpts) {
+		xol := opts.(*CSVOptions)
+		xol.NumOfcolumns = numofcolumns
+	}
+}
+
+func WithPasses(passes int) idata.SetOpt {
+	return func(opts idata.ProcessorOpts) {
+		xol := opts.(*CSVOptions)
+		xol.Passes = passes
+	}
+}
+
+func WithSeperator(seperator rune) idata.SetOpt {
+	return func(opts idata.ProcessorOpts) {
+		xol := opts.(*CSVOptions)
+		xol.Seperator = seperator
+	}
 }
 
 // Defaults
